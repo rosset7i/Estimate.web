@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-11">
+    <app-dynamic-filter
+      fieldName="Name"
+      (param)="filter($event)"
+    ></app-dynamic-filter>
+  </div>
+  <div class="col-1">
+    <button (click)="openModal()" class="btn btn-success">
+      <i class="bi bi-plus"></i>
+      New
+    </button>
+  </div>
+</div>
+<app-common-list [listDefinition]="listDefinition"> </app-common-list>

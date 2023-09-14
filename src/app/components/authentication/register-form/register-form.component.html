@@ -1,0 +1,68 @@
+<div class="vh-100 background">
+  <div class="container py-5 h-100">
+    <div class="card" style="border-radius: 50px">
+      <div class="row">
+        <div class="col-7">
+          <div class="background-card shadow"></div>
+        </div>
+
+        <div class="col-5">
+          <div class="card-body">
+            <h1>Estimate</h1>
+            <h4 class="text-secondary">Register</h4>
+            <form [formGroup]="form" (ngSubmit)="register()">
+              <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="form-control"
+                  aria-describedby="nameHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input
+                  formControlName="phone"
+                  type="tel"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                />
+              </div>
+
+              <button
+                type="submit"
+                [disabled]="!canSave"
+                class="btn btn-dark me-2"
+              >
+                Register
+              </button>
+
+              <a
+                routerLink="/authentication/login"
+                class="btn btn-outline-dark me-2"
+                >I Already Have An Account.</a
+              >
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

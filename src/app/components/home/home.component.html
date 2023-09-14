@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5">
+  <div class="container-fluid">
+    <button
+      class="btn btn-dark me-2"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#expandSide"
+      aria-controls="expandSide"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/home">EstimateAPP</a>
+  </div>
+</nav>
+
+<div class="container footer">
+  <router-outlet></router-outlet>
+  <app-loading></app-loading>
+</div>
+
+<app-footer class="fixed-bottom"> </app-footer>
+
+<div
+  class="offcanvas offcanvas-start text-bg-dark"
+  tabindex="-1"
+  id="expandSide"
+  aria-labelledby="expandLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">EstimateAPP</h5>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="row mb-1">
+      <a routerLink="/home" class="btn btn-light btn-lg">
+        <i class="bi bi-house-fill"></i>
+        Home
+      </a>
+    </div>
+    <div class="row mb-1">
+      <a routerLink="/home/estimates" class="btn btn-light btn-lg">
+        <i class="bi bi-cash-coin"></i>
+        Estimate
+      </a>
+    </div>
+    <div class="row mb-1">
+      <a routerLink="/home/products" class="btn btn-light btn-lg">
+        <i class="bi bi-box-fill"></i>
+        Product
+      </a>
+    </div>
+    <div class="row mb-1">
+      <a routerLink="/home/suppliers" class="btn btn-light btn-lg">
+        <i class="bi bi-shop"></i>
+        Supplier
+      </a>
+    </div>
+    <div class="row mb-1">
+      <a (click)="logout()" class="btn btn-light btn-lg">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+      </a>
+    </div>
+  </div>
+</div>

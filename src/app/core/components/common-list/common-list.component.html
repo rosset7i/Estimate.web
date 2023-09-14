@@ -1,0 +1,71 @@
+<ng-container *ngIf="listDefinition.items">
+  <table class="table table-striped table-hover">
+    <caption>
+      {{
+        listDefinition.listName
+      }}
+    </caption>
+
+    <thead>
+      <tr>
+        <ng-container *ngFor="let d of listDefinition.columns">
+          <th>
+            <div class="d-flex align-items-center">
+              <button
+                *ngIf="d.hasSorting"
+                class="btn"
+                (click)="sort(d.mapFrom)"
+              >
+                <i class="bi bi-arrow-down-up"></i>
+              </button>
+              {{ d.name }}
+            </div>
+          </th>
+        </ng-container>
+        <th *ngIf="listDefinition.actions" class="col-2">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of listDefinition.items.items">
+        <td *ngFor="let column of listDefinition.columns">
+          {{ item[column.mapFrom] }}
+        </td>
+        <td>
+          <button
+            *ngFor="let action of listDefinition.actions"
+            [disabled]="action.disabled"
+            (click)="callMethod(action, item)"
+            [ngClass]="action.style"
+          >
+            <i [ngClass]="action.icon"></i>
+            {{ action.text }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-end">
+    <select
+      [(ngModel)]="size"
+      (change)="fetch()"
+      class="form-select me-2"
+      style="width: 5rem; height: 2.5rem"
+      aria-label="List Size"
+    >
+      <option *ngFor="let o of sizeOptions">
+        {{ o }}
+      </option>
+    </select>
+
+    <ngb-pagination
+      [maxSize]="3"
+      [(page)]="currentPage"
+      [pageSize]="size"
+      [collectionSize]="listDefinition.items.totalItems"
+      (pageChange)="fetch()"
+    >
+    </ngb-pagination>
+  </div>
+</ng-container>

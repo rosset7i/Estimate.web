@@ -1,0 +1,13 @@
+<div class="input-group mb-3">
+  <span class="input-group-text" id="autocompleName">{{ placeholder }}</span>
+  <input
+    id="typeahead"
+    type="text"
+    class="form-control"
+    [(ngModel)]="selectedItem"
+    [disabled]="disabled"
+    [ngbTypeahead]="search"
+    (selectItem)="emitSelectedItem($event)"
+    (focus)="onFocus.next($any($event).target.value)"
+  />
+</div>

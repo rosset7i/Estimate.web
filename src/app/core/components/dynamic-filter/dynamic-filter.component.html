@@ -1,0 +1,12 @@
+<div class="input-group">
+  <span class="input-group-text">
+    <i class="bi bi-search"></i>
+  </span>
+  <input
+    [(ngModel)]="filterParam"
+    type="text"
+    class="form-control"
+    (input)="filterParamSubject.next()"
+  />
+  <span class="input-group-text"> {{ fieldName }} </span>
+</div>
