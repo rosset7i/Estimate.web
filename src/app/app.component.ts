@@ -1,3 +1,5 @@
+import { PaginadoOrdenadoRequest } from './core/models/paginado-ordenado-request';
+import { ProdutoService } from './services/produto.service';
 import { UsuarioService } from './services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private usuarioService: UsuarioService){}
+  constructor(private produtoService: ProdutoService){}
 
   ngOnInit(): void {
+    const seiLa = new PaginadoOrdenadoRequest(2, 20, 'Nome', 'ASC');
 
+    this.produtoService.buscaProdutosPaginado(seiLa).subscribe(resultado => console.log(resultado));
   }
 }

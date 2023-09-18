@@ -18,6 +18,6 @@ export class UsuarioService {
   }
 
   public registrar(registrarRequest: RegistrarRequest) : Observable<any> {
-    return this.httpClient.post(`${Api.ORCAMENTO_API}/autenticacao/login`, registrarRequest);
+    return this.httpClient.post(`${Api.ORCAMENTO_API}/autenticacao/registrar`, registrarRequest);
   }
 }
