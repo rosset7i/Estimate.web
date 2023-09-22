@@ -12,18 +12,19 @@
           <div class="card-body">
             <h1>Orcamento</h1>
             <h4 class="text-secondary">Login</h4>
-            <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <button type="submit" class="btn btn-primary me-2">Entrar</button>
-            <a routerLink="/autenticacao/registrar"  class="text-primary text-decoration-none">Ou registrar-se agora</a>
-          </form>
+            <form [formGroup]="form" (ngSubmit)="login()">
+              <div class="mb-3">
+                <label class="form-label">Endereço de Email</label>
+                <input formControlName="email" type="email" class="form-control" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input formControlName="senha" type="password" class="form-control">
+              </div>
+
+              <button type="submit" [disabled]="!canSave" class="btn btn-dark me-2">Entrar</button>
+              <a routerLink="/autenticacao/registrar"  class="btn btn-outline-dark me-2">Ou registrar-se agora</a>
+            </form>
           </div>
         </div>
       </div>

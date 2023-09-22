@@ -1,0 +1,9 @@
+.grow {
+	transition-duration: 0.3s;
+	transition-property: transform;
+
+	&:hover {
+    background-color: #e9ecef;
+		transform: scale(1.1);
+	}
+}
