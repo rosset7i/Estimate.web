@@ -58,9 +58,7 @@ export class UsuarioService {
   public isUserLoggedIn(){
     const token = this.getToken();
 
-    if(!token)
-      return false;
-    else if(this.isTokenExpired(token))
+    if(!token || this.isTokenExpired(token))
       return false;
 
     return true;

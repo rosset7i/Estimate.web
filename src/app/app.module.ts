@@ -9,7 +9,7 @@ import { httpContextInterceptors } from './core/interceptors';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

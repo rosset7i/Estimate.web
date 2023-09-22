@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { OrcamentosRoutingModule } from './orcamentos-routing.module';
 import { OrcamentosComponent } from './orcamentos.component';
-
+import { OrcamentoListComponent } from './orcamento-list/orcamento-list.component';
+import { ComponentesPadraoModule } from "../../core/components/componentes-padrao.module";
 
 @NgModule({
-  declarations: [
-    OrcamentosComponent
-  ],
-  imports: [
-    CommonModule,
-    OrcamentosRoutingModule
-  ]
+    declarations: [
+        OrcamentosComponent,
+        OrcamentoListComponent
+    ],
+    imports: [
+        CommonModule,
+        OrcamentosRoutingModule,
+        ComponentesPadraoModule
+    ]
 })
 export class OrcamentosModule { }
