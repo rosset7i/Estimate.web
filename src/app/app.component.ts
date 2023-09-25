@@ -12,6 +12,5 @@ export class AppComponent implements OnInit {
   constructor(private produtoService: ProdutoService){}
 
   ngOnInit(): void {
-    this.produtoService.buscaProdutosPaginado(new PaginadoOrdenadoRequest(1,10,'Nome', 'ASC')).subscribe();
   }
 }

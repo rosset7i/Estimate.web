@@ -6,9 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./lista-padrao.component.css']
 })
 export class ListaPadraoComponent implements OnInit {
-  @Input() nomeDaLista: string = '';
-  @Input() campos: string[] = [];
-  @Input() acoes: string[] = [];
 
   constructor() { }
 

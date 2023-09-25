@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -14,6 +15,7 @@ import { ComponentesPadraoModule } from "../../core/components/componentes-padra
     imports: [
         CommonModule,
         OrcamentosRoutingModule,
+        FormsModule,
         ComponentesPadraoModule
     ]
 })
