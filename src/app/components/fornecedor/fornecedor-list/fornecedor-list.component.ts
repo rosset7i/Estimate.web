@@ -1,9 +1,11 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FornecedorResponse } from '../models/fornecedor-response';
 import { Tamanhos } from 'src/app/core/utils/tamanho-pagina';
 import { Direcao } from 'src/app/core/utils/direction';
 import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
+import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -37,17 +39,28 @@ export class FornecedorListComponent implements OnInit {
     this.buscar();
   }
 
-  buscar(){
-    const pagina = new PaginadoOrdenadoRequest(
-      this.paginalAtual,
-      this.tamanho,
-      this.colunaOrdenacao,
-      this.direcaoOrdenacao);
-
-    this.fornecedorService.buscaFornecedoresPaginado(pagina)
+  buscar(paginaRecebida?: PaginadoOrdenadoRequest){
+    this.fornecedorService.buscaFornecedoresPaginado(paginaRecebida)
       .subscribe(response => {
         this.totalItens = response.quantidadeDeItens;
         this.fornecedores = response.itens;
       });
+  }
+
+  definicoesColuna() : DefinicaoColuna[] {
+    const definicoes = [
+      new DefinicaoColuna('Nome', 'nome', true)
+    ];
+
+    return definicoes
+  }
+
+  definicoesActions() : DefinicaoActions[] {
+    const definicoes = [
+      new DefinicaoActions('', 'bi bi-trash', 'btn btn-outline-danger me-2'),
+      new DefinicaoActions('', 'bi bi-pencil', 'btn btn-outline-dark me-2')
+    ];
+
+    return definicoes
   }
 }

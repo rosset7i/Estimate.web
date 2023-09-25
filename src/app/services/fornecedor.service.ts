@@ -18,7 +18,7 @@ export class FornecedorService extends ServiceBase {
     super();
   }
 
-  public buscaFornecedoresPaginado(paginadoRequest: PaginadoOrdenadoRequest) : Observable<ResultadoPaginadoDe<FornecedorResponse>>{
+  public buscaFornecedoresPaginado(paginadoRequest?: PaginadoOrdenadoRequest) : Observable<ResultadoPaginadoDe<FornecedorResponse>>{
     return this.httpClient.get<ResultadoPaginadoDe<FornecedorResponse>>(`${Api.ORCAMENTO_API}/fornecedores`, { params: this.buildParams(paginadoRequest) });
   }
 

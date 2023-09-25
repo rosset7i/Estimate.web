@@ -6,6 +6,7 @@ import { FornecedoresRoutingModule } from './fornecedores-routing.module';
 import { FornecedoresComponent } from './fornecedores.component';
 import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ComponentesPadraoModule } from 'src/app/core/components/componentes-padrao.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     FornecedoresRoutingModule,
+    ComponentesPadraoModule,
     FormsModule,
     NgbPaginationModule
   ]
