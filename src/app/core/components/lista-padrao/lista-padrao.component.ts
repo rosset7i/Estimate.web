@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Tamanhos } from '../../utils/tamanho-pagina';
-import { Direcao } from '../../utils/direction';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { OpcoesTabela } from '../../models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
-import { DefinicaoColuna } from '../../models/definicao-coluna';
-import { DefinicaoActions } from '../../models/definicao-actions';
+import { Direcao } from '../../utils/direction';
+import { Tamanhos } from '../../utils/tamanho-pagina';
 
 @Component({
   selector: 'app-lista-padrao',
@@ -11,12 +10,9 @@ import { DefinicaoActions } from '../../models/definicao-actions';
   styleUrls: ['./lista-padrao.component.css']
 })
 export class ListaPadraoComponent implements OnInit {
-  @Input() itens: any[] = [];
-  @Input() definicoes: DefinicaoColuna[] = [];
-  @Input() actions: DefinicaoActions[] = [];
+  @Input() opcoesTabela: OpcoesTabela;
 
   tamanhoOpcoes = Tamanhos;
-  totalItens: number;
   tamanho: number = 10;
   paginalAtual: number = 1;
   direcaoOrdenacao: string = null;
@@ -41,13 +37,13 @@ export class ListaPadraoComponent implements OnInit {
   }
 
   buscar(){
-    const pagina = new PaginadoOrdenadoRequest(
+    const paginadoRequest = new PaginadoOrdenadoRequest(
       this.paginalAtual,
       this.tamanho,
       this.colunaOrdenacao,
       this.direcaoOrdenacao);
 
-    this.requestParamsEmitter.emit(pagina);
+    this.requestParamsEmitter.emit(paginadoRequest);
   }
 
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FornecedorResponse } from '../models/fornecedor-response';
-import { Tamanhos } from 'src/app/core/utils/tamanho-pagina';
-import { Direcao } from 'src/app/core/utils/direction';
-import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
-import { FornecedorService } from 'src/app/services/fornecedor.service';
-import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
+import { ResultadoPaginadoDe } from 'src/app/core/models/resultado-paginado';
+import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { FornecedorResponse } from '../models/fornecedor-response';
+import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
+import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
+import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -13,38 +14,40 @@ import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
   styleUrls: ['./fornecedor-list.component.css']
 })
 export class FornecedorListComponent implements OnInit {
-  fornecedores: FornecedorResponse[] = [];
-  tamanhoOpcoes = Tamanhos;
-  totalItens: number;
-  tamanho: number = 10;
-  paginalAtual: number = 1;
-  direcaoOrdenacao: string = null;
-  colunaOrdenacao: string = null;
+  fornecedores: ResultadoPaginadoDe<FornecedorResponse>;
+  opcoes: OpcoesTabela;
 
   constructor(private fornecedorService: FornecedorService) { }
 
   ngOnInit(): void {
-    this.buscar();
+    this.opcoes = this.construirTabela();
   }
 
-  onSort(coluna: string){
-    this.colunaOrdenacao = coluna;
-
-    if (this.direcaoOrdenacao == Direcao.ASC) {
-      this.direcaoOrdenacao = Direcao.DESC;
-    } else {
-      this.direcaoOrdenacao = Direcao.ASC;
-    }
-
-    this.buscar();
-  }
-
-  buscar(paginaRecebida?: PaginadoOrdenadoRequest){
-    this.fornecedorService.buscaFornecedoresPaginado(paginaRecebida)
+  buscar(request: PaginadoOrdenadoRequest){
+    this.fornecedorService.buscaFornecedoresPaginado(request)
       .subscribe(response => {
-        this.totalItens = response.quantidadeDeItens;
-        this.fornecedores = response.itens;
+        this.fornecedores = response;
       });
+  }
+
+  atualizar(
+    fornecedorId: string,
+    atualizarFornecedorRequest: AtualizarFornecedorRequest){
+    this.fornecedorService.atualizarFornecedor(fornecedorId, atualizarFornecedorRequest)
+      .subscribe();
+  }
+
+  remover(fornecedorId: string){
+    this.fornecedorService.removerFornecedor(fornecedorId)
+      .subscribe();
+  }
+
+  construirTabela(){
+    return new OpcoesTabela(
+      'Orçamentos',
+      this.fornecedores,
+      this.definicoesColuna(),
+      this.definicoesActions());
   }
 
   definicoesColuna() : DefinicaoColuna[] {
@@ -57,10 +60,19 @@ export class FornecedorListComponent implements OnInit {
 
   definicoesActions() : DefinicaoActions[] {
     const definicoes = [
-      new DefinicaoActions('', 'bi bi-trash', 'btn btn-outline-danger me-2'),
-      new DefinicaoActions('', 'bi bi-pencil', 'btn btn-outline-dark me-2')
+      new DefinicaoActions(
+        null,
+        'bi bi-pencil',
+        'btn btn-outline-dark me-2',
+        (fornecedorId) => this.atualizar(fornecedorId,  new AtualizarFornecedorRequest('Teste'))),
+      new DefinicaoActions(
+        null,
+        'bi bi-trash',
+        'btn btn-outline-danger me-2',
+        (fornecedorId) => this.remover(fornecedorId))
     ];
 
     return definicoes
   }
+
 }
