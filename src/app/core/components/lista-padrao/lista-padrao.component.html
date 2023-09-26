@@ -1,16 +1,23 @@
 <ng-container *ngIf="opcoesTabela.itensResponse">
-
   <table class="table table-striped table-hover">
-
-    <caption>{{opcoesTabela.nomeDaTabela}}</caption>
+    <caption>
+      {{
+        opcoesTabela.nomeDaTabela
+      }}
+    </caption>
 
     <thead>
       <tr>
         <th *ngFor="let d of opcoesTabela.colunas">
-          <button *ngIf="d.temSorting" class="btn" (click)="onSort(d.mapearPara)">
+          <button
+            *ngIf="d.temSorting"
+            class="btn"
+            (click)="onSort(d.mapearPara)"
+          >
             <i class="bi bi-arrow-down-up"></i>
           </button>
-          {{d.nome}}
+          {{ d.nome }}
+          <!-- <app-typeahead></app-typeahead> -->
         </th>
         <th class="col-2">Ações</th>
       </tr>
@@ -18,28 +25,33 @@
 
     <tbody>
       <tr *ngFor="let item of opcoesTabela.itensResponse.itens">
-        <td *ngFor="let coluna of opcoesTabela.colunas">{{item[coluna.mapearPara]}}</td>
+        <td *ngFor="let coluna of opcoesTabela.colunas">
+          {{ item[coluna.mapearPara] }}
+        </td>
         <td>
-          <button *ngFor="let acao of opcoesTabela.acoes" (click)="acao.callback(item.id)" [ngClass]="acao.bootstrapButtonClass">
+          <button
+            *ngFor="let acao of opcoesTabela.acoes"
+            (click)="acao.callback(item.id)"
+            [ngClass]="acao.bootstrapButtonClass"
+          >
             <i [ngClass]="acao.icone"></i>
-            {{acao.nome}}
+            {{ acao.nome }}
           </button>
         </td>
       </tr>
     </tbody>
-
   </table>
 
   <div class="d-flex justify-content-end">
-
     <select
       [(ngModel)]="tamanho"
       (change)="buscar()"
       class="form-select me-2"
-      style="width: 5rem; height: 2.5rem;"
-      aria-label="Tamanho da Lista">
+      style="width: 5rem; height: 2.5rem"
+      aria-label="Tamanho da Lista"
+    >
       <option *ngFor="let o of tamanhoOpcoes">
-        {{o}}
+        {{ o }}
       </option>
     </select>
 
@@ -47,9 +59,8 @@
       [(page)]="paginalAtual"
       [pageSize]="tamanho"
       [collectionSize]="opcoesTabela.itensResponse.quantidadeDeItens"
-      (pageChange)="buscar()">
+      (pageChange)="buscar()"
+    >
     </ngb-pagination>
-
   </div>
-
 </ng-container>

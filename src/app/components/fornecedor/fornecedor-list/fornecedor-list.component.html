@@ -1,4 +1,12 @@
-<app-lista-padrao
-  [opcoesTabela]="opcoes"
-  (requestParamsEmitter)="buscar($event)">
-</app-lista-padrao>
+<div class="row">
+  <div class="col-11">
+    <app-typeahead (parametro)="onFilter($event)"></app-typeahead>
+  </div>
+  <div class="col-1">
+    <button class="btn btn-success">
+      <i class="bi bi-plus"></i>
+      Novo
+    </button>
+  </div>
+</div>
+<app-lista-padrao [opcoesTabela]="opcoes"></app-lista-padrao>

@@ -8,17 +8,22 @@ export class OpcoesTabela {
   itensResponse: ResultadoPaginadoDe<any>;
   colunas: DefinicaoColuna[];
   acoes: DefinicaoActions[];
-  refreshTable = new Subject;
+  getCallback: (any) => any;
+  refresh = new Subject<void>;
 
   constructor(
     nomeDaTabela: string,
-    itensResponse: ResultadoPaginadoDe<any>,
     colunas: DefinicaoColuna[],
-    acoes: DefinicaoActions[]){
+    acoes: DefinicaoActions[],
+    getCallback: (any) => any){
       this.nomeDaTabela = nomeDaTabela;
-      this.itensResponse = itensResponse;
       this.colunas = colunas;
       this.acoes = acoes;
+      this.getCallback = getCallback;
+  }
+
+  public refreshTable(){
+    this.refresh.next();
   }
 
 }

@@ -1,0 +1,24 @@
+<div class="d-flex">
+  <input
+    [(ngModel)]="parametroDeFiltro"
+    type="text"
+    class="form-control me-2"
+    id="filter"
+    (keyup)="debounce(enviarParametro)"
+  />
+  <button class="btn btn-dark">
+    <i class="bi bi-search"></i>
+  </button>
+</div>
+
+<!-- <button (click)="mostrarFiltro()" class="btn btn-no-decoration">
+  <i class="bi bi-search"></i>
+</button>
+<input
+  [hidden]="!filtroAtivado"
+  [(ngModel)]="parametroDeFiltro"
+  type="text"
+  class="form-control"
+  id="filter"
+  (keyup)="enviarParametro()"
+/> -->
