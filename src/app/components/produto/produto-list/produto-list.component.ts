@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
-import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AtualizarProdutoRequest } from '../models/atualizar-produto-request';
-import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
-import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 import { ProdutoPaginadoRequest } from '../models/produto-paginado-request';
 
 @Component({

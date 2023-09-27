@@ -1,11 +1,9 @@
 <div class="vh-100 background">
   <div class="container py-5 h-100">
-
-    <div class="card" style="border-radius: 50px;">
+    <div class="card" style="border-radius: 50px">
       <div class="row">
         <div class="col-7">
-          <div class="background-card">
-          </div>
+          <div class="background-card"></div>
         </div>
 
         <div class="col-5">
@@ -15,28 +13,60 @@
             <form [formGroup]="form" (ngSubmit)="registrar()">
               <div class="mb-3">
                 <label class="form-label">Nome Completo</label>
-                <input formControlName="nome"  type="text" class="form-control" aria-describedby="nameHelp">
+                <input
+                  formControlName="nome"
+                  type="text"
+                  class="form-control"
+                  aria-describedby="nameHelp"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input formControlName="userName" type="text" class="form-control">
+                <input
+                  formControlName="userName"
+                  type="text"
+                  class="form-control"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Telefone</label>
-                <input formControlName="telefone" type="tel" class="form-control">
+                <input
+                  formControlName="telefone"
+                  type="tel"
+                  class="form-control"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Endereço de Email</label>
-                <input formControlName="email" type="email" class="form-control" aria-describedby="emailHelp">
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input formControlName="senha" type="password" class="form-control">
+                <input
+                  formControlName="senha"
+                  type="password"
+                  class="form-control"
+                />
               </div>
 
-              <button type="submit" [disabled]="!canSave" class="btn btn-dark me-2">Registrar</button>
+              <button
+                type="submit"
+                [disabled]="!canSave"
+                class="btn btn-dark me-2"
+              >
+                Registrar
+              </button>
 
-              <a routerLink="/autenticacao/login" class="btn btn-outline-dark me-2">Já tenho uma conta.</a>
+              <a
+                routerLink="/autenticacao/login"
+                class="btn btn-outline-dark me-2"
+                >Já tenho uma conta.</a
+              >
             </form>
           </div>
         </div>

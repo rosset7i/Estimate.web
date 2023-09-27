@@ -1,37 +1,40 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from './../../../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
   }
 
-  createForm(){
+  createForm() {
     this.form = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
-      senha: [null, Validators.required]
+      email: [
+        null,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
+      senha: [null, Validators.required],
     });
   }
 
-  login(){
+  login() {
     this.usuarioService.login(this.form.value);
   }
 
-  get canSave() : boolean{
+  get canSave(): boolean {
     return this.form.valid;
   }
-
 }

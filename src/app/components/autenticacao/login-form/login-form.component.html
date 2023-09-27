@@ -1,11 +1,9 @@
 <div class="vh-100 background">
   <div class="container py-5 h-100">
-
-    <div class="card" style="border-radius: 50px;">
+    <div class="card" style="border-radius: 50px">
       <div class="row">
         <div class="col-7">
-          <div class="background-card">
-          </div>
+          <div class="background-card"></div>
         </div>
 
         <div class="col-5">
@@ -15,15 +13,34 @@
             <form [formGroup]="form" (ngSubmit)="login()">
               <div class="mb-3">
                 <label class="form-label">Endereço de Email</label>
-                <input formControlName="email" type="email" class="form-control" aria-describedby="emailHelp">
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">Senha</label>
-                <input formControlName="senha" type="password" class="form-control">
+                <input
+                  formControlName="senha"
+                  type="password"
+                  class="form-control"
+                />
               </div>
 
-              <button type="submit" [disabled]="!canSave" class="btn btn-dark me-2">Entrar</button>
-              <a routerLink="/autenticacao/registrar"  class="btn btn-outline-dark me-2">Ou registrar-se agora</a>
+              <button
+                type="submit"
+                [disabled]="!canSave"
+                class="btn btn-dark me-2"
+              >
+                Entrar
+              </button>
+              <a
+                routerLink="/autenticacao/registrar"
+                class="btn btn-outline-dark me-2"
+                >Ou registrar-se agora</a
+              >
             </form>
           </div>
         </div>

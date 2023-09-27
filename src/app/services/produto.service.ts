@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { ResultadoPaginadoDe } from '../core/models/resultado-paginado';
 import { ProdutoResponse } from '../components/produto/models/produto-response';
 import { Api } from 'api';
-import { PaginadoOrdenadoRequest } from '../core/models/paginado-ordenado-request';
 import { ServiceBase } from '../core/services/service-base.service';
 import { CriarProdutoRequest } from '../components/produto/models/criar-produto-request';
 import { AtualizarProdutoRequest } from '../components/produto/models/atualizar-produto-request';

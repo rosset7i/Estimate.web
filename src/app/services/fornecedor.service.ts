@@ -1,10 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Api } from 'api';
 import { Observable } from 'rxjs';
+
+import { Api } from 'api';
 import { AtualizarFornecedorRequest } from '../components/fornecedor/models/atualizar-fornecedor-request';
-import { BuscarFornecedoresPaginadoRequest } from '../components/fornecedor/models/fornecedor-paginado-request';
 import { CriarFornecedorRequest } from '../components/fornecedor/models/criar-fornecedor-request';
+import { BuscarFornecedoresPaginadoRequest } from '../components/fornecedor/models/fornecedor-paginado-request';
 import { FornecedorResponse } from '../components/fornecedor/models/fornecedor-response';
 import { ResultadoPaginadoDe } from '../core/models/resultado-paginado';
 import { ServiceBase } from '../core/services/service-base.service';
@@ -17,7 +18,9 @@ export class FornecedorService extends ServiceBase {
     super();
   }
 
-  buildFornecedorParams(paginadoRequest: BuscarFornecedoresPaginadoRequest) {
+  private buildFornecedorParams(
+    paginadoRequest: BuscarFornecedoresPaginadoRequest
+  ) {
     let params = this.buildParams(paginadoRequest);
     if (
       paginadoRequest.nome !== null &&
@@ -35,6 +38,14 @@ export class FornecedorService extends ServiceBase {
     return this.httpClient.get<ResultadoPaginadoDe<FornecedorResponse>>(
       `${Api.ORCAMENTO_API}/fornecedores`,
       { params: this.buildFornecedorParams(paginadoRequest) }
+    );
+  }
+
+  public buscaFornecedorDetalhes(
+    fornecedorId?: string
+  ): Observable<FornecedorResponse> {
+    return this.httpClient.get<FornecedorResponse>(
+      `${Api.ORCAMENTO_API}/fornecedores/${fornecedorId}`
     );
   }
 

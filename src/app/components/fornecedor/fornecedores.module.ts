@@ -1,21 +1,27 @@
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { ComponentesPadraoModule } from 'src/app/core/components/componentes-padrao.module';
+import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
+import { FornecedorModalComponent } from './fornecedor-modal/fornecedor-modal.component';
 import { FornecedoresRoutingModule } from './fornecedores-routing.module';
 import { FornecedoresComponent } from './fornecedores.component';
-import { FornecedorListComponent } from './fornecedor-list/fornecedor-list.component';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { ComponentesPadraoModule } from 'src/app/core/components/componentes-padrao.module';
 
 @NgModule({
-  declarations: [FornecedoresComponent, FornecedorListComponent],
+  declarations: [
+    FornecedoresComponent,
+    FornecedorListComponent,
+    FornecedorModalComponent,
+  ],
   imports: [
     CommonModule,
     FornecedoresRoutingModule,
     ComponentesPadraoModule,
     FormsModule,
-    NgbPaginationModule,
+    ReactiveFormsModule,
+    NgbModalModule,
   ],
 })
 export class FornecedoresModule {}

@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-orcamentos',
   templateUrl: './orcamentos.component.html',
-  styleUrls: ['./orcamentos.component.css']
+  styleUrls: ['./orcamentos.component.css'],
 })
-export class OrcamentosComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class OrcamentosComponent {}

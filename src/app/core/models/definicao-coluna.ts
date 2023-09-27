@@ -4,13 +4,9 @@ export class DefinicaoColuna {
   tamanho: number;
   temSorting: boolean = false;
 
-  constructor(
-    nome: string,
-    mapearPara: string,
-    temSorting: boolean){
+  constructor(nome: string, mapearPara: string, temSorting: boolean) {
     this.nome = nome;
     this.mapearPara = mapearPara;
     this.temSorting = temSorting;
   }
-
 }

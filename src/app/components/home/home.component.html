@@ -1,7 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow p-3 mb-5">
   <div class="container-fluid">
-    <button class="btn btn-dark me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#expandSide"
-      aria-controls="expandSide">
+    <button
+      class="btn btn-dark me-2"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#expandSide"
+      aria-controls="expandSide"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" routerLink="/home">Orçamento</a>
@@ -12,17 +17,27 @@
   <router-outlet></router-outlet>
 </div>
 
-<app-footer class="fixed-bottom">
-</app-footer>
+<app-footer class="fixed-bottom"> </app-footer>
 
-<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="expandSide" aria-labelledby="expandLabel">
+<div
+  class="offcanvas offcanvas-start text-bg-dark"
+  tabindex="-1"
+  id="expandSide"
+  aria-labelledby="expandLabel"
+>
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Orçamento</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body">
     <div>
-      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+      Some text as placeholder. In real life you can have the elements you have
+      chosen. Like, text, images, lists, etc.
     </div>
   </div>
 </div>

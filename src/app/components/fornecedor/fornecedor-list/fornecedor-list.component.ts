@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
 import { BuscarFornecedoresPaginadoRequest } from '../models/fornecedor-paginado-request';
+import { FornecedorModalComponent } from '../fornecedor-modal/fornecedor-modal.component';
+import { CriarFornecedorRequest } from '../models/criar-fornecedor-request';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -15,10 +19,29 @@ export class FornecedorListComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
 
-  constructor(private fornecedorService: FornecedorService) {}
+  constructor(
+    private fornecedorService: FornecedorService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.construirOptions();
+  }
+
+  openModal(fornecedorId?: string) {
+    const modalRef = this.modalService.open(FornecedorModalComponent);
+
+    modalRef.componentInstance.fornecedorId = fornecedorId;
+
+    modalRef.result.then((e) => {
+      if (e) this.criarFornecedor(e);
+    });
+  }
+
+  criarFornecedor(request: CriarFornecedorRequest) {
+    this.fornecedorService
+      .criarFornecedor(request)
+      .subscribe(() => this.opcoes.refreshTable());
   }
 
   filtrar(nome: string) {
@@ -72,8 +95,7 @@ export class FornecedorListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (fornecedorId) =>
-          this.atualizar(fornecedorId, new AtualizarFornecedorRequest('Teste'))
+        (fornecedorId) => this.openModal(fornecedorId)
       ),
       new DefinicaoActions(
         null,

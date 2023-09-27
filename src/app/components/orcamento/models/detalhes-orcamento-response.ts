@@ -1,4 +1,4 @@
-import { ProdutosNoOrcamentoResponse } from "./produto-no-orcamento-response";
+import { ProdutosNoOrcamentoResponse } from './produto-no-orcamento-response';
 
 export class DetalhesOrcamentoResponse {
   id: string;
@@ -10,11 +10,11 @@ export class DetalhesOrcamentoResponse {
     id: string,
     nome: string,
     nomeFornecedor: string,
-    produtosNoOrcamentoResponse: ProdutosNoOrcamentoResponse[]){
+    produtosNoOrcamentoResponse: ProdutosNoOrcamentoResponse[]
+  ) {
     this.id = id;
     this.nome = nome;
     this.nomeFornecedor = nomeFornecedor;
     this.produtosNoOrcamentoResponse = produtosNoOrcamentoResponse;
   }
-
 }

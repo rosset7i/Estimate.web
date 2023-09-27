@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { OpcoesTabela } from '../../models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
 import { Direcao } from '../../utils/direction';
@@ -7,7 +8,7 @@ import { Tamanhos } from '../../utils/tamanho-pagina';
 @Component({
   selector: 'app-lista-padrao',
   templateUrl: './lista-padrao.component.html',
-  styleUrls: ['./lista-padrao.component.css']
+  styleUrls: ['./lista-padrao.component.css'],
 })
 export class ListaPadraoComponent implements OnInit {
   @Input() opcoesTabela: OpcoesTabela;
@@ -23,7 +24,7 @@ export class ListaPadraoComponent implements OnInit {
     this.refreshTable();
   }
 
-  onSort(coluna: string){
+  onSort(coluna: string) {
     this.colunaOrdenacao = coluna;
 
     if (this.direcaoOrdenacao === Direcao.ASC) {
@@ -35,19 +36,18 @@ export class ListaPadraoComponent implements OnInit {
     this.buscar();
   }
 
-  buscar(){
+  buscar() {
     const paginadoRequest = new PaginadoOrdenadoRequest(
       this.paginalAtual,
       this.tamanho,
       this.colunaOrdenacao,
-      this.direcaoOrdenacao);
+      this.direcaoOrdenacao
+    );
 
     this.opcoesTabela.getCallback(paginadoRequest);
   }
 
-  refreshTable(){
-    this.opcoesTabela.refresh
-      .subscribe(() => this.buscar());
+  refreshTable() {
+    this.opcoesTabela.refresh.subscribe(() => this.buscar());
   }
-
 }

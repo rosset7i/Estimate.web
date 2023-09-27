@@ -6,10 +6,11 @@
     ></app-dynamic-filter>
   </div>
   <div class="col-1">
-    <button class="btn btn-success">
+    <button (click)="openModal()" class="btn btn-success">
       <i class="bi bi-plus"></i>
       Novo
     </button>
   </div>
 </div>
+
 <app-lista-padrao [opcoesTabela]="opcoes"></app-lista-padrao>

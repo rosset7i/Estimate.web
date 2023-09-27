@@ -10,7 +10,8 @@ export class RegistrarRequest {
     username: string,
     email: string,
     telefone: string,
-    senha: string){
+    senha: string
+  ) {
     this.nome = nome;
     this.username = username;
     this.email = email;
