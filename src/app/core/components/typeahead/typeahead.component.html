@@ -1,24 +1,12 @@
-<div class="d-flex">
+<div class="input-group">
+  <span class="input-group-text">
+    <i class="bi bi-search"></i>
+  </span>
   <input
     [(ngModel)]="parametroDeFiltro"
     type="text"
-    class="form-control me-2"
+    class="form-control"
     id="filter"
-    (keyup)="debounce(enviarParametro)"
+    (keyup)="enviarParametro()"
   />
-  <button class="btn btn-dark">
-    <i class="bi bi-search"></i>
-  </button>
 </div>
-
-<!-- <button (click)="mostrarFiltro()" class="btn btn-no-decoration">
-  <i class="bi bi-search"></i>
-</button>
-<input
-  [hidden]="!filtroAtivado"
-  [(ngModel)]="parametroDeFiltro"
-  type="text"
-  class="form-control"
-  id="filter"
-  (keyup)="enviarParametro()"
-/> -->

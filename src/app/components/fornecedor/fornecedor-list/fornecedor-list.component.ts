@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
-import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
 import { BuscarFornecedoresPaginadoRequest } from '../models/fornecedor-paginado-request';

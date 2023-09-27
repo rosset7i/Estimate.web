@@ -9,16 +9,13 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentesPadraoModule } from 'src/app/core/components/componentes-padrao.module';
 
 @NgModule({
-  declarations: [
-    FornecedoresComponent,
-    FornecedorListComponent
-],
+  declarations: [FornecedoresComponent, FornecedorListComponent],
   imports: [
     CommonModule,
     FornecedoresRoutingModule,
     ComponentesPadraoModule,
     FormsModule,
-    NgbPaginationModule
-  ]
+    NgbPaginationModule,
+  ],
 })
-export class FornecedoresModule { }
+export class FornecedoresModule {}

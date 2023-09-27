@@ -8,17 +8,20 @@
 
     <thead>
       <tr>
-        <th *ngFor="let d of opcoesTabela.colunas">
-          <button
-            *ngIf="d.temSorting"
-            class="btn"
-            (click)="onSort(d.mapearPara)"
-          >
-            <i class="bi bi-arrow-down-up"></i>
-          </button>
-          {{ d.nome }}
-          <!-- <app-typeahead></app-typeahead> -->
-        </th>
+        <ng-container *ngFor="let d of opcoesTabela.colunas">
+          <th>
+            <div class="d-flex align-items-center">
+              <button
+                *ngIf="d.temSorting"
+                class="btn"
+                (click)="onSort(d.mapearPara)"
+              >
+                <i class="bi bi-arrow-down-up"></i>
+              </button>
+              {{ d.nome }}
+            </div>
+          </th>
+        </ng-container>
         <th class="col-2">Ações</th>
       </tr>
     </thead>
