@@ -8,30 +8,65 @@ import { OrcamentoResponse } from '../components/orcamento/models/orcamento-resp
 import { PaginadoOrdenadoRequest } from '../core/models/paginado-ordenado-request';
 import { ResultadoPaginadoDe } from '../core/models/resultado-paginado';
 import { HttpClient } from '@angular/common/http';
+import { OrcamentoPaginadoRequest } from '../components/orcamento/models/orcamento-paginado-request';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrcamentoService extends ServiceBase {
-
   constructor(private httpClient: HttpClient) {
     super();
   }
 
-  public buscaOrcamentosPaginado(paginadoRequest: PaginadoOrdenadoRequest) : Observable<ResultadoPaginadoDe<OrcamentoResponse>>{
-    return this.httpClient.get<ResultadoPaginadoDe<OrcamentoResponse>>(`${Api.ORCAMENTO_API}/orcamentos`, { params: this.buildParams(paginadoRequest) });
+  private buildOrcamentoParams(paginadoRequest: OrcamentoPaginadoRequest) {
+    let params = this.buildParams(paginadoRequest);
+    if (
+      paginadoRequest.nome !== null &&
+      paginadoRequest.nome !== undefined &&
+      paginadoRequest.nome !== ''
+    )
+      params = params.append('nome', paginadoRequest.nome);
+    if (
+      paginadoRequest.fornecedorId !== null &&
+      paginadoRequest.fornecedorId !== undefined &&
+      paginadoRequest.fornecedorId !== ''
+    )
+      params = params.append('fornecedorId', paginadoRequest.fornecedorId);
+
+    return params;
   }
 
-  public criarOrcamento(criarOrcamentoRequest: CriarOrcamentoRequest) : Observable<any>{
-    return this.httpClient.post(`${Api.ORCAMENTO_API}/orcamentos`, criarOrcamentoRequest);
+  public buscaOrcamentosPaginado(
+    paginadoRequest: OrcamentoPaginadoRequest
+  ): Observable<ResultadoPaginadoDe<OrcamentoResponse>> {
+    return this.httpClient.get<ResultadoPaginadoDe<OrcamentoResponse>>(
+      `${Api.ORCAMENTO_API}/orcamentos`,
+      { params: this.buildOrcamentoParams(paginadoRequest) }
+    );
   }
 
-  public atualizarOrcamento(orcamentoId: string, atualizarOrcamentoRequest: AtualizarOrcamentoRequest) : Observable<any>{
-    return this.httpClient.put(`${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/atualizar`, atualizarOrcamentoRequest);
+  public criarOrcamento(
+    criarOrcamentoRequest: CriarOrcamentoRequest
+  ): Observable<any> {
+    return this.httpClient.post(
+      `${Api.ORCAMENTO_API}/orcamentos`,
+      criarOrcamentoRequest
+    );
   }
 
-  public removerOrcamento(orcamentoId: string) : Observable<any>{
-    return this.httpClient.delete(`${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/remover`);
+  public atualizarOrcamento(
+    orcamentoId: string,
+    atualizarOrcamentoRequest: AtualizarOrcamentoRequest
+  ): Observable<any> {
+    return this.httpClient.put(
+      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/atualizar`,
+      atualizarOrcamentoRequest
+    );
   }
 
+  public removerOrcamento(orcamentoId: string): Observable<any> {
+    return this.httpClient.delete(
+      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/remover`
+    );
+  }
 }

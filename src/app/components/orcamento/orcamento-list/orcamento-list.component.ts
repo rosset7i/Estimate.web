@@ -4,7 +4,7 @@ import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { AtualizarOrcamentoRequest } from '../models/atualizar-orcamento-request';
-import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
+import { OrcamentoPaginadoRequest } from '../models/orcamento-paginado-request';
 
 @Component({
   selector: 'app-orcamento-list',
@@ -13,6 +13,7 @@ import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-r
 })
 export class OrcamentoListComponent implements OnInit {
   opcoes: OpcoesTabela;
+  parametro: string;
 
   constructor(private orcamentoService: OrcamentoService) {}
 
@@ -20,7 +21,14 @@ export class OrcamentoListComponent implements OnInit {
     this.criarOpcoes();
   }
 
-  buscar(paginadoRequest: PaginadoOrdenadoRequest) {
+  filtrar(nome: string) {
+    this.parametro = nome;
+    this.opcoes.refreshTable();
+  }
+
+  buscar(paginadoRequest: OrcamentoPaginadoRequest) {
+    paginadoRequest.nome = this.parametro;
+
     this.orcamentoService
       .buscaOrcamentosPaginado(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));

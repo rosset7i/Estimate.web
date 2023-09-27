@@ -21,7 +21,7 @@ export class FornecedorListComponent implements OnInit {
     this.construirOptions();
   }
 
-  onFilter(nome: string) {
+  filtrar(nome: string) {
     this.parametro = nome;
     this.opcoes.refreshTable();
   }

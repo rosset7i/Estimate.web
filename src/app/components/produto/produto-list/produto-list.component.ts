@@ -5,6 +5,7 @@ import { ProdutoService } from 'src/app/services/produto.service';
 import { AtualizarProdutoRequest } from '../models/atualizar-produto-request';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { ProdutoPaginadoRequest } from '../models/produto-paginado-request';
 
 @Component({
   selector: 'app-produto-list',
@@ -13,6 +14,7 @@ import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 })
 export class ProdutoListComponent implements OnInit {
   opcoes: OpcoesTabela;
+  parametro: string;
 
   constructor(private produtoService: ProdutoService) {}
 
@@ -20,7 +22,14 @@ export class ProdutoListComponent implements OnInit {
     this.criarOpcoes();
   }
 
-  buscar(paginadoRequest: PaginadoOrdenadoRequest) {
+  filtrar(nome: string) {
+    this.parametro = nome;
+    this.opcoes.refreshTable();
+  }
+
+  buscar(paginadoRequest: ProdutoPaginadoRequest) {
+    paginadoRequest.nome = this.parametro;
+
     this.produtoService
       .buscaProdutosPaginado(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));

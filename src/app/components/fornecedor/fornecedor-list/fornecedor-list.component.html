@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-11">
-    <app-typeahead (parametro)="onFilter($event)"></app-typeahead>
+    <app-dynamic-filter
+      [nomeDoCampo]="'Nome'"
+      (parametro)="filtrar($event)"
+    ></app-dynamic-filter>
   </div>
   <div class="col-1">
     <button class="btn btn-success">

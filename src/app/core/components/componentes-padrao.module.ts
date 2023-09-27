@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListaPadraoComponent } from './lista-padrao/lista-padrao.component';
-import { TypeaheadComponent } from './typeahead/typeahead.component';
+import { DynamicFilterComponent } from './dynamic-filter/dynamic-filter.component';
 
 @NgModule({
-  declarations: [ListaPadraoComponent, TypeaheadComponent],
+  declarations: [ListaPadraoComponent, DynamicFilterComponent],
   imports: [CommonModule, NgbPaginationModule, FormsModule],
-  exports: [ListaPadraoComponent, TypeaheadComponent],
+  exports: [ListaPadraoComponent, DynamicFilterComponent],
 })
 export class ComponentesPadraoModule {}
