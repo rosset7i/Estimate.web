@@ -6,9 +6,16 @@ import { OrcamentosRoutingModule } from './orcamentos-routing.module';
 import { OrcamentosComponent } from './orcamentos.component';
 import { OrcamentoListComponent } from './orcamento-list/orcamento-list.component';
 import { ComponentesPadraoModule } from '../../core/components/componentes-padrao.module';
+import { OrcamentoDetalhesComponent } from './orcamento-detalhes/orcamento-detalhes.component';
+import { ProdutoPickerComponent } from './produto-picker/produto-picker.component';
 
 @NgModule({
-  declarations: [OrcamentosComponent, OrcamentoListComponent],
+  declarations: [
+    OrcamentosComponent,
+    OrcamentoListComponent,
+    OrcamentoDetalhesComponent,
+    ProdutoPickerComponent,
+  ],
   imports: [
     CommonModule,
     OrcamentosRoutingModule,

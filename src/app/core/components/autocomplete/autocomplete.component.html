@@ -1,0 +1,9 @@
+<label for="typeahead" *ngIf="label">{{ label }}</label>
+<input
+  id="typeahead"
+  type="text"
+  class="form-control"
+  [placeholder]="placeholder"
+  (selectItem)="logar($event)"
+  [ngbTypeahead]="search"
+/>
