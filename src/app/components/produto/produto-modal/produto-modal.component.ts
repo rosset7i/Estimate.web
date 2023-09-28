@@ -2,23 +2,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FornecedorService } from 'src/app/services/fornecedor.service';
-import { FornecedorResponse } from '../models/fornecedor-response';
+import { ProdutoService } from 'src/app/services/produto.service';
+import { ProdutoResponse } from '../models/produto-response';
 
 @Component({
-  selector: 'app-fornecedor-modal',
-  templateUrl: './fornecedor-modal.component.html',
-  styleUrls: ['./fornecedor-modal.component.css'],
+  selector: 'app-produto-modal',
+  templateUrl: './produto-modal.component.html',
+  styleUrls: ['./produto-modal.component.css'],
 })
-export class FornecedorModalComponent implements OnInit {
+export class ProdutoModalComponent implements OnInit {
   form: FormGroup;
 
   @Output() emitFormValue = new EventEmitter<any>();
-  @Input() fornecedorId: string;
+  @Input() produtoId: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private fornecedorService: FornecedorService,
+    private produtoService: ProdutoService,
     public activeModal: NgbActiveModal
   ) {}
 
@@ -27,15 +27,15 @@ export class FornecedorModalComponent implements OnInit {
     this.criarForm();
   }
 
-  private mapearValores(fornecedor: FornecedorResponse) {
-    this.form.controls['nome'].setValue(fornecedor.nome);
+  private mapearValores(produto: ProdutoResponse) {
+    this.form.controls['nome'].setValue(produto.nome);
   }
 
   private async buscarUsuarioSeExistir() {
-    if (this.fornecedorId)
-      this.fornecedorService
-        .buscaFornecedorDetalhes(this.fornecedorId)
-        .subscribe((e: FornecedorResponse) => this.mapearValores(e));
+    if (this.produtoId)
+      this.produtoService
+        .buscaProdutosDetalhes(this.produtoId)
+        .subscribe((e: ProdutoResponse) => this.mapearValores(e));
   }
 
   private criarForm() {

@@ -5,10 +5,10 @@ import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
-import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
-import { BuscarFornecedoresPaginadoRequest } from '../models/fornecedor-paginado-request';
 import { FornecedorModalComponent } from '../fornecedor-modal/fornecedor-modal.component';
+import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
 import { CriarFornecedorRequest } from '../models/criar-fornecedor-request';
+import { BuscarFornecedoresPaginadoRequest } from '../models/fornecedor-paginado-request';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -34,14 +34,9 @@ export class FornecedorListComponent implements OnInit {
     modalRef.componentInstance.fornecedorId = fornecedorId;
 
     modalRef.result.then((e) => {
-      if (e) this.criarFornecedor(e);
+      if (e && !fornecedorId) this.criarFornecedor(e);
+      if (e && fornecedorId) this.editarFornecedor(fornecedorId, e);
     });
-  }
-
-  criarFornecedor(request: CriarFornecedorRequest) {
-    this.fornecedorService
-      .criarFornecedor(request)
-      .subscribe(() => this.opcoes.refreshTable());
   }
 
   filtrar(nome: string) {
@@ -59,7 +54,13 @@ export class FornecedorListComponent implements OnInit {
       });
   }
 
-  atualizar(
+  criarFornecedor(request: CriarFornecedorRequest) {
+    this.fornecedorService
+      .criarFornecedor(request)
+      .subscribe(() => this.opcoes.refreshTable());
+  }
+
+  editarFornecedor(
     fornecedorId: string,
     atualizarFornecedorRequest: AtualizarFornecedorRequest
   ) {

@@ -39,6 +39,12 @@ export class ProdutoService extends ServiceBase {
     );
   }
 
+  public buscaProdutosDetalhes(produtoId: string): Observable<ProdutoResponse> {
+    return this.httpClient.get<ProdutoResponse>(
+      `${Api.ORCAMENTO_API}/produtos/${produtoId}`
+    );
+  }
+
   public criarProduto(
     criarProdutoRequest: CriarProdutoRequest
   ): Observable<any> {

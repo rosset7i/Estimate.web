@@ -6,6 +6,9 @@ import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AtualizarProdutoRequest } from '../models/atualizar-produto-request';
 import { ProdutoPaginadoRequest } from '../models/produto-paginado-request';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProdutoModalComponent } from '../produto-modal/produto-modal.component';
+import { CriarProdutoRequest } from '../models/criar-produto-request';
 
 @Component({
   selector: 'app-produto-list',
@@ -16,10 +19,24 @@ export class ProdutoListComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
 
-  constructor(private produtoService: ProdutoService) {}
+  constructor(
+    private produtoService: ProdutoService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.criarOpcoes();
+  }
+
+  openModal(produtoId?: string) {
+    const modalRef = this.modalService.open(ProdutoModalComponent);
+
+    modalRef.componentInstance.produtoId = produtoId;
+
+    modalRef.result.then((e) => {
+      if (e && !produtoId) this.criarProduto(e);
+      if (e && produtoId) this.editarProduto(produtoId, e);
+    });
   }
 
   filtrar(nome: string) {
@@ -33,6 +50,12 @@ export class ProdutoListComponent implements OnInit {
     this.produtoService
       .buscaProdutosPaginado(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));
+  }
+
+  criarProduto(criarProduto: CriarProdutoRequest) {
+    this.produtoService
+      .criarProduto(criarProduto)
+      .subscribe(() => this.opcoes.refreshTable());
   }
 
   editarProduto(produtoId: string, atualizarProduto: AtualizarProdutoRequest) {
@@ -68,8 +91,7 @@ export class ProdutoListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (produtoId) =>
-          this.editarProduto(produtoId, new AtualizarProdutoRequest('Teste'))
+        (produtoId) => this.openModal(produtoId)
       ),
       new DefinicaoActions(
         null,
