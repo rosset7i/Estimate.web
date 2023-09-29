@@ -96,13 +96,13 @@ export class FornecedorListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (fornecedorId) => this.openModal(fornecedorId)
+        (fornecedor) => this.openModal(fornecedor?.id)
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (fornecedorId) => this.remover(fornecedorId)
+        (fornecedor) => this.remover(fornecedor?.id)
       ),
     ];
 

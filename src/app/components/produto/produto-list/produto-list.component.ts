@@ -91,13 +91,13 @@ export class ProdutoListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (produtoId) => this.openModal(produtoId)
+        (produto) => this.openModal(produto?.id)
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (produtoId) => this.removerProduto(produtoId)
+        (produto) => this.removerProduto(produto.id)
       ),
     ];
 

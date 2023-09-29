@@ -6,7 +6,6 @@ import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { AtualizarOrcamentoRequest } from '../models/atualizar-orcamento-request';
 import { OrcamentoPaginadoRequest } from '../models/orcamento-paginado-request';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orcamento-list',
@@ -17,10 +16,7 @@ export class OrcamentoListComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
 
-  constructor(
-    private orcamentoService: OrcamentoService,
-    private router: Router
-  ) {}
+  constructor(private orcamentoService: OrcamentoService) {}
 
   ngOnInit(): void {
     this.criarOpcoes();

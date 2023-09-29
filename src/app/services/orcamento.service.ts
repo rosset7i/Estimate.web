@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Api } from 'api';
 import { AtualizarOrcamentoRequest } from '../components/orcamento/models/atualizar-orcamento-request';
@@ -14,6 +14,8 @@ import { ServiceBase } from '../core/services/service-base.service';
   providedIn: 'root',
 })
 export class OrcamentoService extends ServiceBase {
+  produtoAdicionado = new Subject<any>();
+
   constructor(private httpClient: HttpClient) {
     super();
   }

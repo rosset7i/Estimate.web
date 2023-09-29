@@ -34,7 +34,7 @@
         <td>
           <button
             *ngFor="let acao of opcoesTabela.acoes"
-            (click)="acao.callback(item.id)"
+            (click)="acao.callback(item)"
             [ngClass]="acao.bootstrapButtonClass"
           >
             <i [ngClass]="acao.icone"></i>
@@ -59,6 +59,7 @@
     </select>
 
     <ngb-pagination
+      [maxSize]="3"
       [(page)]="paginalAtual"
       [pageSize]="tamanho"
       [collectionSize]="opcoesTabela.itensResponse.quantidadeDeItens"

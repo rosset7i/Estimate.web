@@ -1,8 +1,6 @@
-import { ResultadoPaginadoDe } from './../../models/resultado-paginado';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   Observable,
-  OperatorFunction,
   Subject,
   debounceTime,
   distinctUntilChanged,
@@ -10,48 +8,73 @@ import {
   merge,
 } from 'rxjs';
 
-import { ProdutoService } from 'src/app/services/produto.service';
-import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
-import { ProdutoPaginadoRequest } from 'src/app/components/produto/models/produto-paginado-request';
-
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.css'],
 })
-export class AutocompleteComponent implements OnInit {
-  @Input() label: string = '';
+export class AutocompleteComponent {
+  @Input() values: any[];
+  @Input() searchFields: string[];
   @Input() placeholder: string = '';
-  itens: string[] = [];
+  @Output() selected: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private produtosTeste: ProdutoService) {}
+  public onFocus: Subject<string> = new Subject<string>();
 
-  ngOnInit(): void {
-    this.buscarItens();
-  }
+  private objByField = new Map<string, any>();
 
-  logar(any) {
-    console.log(any);
-  }
-
-  buscarItens() {
-    const pagina = new PaginadoOrdenadoRequest(1, 10, null, null);
-    const pagina2 = new ProdutoPaginadoRequest(null, pagina);
-    this.produtosTeste
-      .buscaProdutosPaginado(pagina2)
-      .subscribe((e) => (this.itens = e.itens.map(e => e.nome)));
-  }
-
-  search: OperatorFunction<string, readonly string[]> = (
-    text$: Observable<string>
-  ) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
+  search = (text: Observable<string>) => {
+    let debounceText = text.pipe(debounceTime(200), distinctUntilChanged());
+    return merge(debounceText, this.onFocus).pipe(
       map((term) =>
-        this.itens
-          .filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
-          .slice(0, 10)
+        this.values
+          .filter((v) => this.buildSearch(v, term))
+          .map((obj) => this.showOptions(obj))
       )
     );
+  };
+
+  emitSelectedItem(event: any) {
+    this.selected.emit(this.objByField.get(event.item));
+  }
+
+  private showOptions(obj: any): string {
+    let fields = this.searchFields
+      .map((field) => {
+        return obj[field];
+      })
+      .join('');
+
+    this.setObjToSearch(fields, obj);
+
+    return fields;
+  }
+
+  private buildSearch(value: any, term: string): boolean {
+    return this.searchFields
+      .map((field) => {
+        if (!field || !value.hasOwnProperty(field)) {
+          return '';
+        }
+
+        const fieldValue = value[field];
+
+        if (typeof fieldValue === 'number') {
+          return fieldValue;
+        }
+
+        if (typeof fieldValue === 'string') {
+          return fieldValue.toLowerCase();
+        }
+
+        return '';
+      })
+      .join('')
+      .toLowerCase()
+      .includes(term.toLowerCase());
+  }
+
+  private setObjToSearch(field: string, obj: any) {
+    this.objByField.set(field, obj);
+  }
 }

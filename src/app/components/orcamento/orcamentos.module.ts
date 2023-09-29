@@ -1,4 +1,4 @@
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,6 +8,7 @@ import { OrcamentoListComponent } from './orcamento-list/orcamento-list.componen
 import { ComponentesPadraoModule } from '../../core/components/componentes-padrao.module';
 import { OrcamentoDetalhesComponent } from './orcamento-detalhes/orcamento-detalhes.component';
 import { ProdutoPickerComponent } from './produto-picker/produto-picker.component';
+import { ProdutosDoOrcamentoComponent } from './produtos-do-orcamento/produtos-do-orcamento.component';
 
 @NgModule({
   declarations: [
@@ -15,11 +16,13 @@ import { ProdutoPickerComponent } from './produto-picker/produto-picker.componen
     OrcamentoListComponent,
     OrcamentoDetalhesComponent,
     ProdutoPickerComponent,
+    ProdutosDoOrcamentoComponent,
   ],
   imports: [
     CommonModule,
     OrcamentosRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     ComponentesPadraoModule,
   ],
 })

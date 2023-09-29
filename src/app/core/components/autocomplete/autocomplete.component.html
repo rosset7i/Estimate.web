@@ -1,9 +1,11 @@
-<label for="typeahead" *ngIf="label">{{ label }}</label>
-<input
-  id="typeahead"
-  type="text"
-  class="form-control"
-  [placeholder]="placeholder"
-  (selectItem)="logar($event)"
-  [ngbTypeahead]="search"
-/>
+<div class="input-group mb-3">
+  <span class="input-group-text" id="autocompleName">{{ placeholder }}</span>
+  <input
+    id="typeahead"
+    type="text"
+    class="form-control"
+    [ngbTypeahead]="search"
+    (selectItem)="emitSelectedItem($event)"
+    (focus)="onFocus.next($any($event).target.value)"
+  />
+</div>

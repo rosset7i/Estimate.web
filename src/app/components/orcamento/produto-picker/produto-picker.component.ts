@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';
@@ -13,11 +13,16 @@ import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 export class ProdutoPickerComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
+  @Output() itemAdicionadoEmmiter = new EventEmitter<any>();
 
   constructor(private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
     this.criarOpcoes();
+  }
+
+  adicionarProdutoNoOrçamento(itemSelecionado: any) {
+    this.itemAdicionadoEmmiter.emit(itemSelecionado);
   }
 
   filtrar(nome: string) {
@@ -54,7 +59,7 @@ export class ProdutoPickerComponent implements OnInit {
         null,
         'bi bi-plus',
         'btn btn-outline-success btn-sm',
-        null
+        (produtoId: string) => this.adicionarProdutoNoOrçamento(produtoId)
       ),
     ];
 
