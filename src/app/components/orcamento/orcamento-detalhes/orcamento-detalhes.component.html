@@ -1,26 +1,36 @@
 <h2>Criar Orçamento</h2>
 
-<div class="row mt-3">
-  <div class="col-6">
-    <div class="input-group mb-3">
-      <span class="input-group-text" id="Nome">Nome do Orçamento</span>
-      <input
-        type="text"
-        class="form-control"
-        aria-label="Nome"
-        aria-describedby="Nome"
-      />
+<form [formGroup]="form">
+  <div class="row mt-3">
+    <div class="col-6">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="Nome">Nome do Orçamento</span>
+        <input
+          type="text"
+          formControlName="nome"
+          class="form-control"
+          aria-label="Nome"
+          aria-describedby="Nome"
+        />
+      </div>
+    </div>
+    <div class="col-6">
+      <app-autocomplete
+        [values]="fornecedores"
+        [searchFields]="searchFields"
+        [placeholder]="'Fornecedor'"
+        (selected)="selecionarFornecedor($event)"
+      >
+      </app-autocomplete>
     </div>
   </div>
-  <div class="col-6">
-    <app-autocomplete
-      [values]="fornecedores"
-      [searchFields]="searchFields"
-      [placeholder]="'Fornecedor'"
-      (selected)="selecionarFornecedor($event)"
-    >
-    </app-autocomplete>
-  </div>
+</form>
+
+<div class="d-flex justify-content-end">
+  <button (click)="save()" [disabled]="!canSave" class="btn btn-success">
+    <i class="bi bi-plus"></i>
+    Novo
+  </button>
 </div>
 
 <hr />
@@ -32,7 +42,7 @@
         <h5 class="card-title">Produtos</h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">No Orçamento</h6>
         <app-produtos-do-orcamento
-          [itensIniciais]="paraAdicionar"
+          [itensIniciais]="itensIniciais"
         ></app-produtos-do-orcamento>
       </div>
     </div>

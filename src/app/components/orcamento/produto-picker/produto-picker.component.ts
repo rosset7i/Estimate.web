@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';

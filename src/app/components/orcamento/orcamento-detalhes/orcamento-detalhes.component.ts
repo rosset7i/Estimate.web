@@ -6,6 +6,7 @@ import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { FornecedorResponse } from '../../fornecedor/models/fornecedor-response';
 import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-orcamento-detalhes',
@@ -13,26 +14,30 @@ import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-re
   styleUrls: ['./orcamento-detalhes.component.css'],
 })
 export class OrcamentoDetalhesComponent implements OnInit {
-  paraAdicionar: any[] = [
-    {
-      id: 'ToTestandoId',
-      nome: 'Nome produto',
-      quantidade: 10,
-      precoUnitario: 110,
-    },
-  ];
+  form: FormGroup;
+  itensIniciais: any[] = [];
   fornecedores: FornecedorResponse[];
   opcoes: OpcoesTabela;
   parametro: string;
   searchFields = ['nome'];
 
   constructor(
+    private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService,
     private orcamentoService: OrcamentoService
   ) {}
 
   ngOnInit(): void {
     this.buscarFornecedores();
+    this.criarForm();
+  }
+
+  private criarForm() {
+    this.form = this.formBuilder.group({
+      nome: ['', Validators.required],
+      fornecedorId: ['', Validators.required],
+      produtosParaAdicionar: this.formBuilder.array([]),
+    });
   }
 
   adicionarNoOrcamento(produto: any) {
@@ -48,6 +53,14 @@ export class OrcamentoDetalhesComponent implements OnInit {
   }
 
   public selecionarFornecedor(fornecedor: FornecedorResponse): void {
-    console.log(fornecedor);
+    this.form.get('fornecedorId').setValue(fornecedor.id);
+  }
+
+  get canSave(): boolean {
+    return this.form.valid && this.form.dirty;
+  }
+
+  save() {
+    console.log(this.form.value);
   }
 }
