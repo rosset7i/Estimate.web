@@ -1,15 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DefinicaoModal } from '../../models/modal-definicao';
 
 @Component({
   selector: 'app-modal-message',
   templateUrl: './modal-message.component.html',
   styleUrls: ['./modal-message.component.css'],
 })
-export class ModalMessageComponent implements OnInit {
-  @Input() mensagem: string = '';
+export class ModalMessageComponent {
+  @Input() modalDef: DefinicaoModal;
 
   constructor(public activeModal: NgbActiveModal) {}
 
-  ngOnInit(): void {}
+  confirmar() {
+    this.activeModal.close(true);
+  }
+
+  cancelar() {
+    this.activeModal.close(false);
+  }
 }

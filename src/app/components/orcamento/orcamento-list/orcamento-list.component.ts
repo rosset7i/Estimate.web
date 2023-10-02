@@ -7,6 +7,7 @@ import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { AtualizarOrcamentoRequest } from '../models/atualizar-orcamento-request';
 import { OrcamentoPaginadoRequest } from '../models/orcamento-paginado-request';
 import { Router } from '@angular/router';
+import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-orcamento-list',
@@ -78,13 +79,17 @@ export class OrcamentoListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
+        null,
+        false,
         null
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (orcamento) => this.removerOrcamento(orcamento.id)
+        (orcamento) => this.removerOrcamento(orcamento.id),
+        true,
+        MENSAGEM_REMOVER
       ),
     ];
 

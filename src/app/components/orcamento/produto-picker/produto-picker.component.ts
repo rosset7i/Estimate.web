@@ -60,7 +60,9 @@ export class ProdutoPickerComponent implements OnInit {
         null,
         'bi bi-plus',
         'btn btn-outline-success btn-sm',
-        (produtoId: string) => this.adicionarProdutoNoOrçamento(produtoId)
+        (produtoId: string) => this.adicionarProdutoNoOrçamento(produtoId),
+        false,
+        null
       ),
     ];
 

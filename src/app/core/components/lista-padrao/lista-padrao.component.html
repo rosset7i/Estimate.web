@@ -34,7 +34,7 @@
         <td>
           <button
             *ngFor="let acao of opcoesTabela.acoes"
-            (click)="acao.callback(item)"
+            (click)="chamarMetodo(acao, item)"
             [ngClass]="acao.bootstrapButtonClass"
           >
             <i [ngClass]="acao.icone"></i>

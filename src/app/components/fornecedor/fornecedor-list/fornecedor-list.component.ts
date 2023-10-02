@@ -9,6 +9,7 @@ import { FornecedorModalComponent } from '../fornecedor-modal/fornecedor-modal.c
 import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
 import { CriarFornecedorRequest } from '../models/criar-fornecedor-request';
 import { BuscarFornecedoresPaginadoRequest } from '../models/fornecedor-paginado-request';
+import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -91,18 +92,22 @@ export class FornecedorListComponent implements OnInit {
   }
 
   definicoesActions(): DefinicaoActions[] {
-    const definicoes = [
+    const definicoes: DefinicaoActions[] = [
       new DefinicaoActions(
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (fornecedor) => this.openModal(fornecedor?.id)
+        (fornecedor) => this.openModal(fornecedor?.id),
+        false,
+        null
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (fornecedor) => this.remover(fornecedor?.id)
+        (fornecedor) => this.remover(fornecedor?.id),
+        true,
+        MENSAGEM_REMOVER
       ),
     ];
 

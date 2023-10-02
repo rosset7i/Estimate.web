@@ -4,6 +4,9 @@ import { OpcoesTabela } from '../../models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
 import { Direcao } from '../../utils/direction';
 import { Tamanhos } from '../../utils/tamanho-pagina';
+import { ModalService } from '../../services/modal.service';
+import { DefinicaoActions } from '../../models/definicao-actions';
+import { DefinicaoModal } from '../../models/modal-definicao';
 
 @Component({
   selector: 'app-lista-padrao',
@@ -18,6 +21,8 @@ export class ListaPadraoComponent implements OnInit {
   paginalAtual: number = 1;
   direcaoOrdenacao: string = null;
   colunaOrdenacao: string = null;
+
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {
     this.buscar();
@@ -45,6 +50,22 @@ export class ListaPadraoComponent implements OnInit {
     );
 
     this.opcoesTabela.getCallback(paginadoRequest);
+  }
+
+  chamarMetodo(acao: DefinicaoActions, item: any) {
+    const modalDef = new DefinicaoModal(
+      'Atenção!',
+      acao.mensagemPersonalizada,
+      true
+    );
+
+    if (acao.temConfirmacao)
+      this.modalService.abrirModal(modalDef).then((e) => {
+        if (e) acao.callback(item);
+      });
+    else {
+      acao.callback(item);
+    }
   }
 
   refreshTable() {

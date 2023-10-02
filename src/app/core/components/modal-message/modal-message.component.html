@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Erro</h4>
+  <h4 class="modal-title">{{ modalDef.title }}</h4>
   <button
     type="button"
     class="btn-close"
@@ -8,14 +8,13 @@
   ></button>
 </div>
 <div class="modal-body">
-  {{ mensagem }}
+  {{ modalDef.mensagem }}
 </div>
-<div class="modal-footer">
-  <button
-    type="button"
-    class="btn btn-outline-dark"
-    (click)="activeModal.close()"
-  >
-    Fechar
+<div *ngIf="modalDef.modalDeConfirmacao" class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="confirmar()">
+    Confirmar
+  </button>
+  <button type="button" class="btn btn-outline-danger" (click)="cancelar()">
+    Cancelar
   </button>
 </div>

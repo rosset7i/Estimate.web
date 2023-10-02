@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpHandler,
@@ -6,10 +5,11 @@ import {
   HttpRequest,
   HttpStatusCode,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, finalize, throwError } from 'rxjs';
-import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
+import { DefinicaoModal } from '../models/modal-definicao';
+import { ModalService } from '../services/modal.service';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
@@ -27,7 +27,7 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     HttpStatusCode.NetworkAuthenticationRequired,
   ];
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: ModalService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
@@ -37,15 +37,14 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
   }
   captureError(httpError: HttpErrorResponse) {
     let error = this.severityErrors.includes(httpError.status)
-      ? 'Infelizmente, uma falha inesperada ocorreu em nossos servidores. \n Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico para obter assistência.'
+      ? 'Infelizmente, uma falha inesperada ocorreu em nossos servidores. Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico para obter assistência.'
       : httpError.error.errors;
 
     const mensagemTratada = this.tratarMensagem(error);
 
-    const modalRef = this.modalService.open(ModalMessageComponent, {
-      size: 'sm',
-    });
-    modalRef.componentInstance.mensagem = mensagemTratada;
+    const modalDef = new DefinicaoModal('Erro', mensagemTratada, false);
+
+    this.modalService.abrirModal(modalDef);
 
     return throwError(() => new Error(mensagemTratada));
   }

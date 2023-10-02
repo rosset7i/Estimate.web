@@ -9,6 +9,7 @@ import { ProdutoPaginadoRequest } from '../models/produto-paginado-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProdutoModalComponent } from '../produto-modal/produto-modal.component';
 import { CriarProdutoRequest } from '../models/criar-produto-request';
+import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-produto-list',
@@ -91,13 +92,17 @@ export class ProdutoListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (produto) => this.openModal(produto?.id)
+        (produto) => this.openModal(produto?.id),
+        false,
+        null
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (produto) => this.removerProduto(produto.id)
+        (produto) => this.removerProduto(produto.id),
+        true,
+        MENSAGEM_REMOVER
       ),
     ];
 
