@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
@@ -6,7 +7,6 @@ import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { FornecedorResponse } from '../../fornecedor/models/fornecedor-response';
 import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-orcamento-detalhes',
@@ -15,7 +15,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class OrcamentoDetalhesComponent implements OnInit {
   form: FormGroup;
-  itensIniciais: any[] = [];
   fornecedores: FornecedorResponse[];
   opcoes: OpcoesTabela;
   parametro: string;
@@ -31,12 +30,14 @@ export class OrcamentoDetalhesComponent implements OnInit {
     this.buscarFornecedores();
     this.criarForm();
   }
-
   private criarForm() {
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      fornecedorId: ['', Validators.required],
-      produtosParaAdicionar: this.formBuilder.array([]),
+      nome: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(75)]),
+      ],
+      fornecedorDoOrcamentoId: ['', Validators.required],
+      produtosNoOrcamento: this.formBuilder.array([]),
     });
   }
 
@@ -53,7 +54,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
   }
 
   public selecionarFornecedor(fornecedor: FornecedorResponse): void {
-    this.form.get('fornecedorId').setValue(fornecedor.id);
+    this.form.get('fornecedorDoOrcamentoId').setValue(fornecedor.id);
   }
 
   get canSave(): boolean {
@@ -61,6 +62,6 @@ export class OrcamentoDetalhesComponent implements OnInit {
   }
 
   save() {
-    console.log(this.form.value);
+    this.orcamentoService.criarOrcamento(this.form.value).subscribe();
   }
 }

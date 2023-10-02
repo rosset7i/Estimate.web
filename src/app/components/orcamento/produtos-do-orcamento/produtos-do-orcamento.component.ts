@@ -9,8 +9,7 @@ import { OrcamentoService } from 'src/app/services/orcamento.service';
   styleUrls: ['./produtos-do-orcamento.component.css'],
 })
 export class ProdutosDoOrcamentoComponent implements OnInit {
-  form: FormGroup;
-  @Input() itensIniciais: any[];
+  @Input() form: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,29 +17,17 @@ export class ProdutosDoOrcamentoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.criarForm();
-    this.mapearItensIniciais();
     this.adicionarProdutoListener();
   }
 
-  mapearItensIniciais() {
-    this.itensIniciais.forEach((e) => this.adicionarLinha(e));
-  }
-
-  adicionarProdutoListener() {
+  private adicionarProdutoListener() {
     this.orcamentoService.produtoAdicionado.subscribe((produto) =>
       this.adicionarLinha(produto)
     );
   }
 
-  private criarForm() {
-    this.form = this.formBuilder.group({
-      produtosParaAdicionar: this.formBuilder.array([]),
-    });
-  }
-
   get rows(): FormArray {
-    return this.form.get('produtosParaAdicionar') as FormArray;
+    return this.form.get('produtosNoOrcamento') as FormArray;
   }
 
   adicionarLinha(produto: any) {
@@ -52,8 +39,14 @@ export class ProdutosDoOrcamentoComponent implements OnInit {
           disabled: true,
         },
       ],
-      quantidade: [produto.quantidade, Validators.required],
-      precoUnitario: [produto.precoUnitario, Validators.required],
+      quantidade: [
+        produto.quantidade,
+        Validators.compose([Validators.required, Validators.min(0)]),
+      ],
+      precoUnitario: [
+        produto.precoUnitario,
+        Validators.compose([Validators.required, Validators.min(0)]),
+      ],
     });
 
     this.rows.push(rowFormGroup);

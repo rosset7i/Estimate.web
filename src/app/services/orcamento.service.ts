@@ -1,3 +1,4 @@
+import { DetalhesOrcamentoResponse } from './../components/orcamento/models/detalhes-orcamento-response';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
@@ -44,6 +45,14 @@ export class OrcamentoService extends ServiceBase {
     return this.httpClient.get<ResultadoPaginadoDe<OrcamentoResponse>>(
       `${Api.ORCAMENTO_API}/orcamentos`,
       { params: this.buildOrcamentoParams(paginadoRequest) }
+    );
+  }
+
+  public buscaDetalhesOrcamento(
+    orcamentoId: string
+  ): Observable<DetalhesOrcamentoResponse> {
+    return this.httpClient.get<DetalhesOrcamentoResponse>(
+      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}`
     );
   }
 

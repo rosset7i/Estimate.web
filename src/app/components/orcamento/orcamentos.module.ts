@@ -9,6 +9,7 @@ import { ComponentesPadraoModule } from '../../core/components/componentes-padra
 import { OrcamentoDetalhesComponent } from './orcamento-detalhes/orcamento-detalhes.component';
 import { ProdutoPickerComponent } from './produto-picker/produto-picker.component';
 import { ProdutosDoOrcamentoComponent } from './produtos-do-orcamento/produtos-do-orcamento.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ProdutosDoOrcamentoComponent } from './produtos-do-orcamento/produtos-d
     CommonModule,
     OrcamentosRoutingModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     ComponentesPadraoModule,
   ],

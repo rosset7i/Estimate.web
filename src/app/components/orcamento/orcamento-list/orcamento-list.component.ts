@@ -6,6 +6,7 @@ import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { AtualizarOrcamentoRequest } from '../models/atualizar-orcamento-request';
 import { OrcamentoPaginadoRequest } from '../models/orcamento-paginado-request';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orcamento-list',
@@ -16,7 +17,10 @@ export class OrcamentoListComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
 
-  constructor(private orcamentoService: OrcamentoService) {}
+  constructor(
+    private orcamentoService: OrcamentoService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.criarOpcoes();
@@ -62,7 +66,7 @@ export class OrcamentoListComponent implements OnInit {
   criarColunas() {
     const definicoes = [
       new DefinicaoColuna('Nome', 'nome', true),
-      new DefinicaoColuna('Fornecedor', 'nomeFornecedor', true),
+      new DefinicaoColuna('Fornecedor', 'nomeFornecedor', false),
     ];
 
     return definicoes;
@@ -74,17 +78,13 @@ export class OrcamentoListComponent implements OnInit {
         null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        (orcamentoId) =>
-          this.editarOrcamento(
-            orcamentoId,
-            new AtualizarOrcamentoRequest('Teste')
-          )
+        null
       ),
       new DefinicaoActions(
         null,
         'bi bi-trash',
         'btn btn-outline-danger me-2',
-        (orcamentoId) => this.removerOrcamento(orcamentoId)
+        (orcamento) => this.removerOrcamento(orcamento.id)
       ),
     ];
 
