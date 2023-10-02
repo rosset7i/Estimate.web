@@ -20,12 +20,7 @@ export class ProdutoService extends ServiceBase {
 
   private buildProdutoFilter(request: ProdutoPaginadoRequest) {
     let params = this.buildParams(request);
-    if (
-      request.nome !== null &&
-      request.nome !== undefined &&
-      request.nome !== ''
-    )
-      params = params.append('nome', request.nome);
+    if (request.nome) params = params.append('nome', request.nome);
 
     return params;
   }

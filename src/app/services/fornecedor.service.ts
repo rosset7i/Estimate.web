@@ -22,11 +22,7 @@ export class FornecedorService extends ServiceBase {
     paginadoRequest: BuscarFornecedoresPaginadoRequest
   ) {
     let params = this.buildParams(paginadoRequest);
-    if (
-      paginadoRequest.nome !== null &&
-      paginadoRequest.nome !== undefined &&
-      paginadoRequest.nome !== ''
-    )
+    if (paginadoRequest.nome)
       params = params.append('nome', paginadoRequest.nome);
 
     return params;

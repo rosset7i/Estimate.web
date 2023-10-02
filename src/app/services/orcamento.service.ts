@@ -23,17 +23,9 @@ export class OrcamentoService extends ServiceBase {
 
   private buildOrcamentoParams(paginadoRequest: OrcamentoPaginadoRequest) {
     let params = this.buildParams(paginadoRequest);
-    if (
-      paginadoRequest.nome !== null &&
-      paginadoRequest.nome !== undefined &&
-      paginadoRequest.nome !== ''
-    )
+    if (paginadoRequest.nome)
       params = params.append('nome', paginadoRequest.nome);
-    if (
-      paginadoRequest.fornecedorId !== null &&
-      paginadoRequest.fornecedorId !== undefined &&
-      paginadoRequest.fornecedorId !== ''
-    )
+    if (paginadoRequest.fornecedorId)
       params = params.append('fornecedorId', paginadoRequest.fornecedorId);
 
     return params;
