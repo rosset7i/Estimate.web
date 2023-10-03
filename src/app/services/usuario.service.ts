@@ -54,7 +54,7 @@ export class UsuarioService {
     const date = this.getTokenExpirationDate(token);
     if (date == undefined) return false;
 
-    return !(date.valueOf() > new Date(0).valueOf());
+    return date.valueOf() < Date.now().valueOf();
   }
 
   public isUserLoggedIn() {
