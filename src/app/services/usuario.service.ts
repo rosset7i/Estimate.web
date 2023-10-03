@@ -22,7 +22,7 @@ export class UsuarioService {
         loginRequest
       )
       .subscribe((token) => {
-        window.localStorage.setItem('token', token.token);
+        this.setToken(token.token);
         this.router.navigate(['/home']);
       });
   }
@@ -35,32 +35,56 @@ export class UsuarioService {
   }
 
   public getToken(): string {
-    return window.localStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
-  private getTokenExpirationDate(token: string): Date {
-    const decodedJwt: any = jwtDecode(token);
+  private setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
 
-    if (decodedJwt.exp == undefined) return null;
+  private removeToken() {
+    localStorage.removeItem('token');
+  }
+
+  private getDecodedToken(): any {
+    const token = this.getToken();
+
+    if (!token) return null;
+
+    return jwtDecode(token);
+  }
+
+  private getTokenExpirationDate(): Date {
+    const token = this.getDecodedToken();
+
+    if (!token || token.exp === undefined) return null;
 
     const date = new Date(0);
-    date.setUTCSeconds(decodedJwt.exp);
+    date.setUTCSeconds(token.exp);
+
     return date;
   }
 
-  private isTokenExpired(token: string): boolean {
-    if (!token) return true;
+  private getTokenEmail(): string {
+    const token = this.getDecodedToken();
 
-    const date = this.getTokenExpirationDate(token);
-    if (date == undefined) return false;
+    if (!token || token.email === undefined) return null;
 
-    return date.valueOf() < Date.now().valueOf();
+    return token.email;
+  }
+
+  private isTokenExpired(): boolean {
+    const date = this.getTokenExpirationDate();
+
+    if (!date) return false;
+
+    return date.valueOf() < Date.now();
   }
 
   public isUserLoggedIn() {
     const token = this.getToken();
 
-    if (!token || this.isTokenExpired(token)) return false;
+    if (!token || this.isTokenExpired()) return false;
 
     return true;
   }
