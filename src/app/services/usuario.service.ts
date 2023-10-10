@@ -8,23 +8,24 @@ import { LoginRequest } from '../components/autenticacao/models/login-request';
 import { LoginResponse } from '../components/autenticacao/models/login-response';
 import { RegistrarRequest } from '../components/autenticacao/models/registrar-request';
 import jwtDecode from 'jwt-decode';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RefreshModalComponent } from '../core/components/refresh-modal/refresh-modal.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutenticacaoService {
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private ngbModal: NgbModal
+  ) {}
 
-  public login(loginRequest: LoginRequest) {
-    return this.httpClient
-      .post<LoginResponse>(
-        `${Api.ORCAMENTO_API}/autenticacao/login`,
-        loginRequest
-      )
-      .subscribe((token) => {
-        this.setToken(token.token);
-        this.router.navigate(['/home']);
-      });
+  public login(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.httpClient.post<LoginResponse>(
+      `${Api.ORCAMENTO_API}/autenticacao/login`,
+      loginRequest
+    );
   }
 
   public registrar(registrarRequest: RegistrarRequest): Observable<any> {
@@ -38,12 +39,29 @@ export class AutenticacaoService {
     return localStorage.getItem('token');
   }
 
-  private setToken(token: string) {
+  public setToken(token: string) {
     localStorage.setItem('token', token);
   }
 
   private removeToken() {
     localStorage.removeItem('token');
+  }
+
+  public refreshToken() {
+    const modalRef = this.ngbModal.open(RefreshModalComponent);
+    modalRef.componentInstance.email = this.getTokenEmail();
+    this.removeToken();
+    modalRef.result.then(
+      (e) => this.handleRefreshSuccess(e),
+      () => this.router.navigate(['/autenticacao/login'])
+    );
+  }
+
+  private handleRefreshSuccess(result: any) {
+    this.login(result).subscribe(
+      (response) => this.setToken(response.token),
+      () => this.router.navigate(['/autenticacao/login'])
+    );
   }
 
   private getDecodedToken(): any {
@@ -65,7 +83,7 @@ export class AutenticacaoService {
     return date;
   }
 
-  private getTokenEmail(): string {
+  public getTokenEmail(): string {
     const token = this.getDecodedToken();
 
     if (!token || token.email === undefined) return null;

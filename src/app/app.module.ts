@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './components/home/home.module';
@@ -18,6 +19,7 @@ import { httpContextInterceptors } from './core/interceptors';
     HomeModule,
     BrowserAnimationsModule,
     NgbModule,
+    ReactiveFormsModule,
   ],
   providers: [httpContextInterceptors],
   bootstrap: [AppComponent],

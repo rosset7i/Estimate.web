@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AutenticacaoService } from './../../../services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +14,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private autenticacaoService: AutenticacaoService
+    private autenticacaoService: AutenticacaoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +33,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    this.autenticacaoService.login(this.form.value);
+    this.autenticacaoService.login(this.form.value).subscribe((token) => {
+      this.autenticacaoService.setToken(token.token);
+      this.router.navigate(['/home']);
+    });
   }
 
   get canSave(): boolean {

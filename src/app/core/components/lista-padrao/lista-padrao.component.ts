@@ -4,7 +4,7 @@ import { OpcoesTabela } from '../../models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
 import { Direcao } from '../../utils/direction';
 import { Tamanhos } from '../../utils/tamanho-pagina';
-import { ModalService } from '../../services/modal.service';
+import { MessageService } from '../../services/modal.service';
 import { DefinicaoActions } from '../../models/definicao-actions';
 import { DefinicaoModal } from '../../models/modal-definicao';
 
@@ -22,7 +22,7 @@ export class ListaPadraoComponent implements OnInit {
   direcaoOrdenacao: string = null;
   colunaOrdenacao: string = null;
 
-  constructor(private modalService: ModalService) {}
+  constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.buscar();
@@ -60,7 +60,7 @@ export class ListaPadraoComponent implements OnInit {
     );
 
     if (acao.temConfirmacao)
-      this.modalService.abrirModal(modalDef).then((e) => {
+      this.messageService.abrirModal(modalDef).then((e) => {
         if (e) acao.callback(item);
       });
     else {

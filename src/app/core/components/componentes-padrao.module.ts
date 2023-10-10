@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NgbPaginationModule,
   NgbTypeaheadModule,
@@ -10,6 +10,7 @@ import { ListaPadraoComponent } from './lista-padrao/lista-padrao.component';
 import { DynamicFilterComponent } from './dynamic-filter/dynamic-filter.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ModalMessageComponent } from './modal-message/modal-message.component';
+import { RefreshModalComponent } from './refresh-modal/refresh-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,15 @@ import { ModalMessageComponent } from './modal-message/modal-message.component';
     DynamicFilterComponent,
     AutocompleteComponent,
     ModalMessageComponent,
+    RefreshModalComponent,
   ],
-  imports: [CommonModule, NgbPaginationModule, FormsModule, NgbTypeaheadModule],
+  imports: [
+    CommonModule,
+    NgbPaginationModule,
+    FormsModule,
+    NgbTypeaheadModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     ListaPadraoComponent,
     DynamicFilterComponent,

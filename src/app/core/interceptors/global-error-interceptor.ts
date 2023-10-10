@@ -7,13 +7,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError, finalize, throwError } from 'rxjs';
+import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { DefinicaoModal } from '../models/modal-definicao';
-import { ModalService } from '../services/modal.service';
+import { MessageService } from '../services/modal.service';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
-  private severityErrors = [
+  private errosDeServidor: number[] = [
     HttpStatusCode.InternalServerError,
     HttpStatusCode.NotImplemented,
     HttpStatusCode.BadGateway,
@@ -27,29 +27,37 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     HttpStatusCode.NetworkAuthenticationRequired,
   ];
 
-  constructor(private modalService: ModalService) {}
+  constructor(private messageService: MessageService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(req).pipe(
       finalize(() => {}),
-      catchError((httpError: HttpErrorResponse) => this.captureError(httpError))
+      catchError((httpError: HttpErrorResponse) => this.errorHandler(httpError))
     );
   }
-  captureError(httpError: HttpErrorResponse) {
-    let error = this.severityErrors.includes(httpError.status)
-      ? 'Infelizmente, uma falha inesperada ocorreu em nossos servidores. Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico para obter assistência.'
-      : httpError.error.errors;
 
-    const mensagemTratada = this.tratarMensagem(error);
+  errorHandler(httpError: HttpErrorResponse): Observable<never> {
+    if (httpError.status === HttpStatusCode.Unauthorized)
+      return throwError(() => new Error('Erro de Autenticação'));
 
-    const modalDef = new DefinicaoModal('Erro', mensagemTratada, false);
+    const mensagensDeErro = httpError.error?.errors;
 
-    this.modalService.abrirModal(modalDef);
+    let erros =
+      this.errosDeServidor.includes(httpError.status) ||
+      mensagensDeErro === undefined
+        ? 'Infelizmente, uma falha inesperada ocorreu em nossos servidores. Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico para obter assistência.'
+        : mensagensDeErro;
+
+    const mensagemTratada = this.formatarMensagem(erros);
+
+    this.messageService.abrirModal(
+      new DefinicaoModal('Erro', mensagemTratada, false)
+    );
 
     return throwError(() => new Error(mensagemTratada));
   }
 
-  tratarMensagem(mensagem: string) {
+  formatarMensagem(mensagem: string) {
     return JSON.stringify(mensagem).replace(/[{}"\[\]]/g, '');
   }
 }

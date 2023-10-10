@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { AutenticacaoService } from 'src/app/services/usuario.service';
 
@@ -12,7 +12,15 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private autenticacaoService: AutenticacaoService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const isValid = this.autenticacaoService.isUserLoggedIn();
+    const containsAuthApi = req.url.includes('autenticacao');
+
+    if (!isValid && !containsAuthApi) {
+      this.autenticacaoService.refreshToken();
+    }
+
     const token = this.autenticacaoService.getToken();
+
     let request = req;
 
     if (token) {

@@ -6,7 +6,7 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
 @Injectable({
   providedIn: 'root',
 })
-export class ModalService {
+export class MessageService {
   constructor(private modalService: NgbModal) {}
 
   abrirModal(modalDef: DefinicaoModal) {

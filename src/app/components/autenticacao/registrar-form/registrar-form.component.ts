@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AutenticacaoService } from './../../../services/usuario.service';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { MessageService } from 'src/app/core/services/modal.service';
 import { DefinicaoModal } from 'src/app/core/models/modal-definicao';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegistrarFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private autenticacaoService: AutenticacaoService,
-    private modalService: ModalService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class RegistrarFormComponent implements OnInit {
     this.autenticacaoService
       .registrar(this.form.value)
       .subscribe(() => {
-        this.modalService.abrirModal(new DefinicaoModal('Sucesso!', 'Usuario criado com sucesso!', false))
+        this.messageService.abrirModal(new DefinicaoModal('Sucesso!', 'Usuario criado com sucesso!', false))
         this.router.navigate(['/autenticacao/login']);
       });
   }
