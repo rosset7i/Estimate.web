@@ -2,8 +2,13 @@ import { PaginadoOrdenadoRequest } from '../../../core/models/paginado-ordenado-
 
 export class ProdutoPaginadoRequest extends PaginadoOrdenadoRequest {
   nome: string;
+  idsDeProdutosParaFiltrar: string[];
 
-  constructor(nome: string, request: PaginadoOrdenadoRequest) {
+  constructor(
+    nome: string,
+    idsDeProdutosParaFiltrar: string[],
+    request: PaginadoOrdenadoRequest
+  ) {
     super(
       request.pagina,
       request.tamanhoDePagina,
@@ -11,5 +16,6 @@ export class ProdutoPaginadoRequest extends PaginadoOrdenadoRequest {
       request.ordem
     );
     this.nome = nome;
+    this.idsDeProdutosParaFiltrar = idsDeProdutosParaFiltrar;
   }
 }

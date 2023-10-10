@@ -14,6 +14,7 @@ import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
 export class ProdutoPickerComponent implements OnInit {
   opcoes: OpcoesTabela;
   parametro: string;
+  idsProdutosParaFiltrar: string[];
   @Output() itemAdicionadoEmmiter = new EventEmitter<any>();
 
   constructor(private produtoService: ProdutoService) {}
@@ -33,6 +34,7 @@ export class ProdutoPickerComponent implements OnInit {
 
   buscar(paginadoRequest: ProdutoPaginadoRequest) {
     paginadoRequest.nome = this.parametro;
+    paginadoRequest.idsDeProdutosParaFiltrar = this.idsProdutosParaFiltrar;
 
     this.produtoService
       .buscaProdutosPaginado(paginadoRequest)

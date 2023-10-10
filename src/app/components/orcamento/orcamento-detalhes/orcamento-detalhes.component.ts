@@ -5,8 +5,8 @@ import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
+import { BuscarFornecedoresPaginadoRequest } from '../../fornecedor/models/fornecedor-paginado-request';
 import { FornecedorResponse } from '../../fornecedor/models/fornecedor-response';
-import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
 
 @Component({
   selector: 'app-orcamento-detalhes',
@@ -47,7 +47,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
 
   private buscarFornecedores() {
     const pagina = new PaginadoOrdenadoRequest(1, 10, null, null);
-    const pagina2 = new ProdutoPaginadoRequest(null, pagina);
+    const pagina2 = new BuscarFornecedoresPaginadoRequest(null, pagina);
     this.fornecedorService
       .buscaFornecedoresPaginado(pagina2)
       .subscribe((e) => (this.fornecedores = e.itens));
