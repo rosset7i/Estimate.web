@@ -12,7 +12,7 @@ import jwtDecode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
+export class AutenticacaoService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   public login(loginRequest: LoginRequest) {

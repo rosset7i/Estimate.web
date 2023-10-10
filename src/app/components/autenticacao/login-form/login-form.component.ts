@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UsuarioService } from './../../../services/usuario.service';
+import { AutenticacaoService } from './../../../services/usuario.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +13,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService
+    private autenticacaoService: AutenticacaoService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    this.usuarioService.login(this.form.value);
+    this.autenticacaoService.login(this.form.value);
   }
 
   get canSave(): boolean {
