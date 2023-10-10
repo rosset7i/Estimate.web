@@ -35,6 +35,11 @@ export class AutenticacaoService {
     );
   }
 
+  public logout() {
+    this.removeToken();
+    this.router.navigate(['/autenticacao/login']);
+  }
+
   public getToken(): string {
     return localStorage.getItem('token');
   }
