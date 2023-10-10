@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AutenticacaoService } from './../../../services/usuario.service';
-import { MessageService } from 'src/app/core/services/modal.service';
+import { MessageService } from 'src/app/core/services/message.service';
 import { DefinicaoModal } from 'src/app/core/models/modal-definicao';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegistrarFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private autenticacaoService: AutenticacaoService,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -39,12 +39,12 @@ export class RegistrarFormComponent implements OnInit {
   }
 
   registrar() {
-    this.autenticacaoService
-      .registrar(this.form.value)
-      .subscribe(() => {
-        this.messageService.abrirModal(new DefinicaoModal('Sucesso!', 'Usuario criado com sucesso!', false))
-        this.router.navigate(['/autenticacao/login']);
-      });
+    this.autenticacaoService.registrar(this.form.value).subscribe(() => {
+      this.messageService.abrirModalComMensagem(
+        new DefinicaoModal('Sucesso!', 'Usuario criado com sucesso!', false)
+      );
+      this.router.navigate(['/autenticacao/login']);
+    });
   }
 
   get canSave(): boolean {

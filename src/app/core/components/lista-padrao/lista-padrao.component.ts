@@ -4,7 +4,7 @@ import { OpcoesTabela } from '../../models/opcoes-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
 import { Direcao } from '../../utils/direction';
 import { Tamanhos } from '../../utils/tamanho-pagina';
-import { MessageService } from '../../services/modal.service';
+import { MessageService } from '../../services/message.service';
 import { DefinicaoActions } from '../../models/definicao-actions';
 import { DefinicaoModal } from '../../models/modal-definicao';
 
@@ -60,7 +60,7 @@ export class ListaPadraoComponent implements OnInit {
     );
 
     if (acao.temConfirmacao)
-      this.messageService.abrirModal(modalDef).then((e) => {
+      this.messageService.abrirModalComMensagem(modalDef).then((e) => {
         if (e) acao.callback(item);
       });
     else {

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { DefinicaoModal } from '../models/modal-definicao';
-import { MessageService } from '../services/modal.service';
+import { MessageService } from '../services/message.service';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
@@ -50,7 +50,7 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
 
     const mensagemTratada = this.formatarMensagem(erros);
 
-    this.messageService.abrirModal(
+    this.messageService.abrirModalComMensagem(
       new DefinicaoModal('Erro', mensagemTratada, false)
     );
 

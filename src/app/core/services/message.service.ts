@@ -9,11 +9,15 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
 export class MessageService {
   constructor(private modalService: NgbModal) {}
 
-  abrirModal(modalDef: DefinicaoModal) {
+  abrirModalComMensagem(modalDef: DefinicaoModal) {
     const modalRef = this.modalService.open(ModalMessageComponent);
 
     modalRef.componentInstance.modalDef = modalDef;
 
-    return modalRef.result;
+    return modalRef.result.catch(() => this.errorSupressor());
+  }
+
+  errorSupressor() {
+    return;
   }
 }

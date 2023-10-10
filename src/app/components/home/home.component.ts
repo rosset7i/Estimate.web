@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DefinicaoModal } from 'src/app/core/models/modal-definicao';
 
-import { MessageService } from 'src/app/core/services/modal.service';
+import { MessageService } from 'src/app/core/services/message.service';
 import { AutenticacaoService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class HomeComponent {
 
   logout() {
     this.messageService
-      .abrirModal(
+      .abrirModalComMensagem(
         new DefinicaoModal(
           'Atenção!',
           'Você tem certeza que deseja sair?',
