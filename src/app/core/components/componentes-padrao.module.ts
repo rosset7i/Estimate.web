@@ -11,6 +11,7 @@ import { DynamicFilterComponent } from './dynamic-filter/dynamic-filter.componen
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ModalMessageComponent } from './modal-message/modal-message.component';
 import { RefreshModalComponent } from './refresh-modal/refresh-modal.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RefreshModalComponent } from './refresh-modal/refresh-modal.component';
     AutocompleteComponent,
     ModalMessageComponent,
     RefreshModalComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { RefreshModalComponent } from './refresh-modal/refresh-modal.component';
     ListaPadraoComponent,
     DynamicFilterComponent,
     AutocompleteComponent,
+    LoadingComponent,
   ],
 })
 export class ComponentesPadraoModule {}

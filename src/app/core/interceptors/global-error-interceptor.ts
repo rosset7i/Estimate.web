@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { DefinicaoModal } from '../models/modal-definicao';
 import { MessageService } from '../services/message.service';
+import { LoadingService } from '../services/loading.service';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
@@ -27,11 +28,26 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     HttpStatusCode.NetworkAuthenticationRequired,
   ];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private loadingService: LoadingService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    let finalizou = false;
+    const timer = 500;
+
+    setTimeout(() => {
+      if (!finalizou) {
+        this.loadingService.mostrar();
+      }
+    }, timer);
+
     return next.handle(req).pipe(
-      finalize(() => {}),
+      finalize(() => {
+        finalizou = true;
+        this.loadingService.esconder();
+      }),
       catchError((httpError: HttpErrorResponse) => this.errorHandler(httpError))
     );
   }
