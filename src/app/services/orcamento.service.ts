@@ -15,7 +15,8 @@ import { ServiceBase } from '../core/services/service-base.service';
   providedIn: 'root',
 })
 export class OrcamentoService extends ServiceBase {
-  produtoAdicionado = new Subject<any>();
+  public adicionarProduto = new Subject<any>();
+  public removerProduto = new Subject<any>();
 
   constructor(private httpClient: HttpClient) {
     super();

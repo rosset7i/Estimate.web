@@ -35,25 +35,4 @@
 
 <hr />
 
-<div class="row">
-  <div class="col-8">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Produtos</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">No Orçamento</h6>
-        <app-produtos-do-orcamento [form]="form"></app-produtos-do-orcamento>
-      </div>
-    </div>
-  </div>
-  <div class="col-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Produtos</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Para Adicionar</h6>
-        <app-produto-picker
-          (itemAdicionadoEmmiter)="adicionarNoOrcamento($event)"
-        ></app-produto-picker>
-      </div>
-    </div>
-  </div>
-</div>
+<app-seletor-produtos [form]="form"></app-seletor-produtos>

@@ -17,7 +17,6 @@ export class OrcamentoDetalhesComponent implements OnInit {
   form: FormGroup;
   fornecedores: FornecedorResponse[];
   opcoes: OpcoesTabela;
-  parametro: string;
   searchFields = ['nome'];
 
   constructor(
@@ -39,10 +38,6 @@ export class OrcamentoDetalhesComponent implements OnInit {
       fornecedorDoOrcamentoId: ['', Validators.required],
       produtosNoOrcamento: this.formBuilder.array([]),
     });
-  }
-
-  adicionarNoOrcamento(produto: any) {
-    this.orcamentoService.produtoAdicionado.next(produto);
   }
 
   private buscarFornecedores() {

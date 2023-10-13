@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Produtos</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">No Orçamento</h6>
+        <form [formGroup]="form">
+          <table class="table table-striped table-hover">
+            <caption>
+              Produtos no Orçamento
+            </caption>
+
+            <thead>
+              <tr>
+                <th class="col-6">
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm">
+                      <i class="bi bi-arrow-down-up"></i>
+                    </button>
+                    Nome
+                  </div>
+                </th>
+                <th class="col-2">
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm">
+                      <i class="bi bi-arrow-down-up"></i>
+                    </button>
+                    Qtde
+                  </div>
+                </th>
+                <th class="col-2">
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm">
+                      <i class="bi bi-arrow-down-up"></i>
+                    </button>
+                    Preço
+                  </div>
+                </th>
+                <th class="col-2">Ações</th>
+              </tr>
+            </thead>
+
+            <tbody formArrayName="produtosNoOrcamento">
+              <tr
+                *ngFor="let row of rows.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <td>
+                  <input
+                    type="text"
+                    class="form-control-plaintext"
+                    formControlName="nome"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.5"
+                    class="form-control"
+                    formControlName="quantidade"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.5"
+                    class="form-control"
+                    formControlName="precoUnitario"
+                  />
+                </td>
+                <td>
+                  <button
+                    (click)="removerProduto(i)"
+                    class="btn btn-outline-danger btn-sm"
+                  >
+                    <i class="bi bi-dash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Produtos</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Para Adicionar</h6>
+        <app-dynamic-filter
+          [nomeDoCampo]="'Nome'"
+          (parametro)="filtrar($event)"
+        ></app-dynamic-filter>
+        <app-lista-padrao [opcoesTabela]="opcoes"></app-lista-padrao>
+      </div>
+    </div>
+  </div>
+</div>
