@@ -4,6 +4,7 @@
     id="typeahead"
     type="text"
     class="form-control"
+    [(ngModel)]="selecionado"
     [disabled]="desativar"
     [ngbTypeahead]="search"
     (selectItem)="emitSelectedItem($event)"

@@ -14,6 +14,7 @@ import {
   styleUrls: ['./autocomplete.component.css'],
 })
 export class AutocompleteComponent {
+  @Input() selecionado: any;
   @Input() values: any[];
   @Input() desativar: boolean;
   @Input() searchFields: string[];

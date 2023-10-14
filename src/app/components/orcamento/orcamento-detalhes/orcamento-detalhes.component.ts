@@ -21,6 +21,7 @@ import { ProdutosNoOrcamentoResponse } from '../models/produto-no-orcamento-resp
 export class OrcamentoDetalhesComponent implements OnInit {
   form: FormGroup;
   orcamentoId: string;
+  selecionado: string;
   produtosNoOrcamento: ProdutosNoOrcamentoResponse[];
   fornecedores: FornecedorResponse[];
   opcoes: OpcoesTabela;
@@ -56,6 +57,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
   configurarForm(orcamentoDetalhes: DetalhesOrcamentoResponse) {
     this.form.get('nome').setValue(orcamentoDetalhes.nome);
     this.form.get('fornecedorId').setValue(orcamentoDetalhes.idFornecedor);
+    this.selecionado = orcamentoDetalhes.nomeFornecedor;
     this.produtosNoOrcamento = orcamentoDetalhes.produtosNoOrcamentoResponse;
 
     if (this.router.url.includes('visualizar')) {

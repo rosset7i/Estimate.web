@@ -18,8 +18,9 @@
       <app-autocomplete
         [values]="fornecedores"
         [desativar]="desativado"
+        [selecionado]="selecionado"
         [searchFields]="searchFields"
-        [placeholder]="'Fornecedor'"
+        placeholder="Fornecedor"
         (selected)="selecionarFornecedor($event)"
       >
       </app-autocomplete>
