@@ -17,7 +17,7 @@ export class MessageService {
     return modalRef.result.catch(() => this.errorSupressor());
   }
 
-  errorSupressor() {
+  private errorSupressor() {
     return;
   }
 }

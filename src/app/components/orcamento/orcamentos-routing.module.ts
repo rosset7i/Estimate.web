@@ -7,6 +7,8 @@ import { OrcamentoDetalhesComponent } from './orcamento-detalhes/orcamento-detal
 const routes: Routes = [
   { path: '', component: OrcamentosComponent },
   { path: 'criar', component: OrcamentoDetalhesComponent },
+  { path: ':orcamentoId/editar', component: OrcamentoDetalhesComponent },
+  { path: ':orcamentoId/visualizar', component: OrcamentoDetalhesComponent },
 ];
 
 @NgModule({

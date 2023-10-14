@@ -34,6 +34,7 @@
         <td>
           <button
             *ngFor="let acao of opcoesTabela.acoes"
+            [disabled]="acao.desativado"
             (click)="chamarMetodo(acao, item)"
             [ngClass]="acao.bootstrapButtonClass"
           >

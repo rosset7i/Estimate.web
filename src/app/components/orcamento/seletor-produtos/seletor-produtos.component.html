@@ -73,6 +73,7 @@
                 <td>
                   <button
                     (click)="removerProduto(i)"
+                    [disabled]="desativado"
                     class="btn btn-outline-danger btn-sm"
                   >
                     <i class="bi bi-dash"></i>

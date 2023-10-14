@@ -40,6 +40,14 @@ export class OrcamentoListComponent implements OnInit {
       .subscribe((e) => (this.opcoes.itensResponse = e));
   }
 
+  navegarEdicaoOrcamento(orcamentoId: string) {
+    this.router.navigate([`home/orcamentos/${orcamentoId}/editar`]);
+  }
+
+  navegarVisualizacaoOrcamento(orcamentoId: string) {
+    this.router.navigate([`home/orcamentos/${orcamentoId}/visualizar`]);
+  }
+
   editarOrcamento(
     orcamentoId: string,
     atualizarOrcamento: AtualizarOrcamentoRequest
@@ -77,11 +85,21 @@ export class OrcamentoListComponent implements OnInit {
     const acoes = [
       new DefinicaoActions(
         null,
+        'bi bi-eye',
+        'btn btn-outline-dark me-2',
+        (orcamento) => this.navegarVisualizacaoOrcamento(orcamento.id),
+        false,
+        null,
+        false
+      ),
+      new DefinicaoActions(
+        null,
         'bi bi-pencil',
         'btn btn-outline-dark me-2',
-        null,
+        (orcamento) => this.navegarEdicaoOrcamento(orcamento.id),
         false,
-        null
+        null,
+        false
       ),
       new DefinicaoActions(
         null,
@@ -89,7 +107,8 @@ export class OrcamentoListComponent implements OnInit {
         'btn btn-outline-danger me-2',
         (orcamento) => this.removerOrcamento(orcamento.id),
         true,
-        MENSAGEM_REMOVER
+        MENSAGEM_REMOVER,
+        false
       ),
     ];
 

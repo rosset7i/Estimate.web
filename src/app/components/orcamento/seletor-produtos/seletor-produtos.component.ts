@@ -6,6 +6,7 @@ import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
+import { ProdutosNoOrcamentoResponse } from '../models/produto-no-orcamento-response';
 
 @Component({
   selector: 'app-seletor-produtos',
@@ -14,6 +15,8 @@ import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-re
 })
 export class SeletorProdutosComponent implements OnInit {
   @Input() form: FormGroup;
+  @Input() produtosSelecionados: ProdutosNoOrcamentoResponse[];
+  @Input() desativado: boolean = false;
   public opcoes: OpcoesTabela;
   private parametro: string;
   private idsProdutosParaFiltrar: string[] = [];
@@ -25,10 +28,15 @@ export class SeletorProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.criarOpcoes();
+    this.adicionarDados();
   }
 
   get rows(): FormArray {
     return this.form.get('produtosNoOrcamento') as FormArray;
+  }
+
+  private adicionarDados() {
+    this.produtosSelecionados.forEach((e) => this.adicionarProduto(e));
   }
 
   private adicionarLinhaNoForm(produto: any) {
@@ -50,10 +58,13 @@ export class SeletorProdutosComponent implements OnInit {
       ],
     });
 
+    if (this.desativado) rowFormGroup.disable();
+
     this.rows.push(rowFormGroup);
   }
 
   public removerProduto(index: number) {
+    this.form.markAsDirty();
     this.rows.removeAt(index);
     this.idsProdutosParaFiltrar.splice(index, 1);
     this.opcoes.refreshTable();
@@ -102,7 +113,8 @@ export class SeletorProdutosComponent implements OnInit {
         'btn btn-outline-success btn-sm',
         (produtoId: string) => this.adicionarProduto(produtoId),
         false,
-        null
+        null,
+        this.desativado
       ),
     ];
 

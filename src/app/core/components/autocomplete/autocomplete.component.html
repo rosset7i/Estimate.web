@@ -4,6 +4,7 @@
     id="typeahead"
     type="text"
     class="form-control"
+    [disabled]="desativar"
     [ngbTypeahead]="search"
     (selectItem)="emitSelectedItem($event)"
     (focus)="onFocus.next($any($event).target.value)"

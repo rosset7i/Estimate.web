@@ -15,6 +15,7 @@ import {
 })
 export class AutocompleteComponent {
   @Input() values: any[];
+  @Input() desativar: boolean;
   @Input() searchFields: string[];
   @Input() placeholder: string = '';
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();

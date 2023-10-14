@@ -99,7 +99,8 @@ export class FornecedorListComponent implements OnInit {
         'btn btn-outline-dark me-2',
         (fornecedor) => this.openModal(fornecedor?.id),
         false,
-        null
+        null,
+        false
       ),
       new DefinicaoActions(
         null,
@@ -107,7 +108,8 @@ export class FornecedorListComponent implements OnInit {
         'btn btn-outline-danger me-2',
         (fornecedor) => this.remover(fornecedor?.id),
         true,
-        MENSAGEM_REMOVER
+        MENSAGEM_REMOVER,
+        false
       ),
     ];
 

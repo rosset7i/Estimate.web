@@ -5,6 +5,7 @@ export class DefinicaoActions {
   callback: Function;
   temConfirmacao: boolean;
   mensagemPersonalizada: string;
+  desativado: boolean;
 
   constructor(
     nome: string,
@@ -12,7 +13,8 @@ export class DefinicaoActions {
     bootstrap: string,
     callback: Function,
     temConfirmacao: boolean,
-    mensagemPersonalizada: string
+    mensagemPersonalizada: string,
+    desativado: boolean
   ) {
     this.nome = nome;
     this.icone = icone;
@@ -20,5 +22,6 @@ export class DefinicaoActions {
     this.callback = callback;
     this.temConfirmacao = temConfirmacao;
     this.mensagemPersonalizada = mensagemPersonalizada;
+    this.desativado = desativado;
   }
 }

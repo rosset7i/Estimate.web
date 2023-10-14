@@ -1,4 +1,4 @@
-<h2>Criar Orçamento</h2>
+<h2>Orçamento</h2>
 
 <form [formGroup]="form">
   <div class="row mt-3">
@@ -17,6 +17,7 @@
     <div class="col-6">
       <app-autocomplete
         [values]="fornecedores"
+        [desativar]="desativado"
         [searchFields]="searchFields"
         [placeholder]="'Fornecedor'"
         (selected)="selecionarFornecedor($event)"
@@ -28,11 +29,15 @@
 
 <div class="d-flex justify-content-end">
   <button (click)="save()" [disabled]="!canSave" class="btn btn-success">
-    <i class="bi bi-plus"></i>
-    Novo
+    Salvar
   </button>
 </div>
 
 <hr />
 
-<app-seletor-produtos [form]="form"></app-seletor-produtos>
+<app-seletor-produtos
+  *ngIf="produtosNoOrcamento"
+  [form]="form"
+  [desativado]="desativado"
+  [produtosSelecionados]="produtosNoOrcamento"
+></app-seletor-produtos>

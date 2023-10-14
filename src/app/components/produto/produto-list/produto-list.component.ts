@@ -94,7 +94,8 @@ export class ProdutoListComponent implements OnInit {
         'btn btn-outline-dark me-2',
         (produto) => this.openModal(produto?.id),
         false,
-        null
+        null,
+        false
       ),
       new DefinicaoActions(
         null,
@@ -102,7 +103,8 @@ export class ProdutoListComponent implements OnInit {
         'btn btn-outline-danger me-2',
         (produto) => this.removerProduto(produto.id),
         true,
-        MENSAGEM_REMOVER
+        MENSAGEM_REMOVER,
+        false
       ),
     ];
 
