@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { AcaoDaTabela } from 'src/app/core/models/acao-da-tabela';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
-import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
+import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { AtualizarProdutoRequest } from '../models/atualizar-produto-request';
 import { ProdutoPaginadoRequest } from '../models/produto-paginado-request';
@@ -17,7 +17,7 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./produto-list.component.css'],
 })
 export class ProdutoListComponent implements OnInit {
-  opcoes: OpcoesTabela;
+  opcoes: DefinicaoTabela;
   parametro: string;
 
   constructor(
@@ -29,7 +29,7 @@ export class ProdutoListComponent implements OnInit {
     this.criarOpcoes();
   }
 
-  openModal(produtoId?: string) {
+  abrirModal(produtoId?: string) {
     const modalRef = this.modalService.open(ProdutoModalComponent);
 
     modalRef.componentInstance.produtoId = produtoId;
@@ -72,7 +72,7 @@ export class ProdutoListComponent implements OnInit {
   }
 
   criarOpcoes() {
-    this.opcoes = new OpcoesTabela(
+    this.opcoes = new DefinicaoTabela(
       'Produtos',
       this.criarColunas(),
       this.criarAcoes(),
@@ -81,31 +81,31 @@ export class ProdutoListComponent implements OnInit {
   }
 
   criarColunas() {
-    const definicoes = [new DefinicaoColuna('Nome', 'nome', true)];
+    const definicoes: DefinicaoColuna[] = [
+      {
+        nome: 'Nome',
+        mapearPara: 'nome',
+        temSorting: true,
+      },
+    ];
 
     return definicoes;
   }
 
   criarAcoes() {
-    const acoes = [
-      new DefinicaoActions(
-        null,
-        'bi bi-pencil',
-        'btn btn-outline-dark me-2',
-        (produto) => this.openModal(produto?.id),
-        false,
-        null,
-        false
-      ),
-      new DefinicaoActions(
-        null,
-        'bi bi-trash',
-        'btn btn-outline-danger me-2',
-        (produto) => this.removerProduto(produto.id),
-        true,
-        MENSAGEM_REMOVER,
-        false
-      ),
+    const acoes: AcaoDaTabela[] = [
+      {
+        icone: 'bi bi-pencil',
+        classePersonalizada: 'btn btn-outline-dark me-2',
+        callback: (produto) => this.abrirModal(produto?.id),
+      },
+      {
+        icone: 'bi bi-trash',
+        classePersonalizada: 'btn btn-outline-danger me-2',
+        callback: (produto) => this.removerProduto(produto.id),
+        temConfirmacao: true,
+        mensagemConfirmacao: MENSAGEM_REMOVER,
+      },
     ];
 
     return acoes;

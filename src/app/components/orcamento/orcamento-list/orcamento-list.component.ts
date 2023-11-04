@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { AcaoDaTabela } from 'src/app/core/models/acao-da-tabela';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
-import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
+import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { AtualizarOrcamentoRequest } from '../models/atualizar-orcamento-request';
 import { OrcamentoPaginadoRequest } from '../models/orcamento-paginado-request';
@@ -15,7 +15,7 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./orcamento-list.component.css'],
 })
 export class OrcamentoListComponent implements OnInit {
-  opcoes: OpcoesTabela;
+  opcoes: DefinicaoTabela;
   parametro: string;
 
   constructor(
@@ -64,7 +64,7 @@ export class OrcamentoListComponent implements OnInit {
   }
 
   criarOpcoes() {
-    this.opcoes = new OpcoesTabela(
+    this.opcoes = new DefinicaoTabela(
       'Orçamentos',
       this.criarColunas(),
       this.criarAcoes(),
@@ -73,43 +73,42 @@ export class OrcamentoListComponent implements OnInit {
   }
 
   criarColunas() {
-    const definicoes = [
-      new DefinicaoColuna('Nome', 'nome', true),
-      new DefinicaoColuna('Fornecedor', 'nomeFornecedor', false),
+    const definicoes: DefinicaoColuna[] = [
+      {
+        nome: 'Nome',
+        mapearPara: 'nome',
+        temSorting: true,
+      },
+      {
+        nome: 'Fornecedor',
+        mapearPara: 'nomeFornecedor',
+        temSorting: false,
+      },
     ];
 
     return definicoes;
   }
 
   criarAcoes() {
-    const acoes = [
-      new DefinicaoActions(
-        null,
-        'bi bi-eye',
-        'btn btn-outline-dark me-2',
-        (orcamento) => this.navegarVisualizacaoOrcamento(orcamento.id),
-        false,
-        null,
-        false
-      ),
-      new DefinicaoActions(
-        null,
-        'bi bi-pencil',
-        'btn btn-outline-dark me-2',
-        (orcamento) => this.navegarEdicaoOrcamento(orcamento.id),
-        false,
-        null,
-        false
-      ),
-      new DefinicaoActions(
-        null,
-        'bi bi-trash',
-        'btn btn-outline-danger me-2',
-        (orcamento) => this.removerOrcamento(orcamento.id),
-        true,
-        MENSAGEM_REMOVER,
-        false
-      ),
+    const acoes: AcaoDaTabela[] = [
+      {
+        icone: 'bi bi-eye',
+        classePersonalizada: 'btn btn-outline-dark me-2',
+        callback: (orcamento) =>
+          this.navegarVisualizacaoOrcamento(orcamento.id),
+      },
+      {
+        icone: 'bi bi-pencil',
+        classePersonalizada: 'btn btn-outline-dark me-2',
+        callback: (orcamento) => this.navegarEdicaoOrcamento(orcamento.id),
+      },
+      {
+        icone: 'bi bi-trash',
+        classePersonalizada: 'btn btn-outline-danger me-2',
+        callback: (orcamento) => this.removerOrcamento(orcamento.id),
+        temConfirmacao: true,
+        mensagemConfirmacao: MENSAGEM_REMOVER,
+      },
     ];
 
     return acoes;

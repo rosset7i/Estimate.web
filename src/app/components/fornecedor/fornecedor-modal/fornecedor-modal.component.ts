@@ -13,7 +13,6 @@ import { FornecedorResponse } from '../models/fornecedor-response';
 export class FornecedorModalComponent implements OnInit {
   form: FormGroup;
 
-  @Output() emitFormValue = new EventEmitter<any>();
   @Input() fornecedorId: string;
 
   constructor(
@@ -31,7 +30,7 @@ export class FornecedorModalComponent implements OnInit {
     this.form.controls['nome'].setValue(fornecedor.nome);
   }
 
-  private async buscarUsuarioSeExistir() {
+  private buscarUsuarioSeExistir() {
     if (this.fornecedorId)
       this.fornecedorService
         .buscaFornecedorDetalhes(this.fornecedorId)
@@ -44,11 +43,11 @@ export class FornecedorModalComponent implements OnInit {
     });
   }
 
-  get canSave(): boolean {
+  get canSave() {
     return this.form.valid && this.form.dirty;
   }
 
-  public save() {
+  save() {
     this.activeModal.close(this.form.value);
   }
 }

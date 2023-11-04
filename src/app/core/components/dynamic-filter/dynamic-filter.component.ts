@@ -7,10 +7,11 @@ import { Subject, debounceTime } from 'rxjs';
   styleUrls: ['./dynamic-filter.component.css'],
 })
 export class DynamicFilterComponent {
-  @Input() nomeDoCampo: string = '';
   parametroDeFiltro: string = '';
-  @Output() parametro = new EventEmitter<string>();
   parametroDeFiltroSubject = new Subject<void>();
+
+  @Output() parametro = new EventEmitter<string>();
+  @Input() nomeDoCampo: string = '';
 
   constructor() {
     this.listener();

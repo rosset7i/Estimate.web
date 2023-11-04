@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { AcaoDaTabela } from 'src/app/core/models/acao-da-tabela';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
-import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
+import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
 import { ProdutoService } from 'src/app/services/produto.service';
 import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
 import { ProdutosNoOrcamentoResponse } from '../models/produto-no-orcamento-response';
@@ -14,12 +14,13 @@ import { ProdutosNoOrcamentoResponse } from '../models/produto-no-orcamento-resp
   styleUrls: ['./seletor-produtos.component.css'],
 })
 export class SeletorProdutosComponent implements OnInit {
+  public opcoes: DefinicaoTabela;
+  private parametro: string;
+  private idsProdutosParaFiltrar: string[] = [];
+
   @Input() form: FormGroup;
   @Input() produtosSelecionados: ProdutosNoOrcamentoResponse[];
   @Input() desativado: boolean = false;
-  public opcoes: OpcoesTabela;
-  private parametro: string;
-  private idsProdutosParaFiltrar: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,19 +29,19 @@ export class SeletorProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.criarOpcoes();
-    this.adicionarDados();
+    this.mapearDados();
   }
 
-  get rows(): FormArray {
+  get linhas() {
     return this.form.get('produtosNoOrcamento') as FormArray;
   }
 
-  private adicionarDados() {
+  private mapearDados() {
     this.produtosSelecionados.forEach((e) => this.adicionarProduto(e));
   }
 
   private adicionarLinhaNoForm(produto: any) {
-    const rowFormGroup = this.formBuilder.group({
+    const linhaDoForm = this.formBuilder.group({
       produtoId: [produto.id, Validators.required],
       nome: [
         {
@@ -58,14 +59,14 @@ export class SeletorProdutosComponent implements OnInit {
       ],
     });
 
-    if (this.desativado) rowFormGroup.disable();
+    if (this.desativado) linhaDoForm.disable();
 
-    this.rows.push(rowFormGroup);
+    this.linhas.push(linhaDoForm);
   }
 
   public removerProduto(index: number) {
     this.form.markAsDirty();
-    this.rows.removeAt(index);
+    this.linhas.removeAt(index);
     this.idsProdutosParaFiltrar.splice(index, 1);
     this.opcoes.refreshTable();
   }
@@ -91,7 +92,7 @@ export class SeletorProdutosComponent implements OnInit {
   }
 
   private criarOpcoes() {
-    this.opcoes = new OpcoesTabela(
+    this.opcoes = new DefinicaoTabela(
       'Produtos',
       this.criarColunas(),
       this.criarAcoes(),
@@ -100,22 +101,25 @@ export class SeletorProdutosComponent implements OnInit {
   }
 
   private criarColunas() {
-    const definicoes = [new DefinicaoColuna('Nome', 'nome', true)];
+    const definicoes: DefinicaoColuna[] = [
+      {
+        nome: 'Nome',
+        mapearPara: 'nome',
+        temSorting: true,
+      },
+    ];
 
     return definicoes;
   }
 
   private criarAcoes() {
-    const acoes = [
-      new DefinicaoActions(
-        null,
-        'bi bi-plus',
-        'btn btn-outline-success btn-sm',
-        (produtoId: string) => this.adicionarProduto(produtoId),
-        false,
-        null,
-        this.desativado
-      ),
+    const acoes: AcaoDaTabela[] = [
+      {
+        icone: 'bi bi-plus',
+        classePersonalizada: 'btn btn-outline-success btn-sm',
+        callback: (produtoId: string) => this.adicionarProduto(produtoId),
+        desativado: this.desativado,
+      },
     ];
 
     return acoes;

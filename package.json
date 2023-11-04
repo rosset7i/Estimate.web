@@ -48,7 +48,7 @@
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
-      "<rootDir>dist/"
+      "<rootDir>/dist/"
     ],
     "globals": {
       "ts-jest": {

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { OpcoesTabela } from '../../models/opcoes-tabela';
+import { DefinicaoTabela } from '../../models/definicao-tabela';
 import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
 import { Direcao } from '../../utils/direction';
 import { Tamanhos } from '../../utils/tamanho-pagina';
 import { MessageService } from '../../services/message.service';
-import { DefinicaoActions } from '../../models/definicao-actions';
+import { AcaoDaTabela } from '../../models/acao-da-tabela';
 import { DefinicaoModal } from '../../models/modal-definicao';
 
 @Component({
@@ -14,7 +14,7 @@ import { DefinicaoModal } from '../../models/modal-definicao';
   styleUrls: ['./lista-padrao.component.css'],
 })
 export class ListaPadraoComponent implements OnInit {
-  @Input() opcoesTabela: OpcoesTabela;
+  @Input() opcoesTabela: DefinicaoTabela;
 
   tamanhoOpcoes = Tamanhos;
   tamanho: number = 10;
@@ -29,7 +29,7 @@ export class ListaPadraoComponent implements OnInit {
     this.refreshTable();
   }
 
-  onSort(coluna: string) {
+  ordenar(coluna: string) {
     this.colunaOrdenacao = coluna;
 
     if (this.direcaoOrdenacao === Direcao.ASC) {
@@ -52,10 +52,10 @@ export class ListaPadraoComponent implements OnInit {
     this.opcoesTabela.getCallback(paginadoRequest);
   }
 
-  chamarMetodo(acao: DefinicaoActions, item: any) {
+  chamarMetodo(acao: AcaoDaTabela, item: any) {
     const modalDef = new DefinicaoModal(
       'Atenção!',
-      acao.mensagemPersonalizada,
+      acao.mensagemConfirmacao,
       true
     );
 

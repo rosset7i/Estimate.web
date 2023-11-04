@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
+import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
 import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
@@ -24,7 +24,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
   selecionado: string;
   produtosNoOrcamento: ProdutosNoOrcamentoResponse[];
   fornecedores: FornecedorResponse[];
-  opcoes: OpcoesTabela;
+  opcoes: DefinicaoTabela;
   desativado: boolean = false;
   searchFields = ['nome'];
 
@@ -85,16 +85,16 @@ export class OrcamentoDetalhesComponent implements OnInit {
       .subscribe((e) => (this.fornecedores = e.itens));
   }
 
-  public selecionarFornecedor(fornecedor: FornecedorResponse): void {
+  public selecionarFornecedor(fornecedor: FornecedorResponse) {
     this.form.markAsDirty();
     this.form.get('fornecedorId').setValue(fornecedor.id);
   }
 
-  get canSave(): boolean {
+  get canSave() {
     return this.form.valid && this.form.dirty;
   }
 
-  save() {
+  salvar() {
     if (this.orcamentoId) {
       this.orcamentoService
         .atualizarOrcamento(this.orcamentoId, this.form.value)

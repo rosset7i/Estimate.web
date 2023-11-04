@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RefreshModalComponent implements OnInit {
   form: FormGroup;
+
   @Input() email: string;
 
   constructor(
@@ -17,10 +18,10 @@ export class RefreshModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
+    this.criarForm();
   }
 
-  createForm() {
+  criarForm() {
     this.form = this.formBuilder.group({
       email: [
         this.email,
@@ -34,7 +35,7 @@ export class RefreshModalComponent implements OnInit {
     this.activeModal.close(this.form.value);
   }
 
-  get canSave(): boolean {
+  get canSave() {
     return this.form.valid;
   }
 }

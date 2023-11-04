@@ -14,7 +14,7 @@
               <button
                 *ngIf="d.temSorting"
                 class="btn"
-                (click)="onSort(d.mapearPara)"
+                (click)="ordenar(d.mapearPara)"
               >
                 <i class="bi bi-arrow-down-up"></i>
               </button>
@@ -36,10 +36,10 @@
             *ngFor="let acao of opcoesTabela.acoes"
             [disabled]="acao.desativado"
             (click)="chamarMetodo(acao, item)"
-            [ngClass]="acao.bootstrapButtonClass"
+            [ngClass]="acao.classePersonalizada"
           >
             <i [ngClass]="acao.icone"></i>
-            {{ acao.nome }}
+            {{ acao.texto }}
           </button>
         </td>
       </tr>

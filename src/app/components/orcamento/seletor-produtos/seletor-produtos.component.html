@@ -27,7 +27,7 @@
 
             <tbody formArrayName="produtosNoOrcamento">
               <tr
-                *ngFor="let row of rows.controls; let i = index"
+                *ngFor="let linha of linhas.controls; let i = index"
                 [formGroupName]="i"
               >
                 <td>

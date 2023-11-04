@@ -1,20 +1,20 @@
 import { Subject } from 'rxjs';
-import { DefinicaoActions } from './definicao-actions';
+import { AcaoDaTabela } from './acao-da-tabela';
 import { DefinicaoColuna } from './definicao-coluna';
 import { ResultadoPaginadoDe } from './resultado-paginado';
 
-export class OpcoesTabela {
+export class DefinicaoTabela {
   nomeDaTabela: string;
   itensResponse: ResultadoPaginadoDe<any>;
   colunas: DefinicaoColuna[];
-  acoes: DefinicaoActions[];
+  acoes: AcaoDaTabela[];
   getCallback: Function;
   refresh = new Subject<void>();
 
   constructor(
     nomeDaTabela: string,
     colunas: DefinicaoColuna[],
-    acoes: DefinicaoActions[],
+    acoes: AcaoDaTabela[],
     getCallback: Function
   ) {
     this.nomeDaTabela = nomeDaTabela;

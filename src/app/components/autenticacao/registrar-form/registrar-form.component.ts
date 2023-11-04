@@ -22,10 +22,10 @@ export class RegistrarFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
+    this.criarForm();
   }
 
-  createForm() {
+  criarForm() {
     this.form = this.formBuilder.group({
       nome: [null, Validators.required],
       userName: [null, Validators.required],
@@ -47,7 +47,7 @@ export class RegistrarFormComponent implements OnInit {
     });
   }
 
-  get canSave(): boolean {
+  get canSave() {
     return this.form.valid;
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { DefinicaoActions } from 'src/app/core/models/definicao-actions';
+import { AcaoDaTabela } from 'src/app/core/models/acao-da-tabela';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
-import { OpcoesTabela } from 'src/app/core/models/opcoes-tabela';
+import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 import { FornecedorModalComponent } from '../fornecedor-modal/fornecedor-modal.component';
 import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
@@ -17,7 +17,7 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./fornecedor-list.component.css'],
 })
 export class FornecedorListComponent implements OnInit {
-  opcoes: OpcoesTabela;
+  opcoes: DefinicaoTabela;
   parametro: string;
 
   constructor(
@@ -26,10 +26,10 @@ export class FornecedorListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.construirOptions();
+    this.criarTabela();
   }
 
-  openModal(fornecedorId?: string) {
+  abrirModal(fornecedorId?: string) {
     const modalRef = this.modalService.open(FornecedorModalComponent);
 
     modalRef.componentInstance.fornecedorId = fornecedorId;
@@ -76,41 +76,41 @@ export class FornecedorListComponent implements OnInit {
       .subscribe(() => this.opcoes.refreshTable());
   }
 
-  construirOptions() {
-    this.opcoes = new OpcoesTabela(
+  criarTabela() {
+    this.opcoes = new DefinicaoTabela(
       'Fornecedores',
-      this.definicoesColuna(),
-      this.definicoesActions(),
+      this.criarColunas(),
+      this.criarAcoes(),
       (request) => this.buscar(request)
     );
   }
 
-  definicoesColuna(): DefinicaoColuna[] {
-    const definicoes = [new DefinicaoColuna('Nome', 'nome', true)];
+  criarColunas() {
+    const definicoes: DefinicaoColuna[] = [
+      {
+        nome: 'Nome',
+        mapearPara: 'nome',
+        temSorting: true,
+      },
+    ];
 
     return definicoes;
   }
 
-  definicoesActions(): DefinicaoActions[] {
-    const definicoes: DefinicaoActions[] = [
-      new DefinicaoActions(
-        null,
-        'bi bi-pencil',
-        'btn btn-outline-dark me-2',
-        (fornecedor) => this.openModal(fornecedor?.id),
-        false,
-        null,
-        false
-      ),
-      new DefinicaoActions(
-        null,
-        'bi bi-trash',
-        'btn btn-outline-danger me-2',
-        (fornecedor) => this.remover(fornecedor?.id),
-        true,
-        MENSAGEM_REMOVER,
-        false
-      ),
+  criarAcoes() {
+    const definicoes: AcaoDaTabela[] = [
+      {
+        icone: 'bi bi-pencil',
+        classePersonalizada: 'btn btn-outline-dark me-2',
+        callback: (fornecedor) => this.abrirModal(fornecedor?.id),
+      },
+      {
+        icone: 'bi bi-trash',
+        classePersonalizada: 'btn btn-outline-danger me-2',
+        callback: (fornecedor) => this.remover(fornecedor?.id),
+        temConfirmacao: true,
+        mensagemConfirmacao: MENSAGEM_REMOVER,
+      },
     ];
 
     return definicoes;

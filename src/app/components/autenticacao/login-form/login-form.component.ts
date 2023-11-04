@@ -19,10 +19,10 @@ export class LoginFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
+    this.criarForm();
   }
 
-  createForm() {
+  criarForm() {
     this.form = this.formBuilder.group({
       email: [
         null,
@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  get canSave(): boolean {
+  get canSave() {
     return this.form.valid;
   }
 }
