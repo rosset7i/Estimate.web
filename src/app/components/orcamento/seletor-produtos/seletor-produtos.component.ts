@@ -84,7 +84,7 @@ export class SeletorProdutosComponent implements OnInit {
 
   private buscar(paginadoRequest: ProdutoPaginadoRequest) {
     paginadoRequest.nome = this.parametro;
-    paginadoRequest.idsDeProdutosParaFiltrar = this.idsProdutosParaFiltrar;
+    paginadoRequest.produtoIdsParaFiltrar = this.idsProdutosParaFiltrar;
 
     this.produtoService
       .buscaProdutosPaginado(paginadoRequest)

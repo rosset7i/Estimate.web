@@ -2,7 +2,7 @@ import { PaginadoOrdenadoRequest } from '../../../core/models/paginado-ordenado-
 
 export class ProdutoPaginadoRequest extends PaginadoOrdenadoRequest {
   nome: string;
-  idsDeProdutosParaFiltrar: string[];
+  produtoIdsParaFiltrar: string[];
 
   constructor(
     nome: string,
@@ -16,6 +16,6 @@ export class ProdutoPaginadoRequest extends PaginadoOrdenadoRequest {
       request.ordem
     );
     this.nome = nome;
-    this.idsDeProdutosParaFiltrar = idsDeProdutosParaFiltrar;
+    this.produtoIdsParaFiltrar = idsDeProdutosParaFiltrar;
   }
 }

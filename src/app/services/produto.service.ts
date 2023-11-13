@@ -21,9 +21,9 @@ export class ProdutoService extends ServiceBase {
   private buildProdutoFilter(request: ProdutoPaginadoRequest) {
     let params = this.buildParams(request);
     if (request.nome) params = params.append('nome', request.nome);
-    if (request.idsDeProdutosParaFiltrar)
-      request.idsDeProdutosParaFiltrar.forEach(
-        (e) => (params = params.append('idsDeProdutosParaFiltrar', e))
+    if (request.produtoIdsParaFiltrar)
+      request.produtoIdsParaFiltrar.forEach(
+        (e) => (params = params.append('produtoIdsParaFiltrar', e))
       );
 
     return params;

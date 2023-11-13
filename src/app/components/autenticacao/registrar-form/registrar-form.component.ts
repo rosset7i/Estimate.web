@@ -28,7 +28,6 @@ export class RegistrarFormComponent implements OnInit {
   criarForm() {
     this.form = this.formBuilder.group({
       nome: [null, Validators.required],
-      userName: [null, Validators.required],
       telefone: [null, Validators.required],
       email: [
         null,
