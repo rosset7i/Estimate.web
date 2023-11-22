@@ -5,11 +5,11 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { AutenticacaoService } from 'src/app/services/usuario.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private autenticacaoService: AutenticacaoService) {}
+  constructor(private autenticacaoService: AuthenticationService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const isValid = this.autenticacaoService.isUserLoggedIn();

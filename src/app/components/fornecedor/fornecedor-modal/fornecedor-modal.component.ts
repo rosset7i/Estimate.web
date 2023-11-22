@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { SupplierService } from 'src/app/services/fornecedor.service';
 import { FornecedorResponse } from '../models/fornecedor-response';
 
 @Component({
@@ -17,7 +17,7 @@ export class FornecedorModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private fornecedorService: FornecedorService,
+    private fornecedorService: SupplierService,
     public activeModal: NgbActiveModal
   ) {}
 
@@ -33,7 +33,7 @@ export class FornecedorModalComponent implements OnInit {
   private buscarUsuarioSeExistir() {
     if (this.fornecedorId)
       this.fornecedorService
-        .buscaFornecedorDetalhes(this.fornecedorId)
+        .fetchSupplierDetails(this.fornecedorId)
         .subscribe((e: FornecedorResponse) => this.mapearValores(e));
   }
 

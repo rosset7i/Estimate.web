@@ -6,21 +6,24 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { AutenticacaoService } from 'src/app/services/usuario.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AutenticacaoGuard implements CanActivate {
-  constructor(private router: Router, private autenticacaoService: AutenticacaoService) {}
+export class AuthenticationGuard implements CanActivate {
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.autenticacaoService.isUserLoggedIn()) return true;
+    if (this.authenticationService.isUserLoggedIn()) return true;
 
-    this.router.navigate(['/autenticacao/login']);
+    this.router.navigate(['/authentication/login']);
     return false;
   }
 }

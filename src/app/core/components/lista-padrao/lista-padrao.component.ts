@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { DefinicaoTabela } from '../../models/definicao-tabela';
-import { PaginadoOrdenadoRequest } from '../../models/paginado-ordenado-request';
+import { PagedAndSortedRequest } from '../../models/paged-and-sorted-request';
 import { Direcao } from '../../utils/direction';
 import { Tamanhos } from '../../utils/tamanho-pagina';
 import { MessageService } from '../../services/message.service';
 import { AcaoDaTabela } from '../../models/acao-da-tabela';
-import { DefinicaoModal } from '../../models/modal-definicao';
+import { ModalDefinition } from '../../models/modal-definition';
 
 @Component({
   selector: 'app-lista-padrao',
@@ -42,7 +42,7 @@ export class ListaPadraoComponent implements OnInit {
   }
 
   buscar() {
-    const paginadoRequest = new PaginadoOrdenadoRequest(
+    const paginadoRequest = new PagedAndSortedRequest(
       this.paginalAtual,
       this.tamanho,
       this.colunaOrdenacao,
@@ -53,14 +53,14 @@ export class ListaPadraoComponent implements OnInit {
   }
 
   chamarMetodo(acao: AcaoDaTabela, item: any) {
-    const modalDef = new DefinicaoModal(
+    const modalDef = new ModalDefinition(
       'Atenção!',
       acao.mensagemConfirmacao,
       true
     );
 
     if (acao.temConfirmacao)
-      this.messageService.abrirModalComMensagem(modalDef).then((e) => {
+      this.messageService.openMessageModal(modalDef).then((e) => {
         if (e) acao.callback(item);
       });
     else {

@@ -1,3 +1,3 @@
-export enum Api{
-  ORCAMENTO_API = '/api/v1'
+export enum Api {
+  ESTIMATE_API = '/api/v1',
 }

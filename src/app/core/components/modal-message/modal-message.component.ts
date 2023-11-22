@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DefinicaoModal } from '../../models/modal-definicao';
+import { ModalDefinition } from '../../models/modal-definition';
 
 @Component({
   selector: 'app-modal-message',
@@ -8,15 +8,15 @@ import { DefinicaoModal } from '../../models/modal-definicao';
   styleUrls: ['./modal-message.component.css'],
 })
 export class ModalMessageComponent {
-  @Input() modalDef: DefinicaoModal;
+  @Input() modalDef: ModalDefinition;
 
   constructor(public activeModal: NgbActiveModal) {}
 
-  confirmar() {
+  confirm() {
     this.activeModal.close(true);
   }
 
-  cancelar() {
+  cancel() {
     this.activeModal.close(false);
   }
 }

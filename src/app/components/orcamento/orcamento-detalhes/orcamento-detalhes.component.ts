@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
-import { PaginadoOrdenadoRequest } from 'src/app/core/models/paginado-ordenado-request';
-import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { PagedAndSortedRequest } from 'src/app/core/models/paged-and-sorted-request';
+import { SupplierService } from 'src/app/services/fornecedor.service';
 import { OrcamentoService } from 'src/app/services/orcamento.service';
 import { BuscarFornecedoresPaginadoRequest } from '../../fornecedor/models/fornecedor-paginado-request';
 import { FornecedorResponse } from '../../fornecedor/models/fornecedor-response';
 import { MessageService } from 'src/app/core/services/message.service';
-import { DefinicaoModal } from 'src/app/core/models/modal-definicao';
+import { ModalDefinition } from 'src/app/core/models/modal-definition';
 import { DetalhesOrcamentoResponse } from '../models/detalhes-orcamento-response';
 import { ProdutosNoOrcamentoResponse } from '../models/produto-no-orcamento-response';
 
@@ -33,7 +33,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private fornecedorService: FornecedorService,
+    private fornecedorService: SupplierService,
     private orcamentoService: OrcamentoService
   ) {}
 
@@ -78,10 +78,10 @@ export class OrcamentoDetalhesComponent implements OnInit {
   }
 
   private buscarFornecedores() {
-    const pagina = new PaginadoOrdenadoRequest(1, 10, null, null);
+    const pagina = new PagedAndSortedRequest(1, 10, null, null);
     const pagina2 = new BuscarFornecedoresPaginadoRequest(null, pagina);
     this.fornecedorService
-      .buscaFornecedoresPaginado(pagina2)
+      .fetchPagedSuppliers(pagina2)
       .subscribe((e) => (this.fornecedores = e.itens));
   }
 
@@ -112,8 +112,8 @@ export class OrcamentoDetalhesComponent implements OnInit {
   }
 
   notificar() {
-    this.messageService.abrirModalComMensagem(
-      new DefinicaoModal('Sucesso!', null, false)
+    this.messageService.openMessageModal(
+      new ModalDefinition('Sucesso!', null, false)
     );
   }
 }

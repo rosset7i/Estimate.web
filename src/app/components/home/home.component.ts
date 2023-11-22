@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DefinicaoModal } from 'src/app/core/models/modal-definicao';
+import { ModalDefinition } from 'src/app/core/models/modal-definition';
 
 import { MessageService } from 'src/app/core/services/message.service';
-import { AutenticacaoService } from 'src/app/services/usuario.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +11,14 @@ import { AutenticacaoService } from 'src/app/services/usuario.service';
 })
 export class HomeComponent {
   constructor(
-    private autenticacaoService: AutenticacaoService,
+    private autenticacaoService: AuthenticationService,
     private messageService: MessageService
   ) {}
 
   logout() {
     this.messageService
-      .abrirModalComMensagem(
-        new DefinicaoModal(
+      .openMessageModal(
+        new ModalDefinition(
           'Atenção!',
           'Você tem certeza que deseja sair?',
           true

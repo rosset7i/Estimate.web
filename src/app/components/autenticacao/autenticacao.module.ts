@@ -4,10 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AutenticacaoRoutingModule } from './autenticacao-routing.module';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { RegistrarFormComponent } from './registrar-form/registrar-form.component';
+import { RegisterFormComponent } from './registrar-form/register-form.component';
 
 @NgModule({
-  declarations: [LoginFormComponent, RegistrarFormComponent],
+  declarations: [LoginFormComponent, RegisterFormComponent],
   imports: [CommonModule, AutenticacaoRoutingModule, ReactiveFormsModule],
 })
 export class AutenticacaoModule {}

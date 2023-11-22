@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AcaoDaTabela } from 'src/app/core/models/acao-da-tabela';
 import { DefinicaoColuna } from 'src/app/core/models/definicao-coluna';
 import { DefinicaoTabela } from 'src/app/core/models/definicao-tabela';
-import { FornecedorService } from 'src/app/services/fornecedor.service';
+import { SupplierService } from 'src/app/services/fornecedor.service';
 import { FornecedorModalComponent } from '../fornecedor-modal/fornecedor-modal.component';
 import { AtualizarFornecedorRequest } from '../models/atualizar-fornecedor-request';
 import { CriarFornecedorRequest } from '../models/criar-fornecedor-request';
@@ -21,7 +21,7 @@ export class FornecedorListComponent implements OnInit {
   parametro: string;
 
   constructor(
-    private fornecedorService: FornecedorService,
+    private fornecedorService: SupplierService,
     private modalService: NgbModal
   ) {}
 
@@ -49,7 +49,7 @@ export class FornecedorListComponent implements OnInit {
     request.nome = this.parametro;
 
     this.fornecedorService
-      .buscaFornecedoresPaginado(request)
+      .fetchPagedSuppliers(request)
       .subscribe((response) => {
         this.opcoes.itensResponse = response;
       });
@@ -57,7 +57,7 @@ export class FornecedorListComponent implements OnInit {
 
   criarFornecedor(request: CriarFornecedorRequest) {
     this.fornecedorService
-      .criarFornecedor(request)
+      .createSupplier(request)
       .subscribe(() => this.opcoes.refreshTable());
   }
 
@@ -66,13 +66,13 @@ export class FornecedorListComponent implements OnInit {
     atualizarFornecedorRequest: AtualizarFornecedorRequest
   ) {
     this.fornecedorService
-      .atualizarFornecedor(fornecedorId, atualizarFornecedorRequest)
+      .updateSupplier(fornecedorId, atualizarFornecedorRequest)
       .subscribe(() => this.opcoes.refreshTable());
   }
 
   remover(fornecedorId: string) {
     this.fornecedorService
-      .removerFornecedor(fornecedorId)
+      .deleteSupplier(fornecedorId)
       .subscribe(() => this.opcoes.refreshTable());
   }
 

@@ -8,13 +8,13 @@
   ></button>
 </div>
 <div class="modal-body">
-  {{ modalDef.mensagem }}
+  {{ modalDef.message }}
 </div>
-<div *ngIf="modalDef.modalDeConfirmacao" class="modal-footer">
-  <button type="button" class="btn btn-outline-success" (click)="confirmar()">
+<div *ngIf="modalDef.hasConfirmation" class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="confirm()">
     Confirmar
   </button>
-  <button type="button" class="btn btn-outline-danger" (click)="cancelar()">
+  <button type="button" class="btn btn-outline-danger" (click)="cancel()">
     Cancelar
   </button>
 </div>

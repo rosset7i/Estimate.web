@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AutenticacaoService } from './../../../services/usuario.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,27 +14,27 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private autenticacaoService: AutenticacaoService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.criarForm();
+    this.createForm();
   }
 
-  criarForm() {
+  createForm() {
     this.form = this.formBuilder.group({
       email: [
         null,
         Validators.compose([Validators.required, Validators.email]),
       ],
-      senha: [null, Validators.required],
+      password: [null, Validators.required],
     });
   }
 
   login() {
-    this.autenticacaoService.login(this.form.value).subscribe((token) => {
-      this.autenticacaoService.setToken(token.token);
+    this.authenticationService.login(this.form.value).subscribe((token) => {
+      this.authenticationService.setToken(token.token);
       this.router.navigate(['/home']);
     });
   }

@@ -1,15 +1,10 @@
-import { PaginadoOrdenadoRequest } from '../../../core/models/paginado-ordenado-request';
+import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
-export class BuscarFornecedoresPaginadoRequest extends PaginadoOrdenadoRequest {
+export class BuscarFornecedoresPaginadoRequest extends PagedAndSortedRequest {
   nome: string;
 
-  constructor(nome: string, request: PaginadoOrdenadoRequest) {
-    super(
-      request.pagina,
-      request.tamanhoDePagina,
-      request.ordenarPor,
-      request.ordem
-    );
+  constructor(nome: string, request: PagedAndSortedRequest) {
+    super(request.page, request.pageSize, request.sortBy, request.direction);
     this.nome = nome;
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DefinicaoModal } from '../models/modal-definicao';
+import { ModalDefinition } from '../models/modal-definition';
 import { ModalMessageComponent } from '../components/modal-message/modal-message.component';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
 export class MessageService {
   constructor(private modalService: NgbModal) {}
 
-  abrirModalComMensagem(modalDef: DefinicaoModal) {
+  openMessageModal(modalDef: ModalDefinition) {
     const modalRef = this.modalService.open(ModalMessageComponent);
 
     modalRef.componentInstance.modalDef = modalDef;

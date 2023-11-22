@@ -9,8 +9,25 @@
         <div class="col-5">
           <div class="card-body">
             <h1>Estimate</h1>
-            <h4 class="text-secondary">Login</h4>
-            <form [formGroup]="form" (ngSubmit)="login()">
+            <h4 class="text-secondary">Register</h4>
+            <form [formGroup]="form" (ngSubmit)="register()">
+              <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input
+                  formControlName="nome"
+                  type="text"
+                  class="form-control"
+                  aria-describedby="nameHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input
+                  formControlName="telefone"
+                  type="tel"
+                  class="form-control"
+                />
+              </div>
               <div class="mb-3">
                 <label class="form-label">Email Address</label>
                 <input
@@ -23,7 +40,7 @@
               <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input
-                  formControlName="password"
+                  formControlName="senha"
                   type="password"
                   class="form-control"
                 />
@@ -34,12 +51,13 @@
                 [disabled]="!canSave"
                 class="btn btn-dark me-2"
               >
-                Login
+                Register
               </button>
+
               <a
-                routerLink="/authentication/register"
+                routerLink="/authentication/login"
                 class="btn btn-outline-dark me-2"
-                >Or register right now!</a
+                >I Already Have An Account.</a
               >
             </form>
           </div>

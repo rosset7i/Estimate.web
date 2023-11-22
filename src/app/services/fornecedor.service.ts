@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Api } from 'api';
 import { AtualizarFornecedorRequest } from '../components/fornecedor/models/atualizar-fornecedor-request';
 import { CriarFornecedorRequest } from '../components/fornecedor/models/criar-fornecedor-request';
-import { BuscarFornecedoresPaginadoRequest } from '../components/fornecedor/models/fornecedor-paginado-request';
+import { BuscarFornecedoresPaginadoRequest as PagedAndSortedSupplierRequest } from '../components/fornecedor/models/fornecedor-paginado-request';
 import { FornecedorResponse } from '../components/fornecedor/models/fornecedor-response';
 import { ResultadoPaginadoDe } from '../core/models/resultado-paginado';
 import { ServiceBase } from '../core/services/service-base.service';
@@ -13,14 +13,12 @@ import { ServiceBase } from '../core/services/service-base.service';
 @Injectable({
   providedIn: 'root',
 })
-export class FornecedorService extends ServiceBase {
+export class SupplierService extends ServiceBase {
   constructor(private httpClient: HttpClient) {
     super();
   }
 
-  private buildFornecedorParams(
-    paginadoRequest: BuscarFornecedoresPaginadoRequest
-  ) {
+  private buildSupplierParams(paginadoRequest: PagedAndSortedSupplierRequest) {
     let params = this.buildParams(paginadoRequest);
     if (paginadoRequest.nome)
       params = params.append('nome', paginadoRequest.nome);
@@ -28,45 +26,45 @@ export class FornecedorService extends ServiceBase {
     return params;
   }
 
-  public buscaFornecedoresPaginado(
-    paginadoRequest?: BuscarFornecedoresPaginadoRequest
+  public fetchPagedSuppliers(
+    paginadoRequest?: PagedAndSortedSupplierRequest
   ): Observable<ResultadoPaginadoDe<FornecedorResponse>> {
     return this.httpClient.get<ResultadoPaginadoDe<FornecedorResponse>>(
-      `${Api.ORCAMENTO_API}/fornecedores`,
-      { params: this.buildFornecedorParams(paginadoRequest) }
+      `${Api.ESTIMATE_API}/fornecedores`,
+      { params: this.buildSupplierParams(paginadoRequest) }
     );
   }
 
-  public buscaFornecedorDetalhes(
+  public fetchSupplierDetails(
     fornecedorId?: string
   ): Observable<FornecedorResponse> {
     return this.httpClient.get<FornecedorResponse>(
-      `${Api.ORCAMENTO_API}/fornecedores/${fornecedorId}`
+      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}`
     );
   }
 
-  public criarFornecedor(
+  public createSupplier(
     criarFornecedorRequest: CriarFornecedorRequest
   ): Observable<any> {
     return this.httpClient.post(
-      `${Api.ORCAMENTO_API}/fornecedores`,
+      `${Api.ESTIMATE_API}/fornecedores`,
       criarFornecedorRequest
     );
   }
 
-  public atualizarFornecedor(
+  public updateSupplier(
     fornecedorId: string,
     atualizarFornecedorRequest: AtualizarFornecedorRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ORCAMENTO_API}/fornecedores/${fornecedorId}/atualizar`,
+      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}/atualizar`,
       atualizarFornecedorRequest
     );
   }
 
-  public removerFornecedor(fornecedorId: string): Observable<any> {
+  public deleteSupplier(fornecedorId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ORCAMENTO_API}/fornecedores/${fornecedorId}/remover`
+      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}/remover`
     );
   }
 }

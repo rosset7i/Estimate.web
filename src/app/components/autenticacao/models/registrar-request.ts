@@ -1,21 +1,21 @@
-export class RegistrarRequest {
-  nome: string;
+export class RegisterRequest {
+  name: string;
   username: string;
   email: string;
-  telefone: string;
-  senha: string;
+  phone: string;
+  password: string;
 
   constructor(
-    nome: string,
+    name: string,
     username: string,
     email: string,
-    telefone: string,
-    senha: string
+    phone: string,
+    password: string
   ) {
-    this.nome = nome;
+    this.name = name;
     this.username = username;
     this.email = email;
-    this.telefone = telefone;
-    this.senha = senha;
+    this.phone = phone;
+    this.password = password;
   }
 }

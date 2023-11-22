@@ -33,14 +33,14 @@ export class ProdutoService extends ServiceBase {
     paginadoRequest: ProdutoPaginadoRequest
   ): Observable<ResultadoPaginadoDe<ProdutoResponse>> {
     return this.httpClient.get<ResultadoPaginadoDe<ProdutoResponse>>(
-      `${Api.ORCAMENTO_API}/produtos`,
+      `${Api.ESTIMATE_API}/produtos`,
       { params: this.buildProdutoFilter(paginadoRequest) }
     );
   }
 
   public buscaProdutosDetalhes(produtoId: string): Observable<ProdutoResponse> {
     return this.httpClient.get<ProdutoResponse>(
-      `${Api.ORCAMENTO_API}/produtos/${produtoId}`
+      `${Api.ESTIMATE_API}/produtos/${produtoId}`
     );
   }
 
@@ -48,7 +48,7 @@ export class ProdutoService extends ServiceBase {
     criarProdutoRequest: CriarProdutoRequest
   ): Observable<any> {
     return this.httpClient.post(
-      `${Api.ORCAMENTO_API}/produtos`,
+      `${Api.ESTIMATE_API}/produtos`,
       criarProdutoRequest
     );
   }
@@ -58,14 +58,14 @@ export class ProdutoService extends ServiceBase {
     atualizarProdutoRequest: AtualizarProdutoRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ORCAMENTO_API}/produtos/${produtoId}/atualizar`,
+      `${Api.ESTIMATE_API}/produtos/${produtoId}/atualizar`,
       atualizarProdutoRequest
     );
   }
 
   public removerProduto(produtoId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ORCAMENTO_API}/produtos/${produtoId}/remover`
+      `${Api.ESTIMATE_API}/produtos/${produtoId}/remover`
     );
   }
 }

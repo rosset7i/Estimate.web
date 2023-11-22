@@ -2,32 +2,32 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { AutenticacaoGuard } from './components/autenticacao/autenticacao.guard';
+import { AuthenticationGuard } from './components/autenticacao/autenticacao.guard';
 import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [AutenticacaoGuard],
+    canActivate: [AuthenticationGuard],
     children: [
       { path: '', component: HomeMenuComponent },
       {
-        path: 'orcamentos',
+        path: 'estimates',
         loadChildren: () =>
           import('./components/orcamento/orcamentos.module').then(
             (m) => m.OrcamentosModule
           ),
       },
       {
-        path: 'fornecedores',
+        path: 'suppliers',
         loadChildren: () =>
           import('./components/fornecedor/fornecedores.module').then(
             (m) => m.FornecedoresModule
           ),
       },
       {
-        path: 'produtos',
+        path: 'products',
         loadChildren: () =>
           import('./components/produto/produtos.module').then(
             (m) => m.ProdutosModule
@@ -36,7 +36,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'autenticacao',
+    path: 'authentication',
     loadChildren: () =>
       import('./components/autenticacao/autenticacao.module').then(
         (m) => m.AutenticacaoModule

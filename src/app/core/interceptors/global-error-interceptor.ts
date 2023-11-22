@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 
 import { Observable, catchError, finalize, throwError } from 'rxjs';
-import { DefinicaoModal } from '../models/modal-definicao';
+import { ModalDefinition } from '../models/modal-definition';
 import { MessageService } from '../services/message.service';
 import { LoadingService } from '../services/loading.service';
 
@@ -66,8 +66,8 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
 
     const mensagemTratada = this.formatarMensagem(erros);
 
-    this.messageService.abrirModalComMensagem(
-      new DefinicaoModal('Erro', mensagemTratada, false)
+    this.messageService.openMessageModal(
+      new ModalDefinition('Erro', mensagemTratada, false)
     );
 
     return throwError(() => new Error(mensagemTratada));

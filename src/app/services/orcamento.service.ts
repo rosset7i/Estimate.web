@@ -36,7 +36,7 @@ export class OrcamentoService extends ServiceBase {
     paginadoRequest: OrcamentoPaginadoRequest
   ): Observable<ResultadoPaginadoDe<OrcamentoResponse>> {
     return this.httpClient.get<ResultadoPaginadoDe<OrcamentoResponse>>(
-      `${Api.ORCAMENTO_API}/orcamentos`,
+      `${Api.ESTIMATE_API}/orcamentos`,
       { params: this.buildOrcamentoParams(paginadoRequest) }
     );
   }
@@ -45,7 +45,7 @@ export class OrcamentoService extends ServiceBase {
     orcamentoId: string
   ): Observable<DetalhesOrcamentoResponse> {
     return this.httpClient.get<DetalhesOrcamentoResponse>(
-      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}`
+      `${Api.ESTIMATE_API}/orcamentos/${orcamentoId}`
     );
   }
 
@@ -53,7 +53,7 @@ export class OrcamentoService extends ServiceBase {
     criarOrcamentoRequest: CriarOrcamentoRequest
   ): Observable<any> {
     return this.httpClient.post(
-      `${Api.ORCAMENTO_API}/orcamentos`,
+      `${Api.ESTIMATE_API}/orcamentos`,
       criarOrcamentoRequest
     );
   }
@@ -63,14 +63,14 @@ export class OrcamentoService extends ServiceBase {
     atualizarOrcamentoRequest: AtualizarOrcamentoRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/atualizar`,
+      `${Api.ESTIMATE_API}/orcamentos/${orcamentoId}/atualizar`,
       atualizarOrcamentoRequest
     );
   }
 
   public removerOrcamento(orcamentoId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ORCAMENTO_API}/orcamentos/${orcamentoId}/remover`
+      `${Api.ESTIMATE_API}/orcamentos/${orcamentoId}/remover`
     );
   }
 }

@@ -1,26 +1,26 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { PaginadoOrdenadoRequest } from './../models/paginado-ordenado-request';
+import { PagedAndSortedRequest } from '../models/paged-and-sorted-request';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceBase {
   protected buildParams(
-    paginadoOrdenadoRequest: PaginadoOrdenadoRequest
+    pagedAndSortedRequest: PagedAndSortedRequest
   ): HttpParams {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append('pagina', paginadoOrdenadoRequest.pagina);
+    queryParams = queryParams.append('page', pagedAndSortedRequest.page);
     queryParams = queryParams.append(
-      'tamanhoDePagina',
-      paginadoOrdenadoRequest.tamanhoDePagina
+      'pageSize',
+      pagedAndSortedRequest.pageSize
     );
+    queryParams = queryParams.append('sortBy', pagedAndSortedRequest.sortBy);
     queryParams = queryParams.append(
-      'ordenarPor',
-      paginadoOrdenadoRequest.ordenarPor
+      'direction',
+      pagedAndSortedRequest.direction
     );
-    queryParams = queryParams.append('ordem', paginadoOrdenadoRequest.ordem);
 
     return queryParams;
   }
