@@ -1,4 +1,4 @@
-export class FornecedorResponse {
+export class SupplierResponse {
   id: string;
   name: string;
 

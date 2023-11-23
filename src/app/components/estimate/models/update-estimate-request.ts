@@ -1,7 +1,7 @@
 export class UpdateEstimateRequest {
-  nome: string;
+  name: string;
 
   constructor(nome: string) {
-    this.nome = nome;
+    this.name = nome;
   }
 }

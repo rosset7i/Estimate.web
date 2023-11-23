@@ -9,7 +9,7 @@ import { SupplierModalComponent } from '../supplier-modal/supplier-modal.compone
 import { UpdateSupplierRequest } from '../models/update-supplier-request';
 import { CreateSupplierRequest } from '../models/create-supplier-request';
 import { PagedAndSortedSupplierRequest } from '../models/paged-and-sorted-supplier-request';
-import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/const';
 
 @Component({
   selector: 'app-supplier-list',
@@ -81,7 +81,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   createColumns() {
-    const definicoes: ColumnDefinition[] = [
+    const definition: ColumnDefinition[] = [
       {
         name: 'Name',
         mapFrom: 'name',
@@ -89,11 +89,11 @@ export class SupplierListComponent implements OnInit {
       },
     ];
 
-    return definicoes;
+    return definition;
   }
 
   createActions() {
-    const definicoes: ListAction[] = [
+    const actions: ListAction[] = [
       {
         icon: 'bi bi-pencil',
         style: 'btn btn-outline-dark me-2',
@@ -108,6 +108,6 @@ export class SupplierListComponent implements OnInit {
       },
     ];
 
-    return definicoes;
+    return actions;
   }
 }

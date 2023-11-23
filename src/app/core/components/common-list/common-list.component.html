@@ -22,24 +22,24 @@
             </div>
           </th>
         </ng-container>
-        <th *ngIf="listDefinition.actions" class="col-2">Ações</th>
+        <th *ngIf="listDefinition.actions" class="col-2">Actions</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let item of listDefinition.items.items">
-        <td *ngFor="let coluna of listDefinition.columns">
-          {{ item[coluna.mapFrom] }}
+        <td *ngFor="let column of listDefinition.columns">
+          {{ item[column.mapFrom] }}
         </td>
         <td>
           <button
-            *ngFor="let acao of listDefinition.actions"
-            [disabled]="acao.disabled"
-            (click)="callMethod(acao, item)"
-            [ngClass]="acao.style"
+            *ngFor="let action of listDefinition.actions"
+            [disabled]="action.disabled"
+            (click)="callMethod(action, item)"
+            [ngClass]="action.style"
           >
-            <i [ngClass]="acao.icon"></i>
-            {{ acao.text }}
+            <i [ngClass]="action.icon"></i>
+            {{ action.text }}
           </button>
         </td>
       </tr>
@@ -52,7 +52,7 @@
       (change)="fetch()"
       class="form-select me-2"
       style="width: 5rem; height: 2.5rem"
-      aria-label="Tamanho da Lista"
+      aria-label="List Size"
     >
       <option *ngFor="let o of sizeOptions">
         {{ o }}

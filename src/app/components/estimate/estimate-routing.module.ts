@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { OrcamentosComponent } from './estimate.component';
+import { EstimateComponent } from './estimate.component';
 import { EstimateDetailsComponent } from './estimate-details/estimate-details.component';
 
 const routes: Routes = [
-  { path: '', component: OrcamentosComponent },
+  { path: '', component: EstimateComponent },
   { path: 'create', component: EstimateDetailsComponent },
   { path: ':estimateId/edit', component: EstimateDetailsComponent },
   { path: ':estimateId/view', component: EstimateDetailsComponent },
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class OrcamentosRoutingModule {}
+export class EstimateRoutingModule {}

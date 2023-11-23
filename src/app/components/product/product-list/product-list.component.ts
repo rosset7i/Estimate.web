@@ -9,7 +9,7 @@ import { PagedAndSortedProductRequest } from '../models/paged-and-sorted-product
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { CreateProductRequest } from '../models/create-product-request';
-import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/const';
 
 @Component({
   selector: 'app-product-list',
@@ -81,7 +81,7 @@ export class ProductListComponent implements OnInit {
   }
 
   createColumns() {
-    const definicoes: ColumnDefinition[] = [
+    const definition: ColumnDefinition[] = [
       {
         name: 'Name',
         mapFrom: 'name',
@@ -89,11 +89,11 @@ export class ProductListComponent implements OnInit {
       },
     ];
 
-    return definicoes;
+    return definition;
   }
 
   createActions() {
-    const acoes: ListAction[] = [
+    const actions: ListAction[] = [
       {
         icon: 'bi bi-pencil',
         style: 'btn btn-outline-dark me-2',
@@ -108,6 +108,6 @@ export class ProductListComponent implements OnInit {
       },
     ];
 
-    return acoes;
+    return actions;
   }
 }

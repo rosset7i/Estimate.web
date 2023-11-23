@@ -14,7 +14,7 @@ import { LoadingService } from '../services/loading.service';
 
 @Injectable()
 export class GlobalErrorInterceptor implements HttpInterceptor {
-  private errosDeServidor: number[] = [
+  private serverErrors: number[] = [
     HttpStatusCode.InternalServerError,
     HttpStatusCode.NotImplemented,
     HttpStatusCode.BadGateway,
@@ -34,19 +34,19 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    let finalizou = false;
+    let finalized = false;
     const timer = 500;
 
     setTimeout(() => {
-      if (!finalizou) {
-        this.loadingService.mostrar();
+      if (!finalized) {
+        this.loadingService.show();
       }
     }, timer);
 
     return next.handle(req).pipe(
       finalize(() => {
-        finalizou = true;
-        this.loadingService.esconder();
+        finalized = true;
+        this.loadingService.hide();
       }),
       catchError((httpError: HttpErrorResponse) => this.errorHandler(httpError))
     );
@@ -54,26 +54,26 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
 
   errorHandler(httpError: HttpErrorResponse): Observable<never> {
     if (httpError.status === HttpStatusCode.Unauthorized)
-      return throwError(() => new Error('Erro de Autenticação'));
+      return throwError(() => new Error('Auth Error'));
 
-    const mensagensDeErro = httpError.error?.errors;
+    const errorMessages = httpError.error?.Errors;
 
-    let erros =
-      this.errosDeServidor.includes(httpError.status) ||
-      mensagensDeErro === undefined
-        ? 'Infelizmente, uma falha inesperada ocorreu em nossos servidores. Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico para obter assistência.'
-        : mensagensDeErro;
+    let errors =
+      this.serverErrors.includes(httpError.status) ||
+      errorMessages === undefined
+        ? 'Critical error. Please try again, if the problem persists, please contact our support team.'
+        : errorMessages;
 
-    const mensagemTratada = this.formatarMensagem(erros);
+    const formattedMessage = this.formatMessage(errors);
 
     this.messageService.openMessageModal(
-      new ModalDefinition('Erro', mensagemTratada, false)
+      new ModalDefinition('Error', formattedMessage, false)
     );
 
-    return throwError(() => new Error(mensagemTratada));
+    return throwError(() => new Error(formattedMessage));
   }
 
-  formatarMensagem(mensagem: string) {
-    return JSON.stringify(mensagem).replace(/[{}"\[\]]/g, '');
+  formatMessage(message: string) {
+    return JSON.stringify(message).replace(/[{}"\[\]]/g, '');
   }
 }

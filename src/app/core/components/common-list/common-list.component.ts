@@ -29,8 +29,8 @@ export class CommonListComponent implements OnInit {
     this.refreshTable();
   }
 
-  sort(coluna: string) {
-    this.sortColumn = coluna;
+  sort(column: string) {
+    this.sortColumn = column;
 
     if (this.sortDirection === Direction.ASC) {
       this.sortDirection = Direction.DESC;
@@ -42,14 +42,14 @@ export class CommonListComponent implements OnInit {
   }
 
   fetch() {
-    const paginadoRequest = new PagedAndSortedRequest(
+    const pagedRequest = new PagedAndSortedRequest(
       this.currentPage,
       this.size,
       this.sortColumn,
       this.sortDirection
     );
 
-    this.listDefinition.callback(paginadoRequest);
+    this.listDefinition.callback(pagedRequest);
   }
 
   callMethod(action: ListAction, item: any) {

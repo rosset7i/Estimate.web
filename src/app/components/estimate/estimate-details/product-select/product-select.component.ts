@@ -5,15 +5,15 @@ import { ListAction } from 'src/app/core/models/list-action';
 import { ColumnDefinition } from 'src/app/core/models/column-definition';
 import { ListDefinition } from 'src/app/core/models/list-definition';
 import { ProductService } from 'src/app/services/product.service';
-import { ProductsInEstimateResponse } from '../models/product-in-estimate-response';
-import { PagedAndSortedProductRequest } from '../../product/models/paged-and-sorted-product-request';
+import { ProductsInEstimateResponse } from '../../models/product-in-estimate-response';
+import { PagedAndSortedProductRequest } from '../../../product/models/paged-and-sorted-product-request';
 
 @Component({
   selector: 'app-product-select',
   templateUrl: './product-select.component.html',
   styleUrls: ['./product-select.component.css'],
 })
-export class ProdutSelectComponent implements OnInit {
+export class ProductSelectComponent implements OnInit {
   public listDefinition: ListDefinition;
   private param: string;
   private productsIdsToFilter: string[] = [];
@@ -33,35 +33,35 @@ export class ProdutSelectComponent implements OnInit {
   }
 
   get rows() {
-    return this.form.get('productsIdsToFilter') as FormArray;
+    return this.form.get('productsInEstimate') as FormArray;
   }
 
   private mapValues() {
     this.selectedProducts.forEach((e) => this.addProduct(e));
   }
 
-  private addNewForm(produto: any) {
-    const linhaDoForm = this.formBuilder.group({
-      productId: [produto.id, Validators.required],
+  private addNewForm(product: any) {
+    const formRow = this.formBuilder.group({
+      productId: [product.id, Validators.required],
       name: [
         {
-          value: produto.name,
+          value: product.name,
           disabled: true,
         },
       ],
       quantity: [
-        produto.quantidade,
+        product.quantity,
         Validators.compose([Validators.required, Validators.min(0)]),
       ],
       unitPrice: [
-        produto.precoUnitario,
+        product.unitPrice,
         Validators.compose([Validators.required, Validators.min(0)]),
       ],
     });
 
-    if (this.disabled) linhaDoForm.disable();
+    if (this.disabled) formRow.disable();
 
-    this.rows.push(linhaDoForm);
+    this.rows.push(formRow);
   }
 
   public removeProduct(index: number) {
@@ -84,7 +84,7 @@ export class ProdutSelectComponent implements OnInit {
 
   private fetch(request: PagedAndSortedProductRequest) {
     request.name = this.param;
-    request.productIdsToFilter = this.productsIdsToFilter;
+    request.productsIdsToFilter = this.productsIdsToFilter;
 
     this.productService
       .fetchPagedProducts(request)
@@ -101,7 +101,7 @@ export class ProdutSelectComponent implements OnInit {
   }
 
   private createColumns() {
-    const definicoes: ColumnDefinition[] = [
+    const definition: ColumnDefinition[] = [
       {
         name: 'Name',
         mapFrom: 'name',
@@ -109,19 +109,19 @@ export class ProdutSelectComponent implements OnInit {
       },
     ];
 
-    return definicoes;
+    return definition;
   }
 
   private createActions() {
-    const acoes: ListAction[] = [
+    const action: ListAction[] = [
       {
         icon: 'bi bi-plus',
         style: 'btn btn-outline-success btn-sm',
-        callback: (productid: string) => this.addProduct(productid),
+        callback: (productId: string) => this.addProduct(productId),
         disabled: this.disabled,
       },
     ];
 
-    return acoes;
+    return action;
   }
 }

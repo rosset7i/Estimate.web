@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Api } from 'api';
 import { PagedResultOf } from '../core/models/paged-result-of';
 import { ServiceBase } from '../core/services/service-base.service';
-import { FornecedorResponse } from '../components/supplier/models/supplier-response';
+import { SupplierResponse } from '../components/supplier/models/supplier-response';
 import { PagedAndSortedSupplierRequest } from '../components/supplier/models/paged-and-sorted-supplier-request';
 import { CreateSupplierRequest } from '../components/supplier/models/create-supplier-request';
 import { UpdateSupplierRequest } from '../components/supplier/models/update-supplier-request';
@@ -27,8 +27,8 @@ export class SupplierService extends ServiceBase {
 
   public fetchPagedSuppliers(
     request?: PagedAndSortedSupplierRequest
-  ): Observable<PagedResultOf<FornecedorResponse>> {
-    return this.httpClient.get<PagedResultOf<FornecedorResponse>>(
+  ): Observable<PagedResultOf<SupplierResponse>> {
+    return this.httpClient.get<PagedResultOf<SupplierResponse>>(
       `${Api.ESTIMATE_API}/suppliers`,
       { params: this.buildSupplierParams(request) }
     );
@@ -36,8 +36,8 @@ export class SupplierService extends ServiceBase {
 
   public fetchSupplierDetails(
     supplierId?: string
-  ): Observable<FornecedorResponse> {
-    return this.httpClient.get<FornecedorResponse>(
+  ): Observable<SupplierResponse> {
+    return this.httpClient.get<SupplierResponse>(
       `${Api.ESTIMATE_API}/suppliers/${supplierId}`
     );
   }

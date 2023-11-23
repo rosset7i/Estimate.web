@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SupplierService } from 'src/app/services/supplier.service';
-import { FornecedorResponse } from '../models/supplier-response';
+import { SupplierResponse } from '../models/supplier-response';
 
 @Component({
   selector: 'app-supplier-modal',
@@ -26,7 +26,7 @@ export class SupplierModalComponent implements OnInit {
     this.createForm();
   }
 
-  private mapValues(supplier: FornecedorResponse) {
+  private mapValues(supplier: SupplierResponse) {
     this.form.controls['name'].setValue(supplier.name);
   }
 
@@ -34,7 +34,7 @@ export class SupplierModalComponent implements OnInit {
     if (this.supplierId)
       this.supplierService
         .fetchSupplierDetails(this.supplierId)
-        .subscribe((e: FornecedorResponse) => this.mapValues(e));
+        .subscribe((e: SupplierResponse) => this.mapValues(e));
   }
 
   private createForm() {

@@ -7,15 +7,15 @@ import { Subject } from 'rxjs';
 export class LoadingService {
   private loading: Subject<boolean> = new Subject<boolean>();
 
-  mostrar() {
+  show() {
     this.loading.next(true);
   }
 
-  esconder() {
+  hide() {
     this.loading.next(false);
   }
 
-  estaCarregando() {
+  isLoading() {
     return this.loading.asObservable();
   }
 }

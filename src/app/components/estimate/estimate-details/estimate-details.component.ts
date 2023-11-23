@@ -10,7 +10,7 @@ import { MessageService } from 'src/app/core/services/message.service';
 import { ModalDefinition } from 'src/app/core/models/modal-definition';
 import { EstimateDetailsResponse } from '../models/estimate-details-response';
 import { ProductsInEstimateResponse } from '../models/product-in-estimate-response';
-import { FornecedorResponse } from '../../supplier/models/supplier-response';
+import { SupplierResponse } from '../../supplier/models/supplier-response';
 import { PagedAndSortedSupplierRequest } from '../../supplier/models/paged-and-sorted-supplier-request';
 
 @Component({
@@ -23,7 +23,7 @@ export class EstimateDetailsComponent implements OnInit {
   estimateId: string;
   selected: string;
   productsInEstimate: ProductsInEstimateResponse[];
-  suppliers: FornecedorResponse[];
+  suppliers: SupplierResponse[];
   listDefinition: ListDefinition;
   disabled: boolean = false;
   searchFields = ['name'];
@@ -40,7 +40,7 @@ export class EstimateDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSuppliers();
     this.fetchEstimate();
-    this.criarForm();
+    this.createForm();
   }
 
   fetchEstimate() {
@@ -54,40 +54,40 @@ export class EstimateDetailsComponent implements OnInit {
     }
   }
 
-  mapValues(estiamateDetails: EstimateDetailsResponse) {
-    this.form.get('name').setValue(estiamateDetails.name);
-    this.form.get('estimateId').setValue(estiamateDetails.supplierId);
-    this.selected = estiamateDetails.supplierName;
-    this.productsInEstimate = estiamateDetails.productsInEstimate;
+  mapValues(estimateDetails: EstimateDetailsResponse) {
+    this.form.get('name').setValue(estimateDetails.name);
+    this.form.get('supplierId').setValue(estimateDetails.supplierId);
+    this.selected = estimateDetails.supplierName;
+    this.productsInEstimate = estimateDetails.productsInEstimate;
 
-    if (this.router.url.includes('visualizar')) {
+    if (this.router.url.includes('view')) {
       this.form.disable();
       this.disabled = true;
     }
   }
 
-  private criarForm() {
+  private createForm() {
     this.form = this.formBuilder.group({
-      nome: [
+      name: [
         '',
         Validators.compose([Validators.required, Validators.maxLength(75)]),
       ],
-      fornecedorId: ['', Validators.required],
-      produtosNoOrcamento: this.formBuilder.array([]),
+      supplierId: ['', Validators.required],
+      productsInEstimate: this.formBuilder.array([]),
     });
   }
 
   private fetchSuppliers() {
-    const pagina = new PagedAndSortedRequest(1, 10, null, null);
-    const pagina2 = new PagedAndSortedSupplierRequest(null, pagina);
+    const page = new PagedAndSortedRequest(1, 10, null, null);
+    const page2 = new PagedAndSortedSupplierRequest(null, page);
     this.supplierService
-      .fetchPagedSuppliers(pagina2)
+      .fetchPagedSuppliers(page2)
       .subscribe((e) => (this.suppliers = e.items));
   }
 
-  public selectSupplier(fornecedor: FornecedorResponse) {
+  public selectSupplier(supplier: SupplierResponse) {
     this.form.markAsDirty();
-    this.form.get('fornecedorId').setValue(fornecedor.id);
+    this.form.get('supplierId').setValue(supplier.id);
   }
 
   get canSave() {

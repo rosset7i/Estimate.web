@@ -25,7 +25,7 @@
               </tr>
             </thead>
 
-            <tbody formArrayName="produtosNoOrcamento">
+            <tbody formArrayName="productsInEstimate">
               <tr
                 *ngFor="let row of rows.controls; let i = index"
                 [formGroupName]="i"
@@ -34,7 +34,7 @@
                   <input
                     type="text"
                     class="form-control-plaintext"
-                    formControlName="nome"
+                    formControlName="name"
                   />
                 </td>
                 <td>
@@ -43,7 +43,7 @@
                     min="0"
                     step="0.5"
                     class="form-control"
-                    formControlName="quantidade"
+                    formControlName="quantity"
                   />
                 </td>
                 <td>
@@ -52,7 +52,7 @@
                     min="0"
                     step="0.5"
                     class="form-control"
-                    formControlName="precoUnitario"
+                    formControlName="unitPrice"
                   />
                 </td>
                 <td>
@@ -77,8 +77,8 @@
         <h5 class="card-title">Products</h5>
         <h6 class="card-subtitle mb-2 text-body-secondary">To Add</h6>
         <app-dynamic-filter
-          nomeDoCampo="Name"
-          (parametro)="filter($event)"
+          fieldName="Name"
+          (param)="filter($event)"
         ></app-dynamic-filter>
         <app-common-list [listDefinition]="listDefinition"></app-common-list>
       </div>

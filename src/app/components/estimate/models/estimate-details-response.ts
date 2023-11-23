@@ -12,12 +12,12 @@ export class EstimateDetailsResponse {
     name: string,
     supplierId: string,
     supplierName: string,
-    productsInSupplier: ProductsInEstimateResponse[]
+    productsInEstimate: ProductsInEstimateResponse[]
   ) {
     this.id = id;
     this.name = name;
     this.supplierId = supplierId;
     this.supplierName = supplierName;
-    this.productsInEstimate = productsInSupplier;
+    this.productsInEstimate = productsInEstimate;
   }
 }

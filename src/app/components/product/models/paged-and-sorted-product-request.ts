@@ -2,15 +2,15 @@ import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-req
 
 export class PagedAndSortedProductRequest extends PagedAndSortedRequest {
   name: string;
-  productIdsToFilter: string[];
+  productsIdsToFilter: string[];
 
   constructor(
     name: string,
-    productIdsToFilter: string[],
+    productsIdsToFilter: string[],
     request: PagedAndSortedRequest
   ) {
     super(request.page, request.pageSize, request.sortBy, request.direction);
     this.name = name;
-    this.productIdsToFilter = productIdsToFilter;
+    this.productsIdsToFilter = productsIdsToFilter;
   }
 }

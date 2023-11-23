@@ -5,12 +5,12 @@ export class PagedAndSortedEstimateRequest extends PagedAndSortedRequest {
   supplierId: string;
 
   constructor(
-    nome: string,
-    fornecedorId: string,
+    name: string,
+    supplierId: string,
     request: PagedAndSortedRequest
   ) {
     super(request.page, request.pageSize, request.sortBy, request.direction);
-    this.name = nome;
-    this.supplierId = fornecedorId;
+    this.name = name;
+    this.supplierId = supplierId;
   }
 }

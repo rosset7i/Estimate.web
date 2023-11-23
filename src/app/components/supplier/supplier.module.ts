@@ -6,7 +6,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonComponentsModule } from 'src/app/core/components/common.components.module';
 import { SupplierListComponent } from './supplier-list/supplier-list.component';
 import { SupplierModalComponent } from './supplier-modal/supplier-modal.component';
-import { FornecedoresRoutingModule } from './supplier-routing.module';
+import { SupplierRoutingModule } from './supplier-routing.module';
 import { SupplierComponent } from './supplier.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { SupplierComponent } from './supplier.component';
   ],
   imports: [
     CommonModule,
-    FornecedoresRoutingModule,
+    SupplierRoutingModule,
     CommonComponentsModule,
     FormsModule,
     ReactiveFormsModule,

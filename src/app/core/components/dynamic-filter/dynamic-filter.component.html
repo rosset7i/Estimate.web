@@ -3,10 +3,10 @@
     <i class="bi bi-search"></i>
   </span>
   <input
-    [(ngModel)]="parametroDeFiltro"
+    [(ngModel)]="filterParam"
     type="text"
     class="form-control"
-    (input)="parametroDeFiltroSubject.next()"
+    (input)="filterParamSubject.next()"
   />
-  <span class="input-group-text"> {{ nomeDoCampo }} </span>
+  <span class="input-group-text"> {{ fieldName }} </span>
 </div>

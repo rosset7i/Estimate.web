@@ -1,17 +1,17 @@
-import { InserirProdutoNoOrcamentoRequest } from './update-estimade-products-request';
+import { UpdateEstimateProductsRequest } from './update-estimate-products-request';
 
 export class CreateEstimateRequest {
-  nome: string;
-  fornecedorDoOrcamentoId: string;
-  produtosParaInserirNoOrcamento: InserirProdutoNoOrcamentoRequest[];
+  name: string;
+  supplierId: string;
+  updateEstimateProducts: UpdateEstimateProductsRequest[];
 
   constructor(
     nome: string,
-    fornecedorDoOrcamentoId: string,
-    produtosParaInserirNoOrcamento: InserirProdutoNoOrcamentoRequest[]
+    supplier: string,
+    updateEstimateProducts: UpdateEstimateProductsRequest[]
   ) {
-    this.nome = nome;
-    this.fornecedorDoOrcamentoId = fornecedorDoOrcamentoId;
-    this.produtosParaInserirNoOrcamento = produtosParaInserirNoOrcamento;
+    this.name = nome;
+    this.supplierId = supplier;
+    this.updateEstimateProducts = updateEstimateProducts;
   }
 }

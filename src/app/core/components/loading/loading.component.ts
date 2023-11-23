@@ -8,7 +8,7 @@ import { LoadingService } from '../../services/loading.service';
   styleUrls: ['./loading.component.css'],
 })
 export class LoadingComponent implements OnInit {
-  public estaCarregando: boolean = false;
+  public isLoading: boolean = false;
 
   constructor(private loadingService: LoadingService) {}
 
@@ -18,7 +18,7 @@ export class LoadingComponent implements OnInit {
 
   private loopUpRequestLoading() {
     this.loadingService
-      .estaCarregando()
-      .subscribe((loading) => (this.estaCarregando = loading));
+      .isLoading()
+      .subscribe((loading) => (this.isLoading = loading));
   }
 }

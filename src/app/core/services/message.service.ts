@@ -14,10 +14,10 @@ export class MessageService {
 
     modalRef.componentInstance.modalDef = modalDef;
 
-    return modalRef.result.catch(() => this.errorSupressor());
+    return modalRef.result.catch(() => this.errorSuppressor());
   }
 
-  private errorSupressor() {
+  private errorSuppressor() {
     return;
   }
 }

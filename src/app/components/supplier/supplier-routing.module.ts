@@ -9,4 +9,4 @@ const routes: Routes = [{ path: '', component: SupplierComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FornecedoresRoutingModule {}
+export class SupplierRoutingModule {}

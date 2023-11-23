@@ -18,16 +18,16 @@ export class RefreshModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.criarForm();
+    this.createForm();
   }
 
-  criarForm() {
+  createForm() {
     this.form = this.formBuilder.group({
       email: [
         this.email,
         Validators.compose([Validators.required, Validators.email]),
       ],
-      senha: [null, Validators.required],
+      password: [null, Validators.required],
     });
   }
 

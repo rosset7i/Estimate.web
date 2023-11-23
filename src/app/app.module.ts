@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './components/home/home.module';
-import { httpContextInterceptors } from './core/interceptors';
+import { HttpContextInterceptors } from './core/interceptors';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +21,7 @@ import { httpContextInterceptors } from './core/interceptors';
     NgbModule,
     ReactiveFormsModule,
   ],
-  providers: [httpContextInterceptors],
+  providers: [HttpContextInterceptors],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

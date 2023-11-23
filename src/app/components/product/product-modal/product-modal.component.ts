@@ -27,8 +27,8 @@ export class ProductModalComponent implements OnInit {
     this.createForm();
   }
 
-  private mapValues(produto: ProductResponse) {
-    this.form.controls['name'].setValue(produto.name);
+  private mapValues(product: ProductResponse) {
+    this.form.controls['name'].setValue(product.name);
   }
 
   private async fetchProductIfAny() {

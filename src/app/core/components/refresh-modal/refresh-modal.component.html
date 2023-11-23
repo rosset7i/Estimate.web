@@ -1,14 +1,14 @@
 <div class="m-2">
-  <h1>Ops...</h1>
-  <h4 class="text-secondary">Sua sessão expirou,</h4>
+  <h1>Oops...</h1>
+  <h4 class="text-secondary">Your session has expired,</h4>
   <form [formGroup]="form" (ngSubmit)="login()">
     <div class="mb-3">
-      <label class="form-label">Digite novamente sua senha:</label>
-      <input formControlName="senha" type="password" class="form-control" />
+      <label class="form-label">Please type your password again:</label>
+      <input formControlName="password" type="password" class="form-control" />
     </div>
 
     <button type="submit" [disabled]="!canSave" class="btn btn-dark me-2">
-      Entrar
+      Login
     </button>
   </form>
 </div>

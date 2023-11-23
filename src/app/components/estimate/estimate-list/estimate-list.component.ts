@@ -7,7 +7,7 @@ import { EstimateService } from 'src/app/services/estimate.service';
 import { UpdateEstimateRequest } from '../models/update-estimate-request';
 import { PagedAndSortedEstimateRequest } from '../models/paged-and-sorted-estimate-request';
 import { Router } from '@angular/router';
-import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/const';
 
 @Component({
   selector: 'app-estimate-list',
@@ -54,9 +54,9 @@ export class EstimateListComponent implements OnInit {
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  deleteEstimate(orcamentoId: string) {
+  deleteEstimate(estimateId: string) {
     this.estimateService
-      .deleteEstimate(orcamentoId)
+      .deleteEstimate(estimateId)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
@@ -70,7 +70,7 @@ export class EstimateListComponent implements OnInit {
   }
 
   createColumns() {
-    const definicoes: ColumnDefinition[] = [
+    const definitions: ColumnDefinition[] = [
       {
         name: 'Name',
         mapFrom: 'name',
@@ -83,11 +83,11 @@ export class EstimateListComponent implements OnInit {
       },
     ];
 
-    return definicoes;
+    return definitions;
   }
 
   createActions() {
-    const acoes: ListAction[] = [
+    const actions: ListAction[] = [
       {
         icon: 'bi bi-eye',
         style: 'btn btn-outline-dark me-2',
@@ -107,6 +107,6 @@ export class EstimateListComponent implements OnInit {
       },
     ];
 
-    return acoes;
+    return actions;
   }
 }
