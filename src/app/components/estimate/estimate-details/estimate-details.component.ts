@@ -5,20 +5,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DefinicaoTabela } from 'src/app/core/models/list-definition';
 import { PagedAndSortedRequest } from 'src/app/core/models/paged-and-sorted-request';
 import { SupplierService } from 'src/app/services/supplier.service';
-import { OrcamentoService } from 'src/app/services/estimate.service';
-import { BuscarFornecedoresPaginadoRequest } from '../../fornecedor/models/fornecedor-paginado-request';
-import { FornecedorResponse } from '../../fornecedor/models/fornecedor-response';
+import { EstimateService } from 'src/app/services/estimate.service';
 import { MessageService } from 'src/app/core/services/message.service';
 import { ModalDefinition } from 'src/app/core/models/modal-definition';
-import { DetalhesOrcamentoResponse } from '../models/estimate-details-response';
+import { EstimateDetailsResponse } from '../models/estimate-details-response';
 import { ProdutosNoOrcamentoResponse } from '../models/product-in-estimate-response';
+import { FornecedorResponse } from '../../supplier/models/supplier-response';
+import { PagedAndSortedSupplierRequest } from '../../supplier/models/paged-and-sorted-supplier-request';
 
 @Component({
-  selector: 'app-orcamento-detalhes',
-  templateUrl: './orcamento-detalhes.component.html',
-  styleUrls: ['./orcamento-detalhes.component.css'],
+  selector: 'app-estimate-details',
+  templateUrl: './estimate-details.component.html',
+  styleUrls: ['./estimate-details.component.css'],
 })
-export class OrcamentoDetalhesComponent implements OnInit {
+export class EstimateDetailsComponent implements OnInit {
   form: FormGroup;
   orcamentoId: string;
   selecionado: string;
@@ -34,7 +34,7 @@ export class OrcamentoDetalhesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private fornecedorService: SupplierService,
-    private orcamentoService: OrcamentoService
+    private orcamentoService: EstimateService
   ) {}
 
   ngOnInit(): void {
@@ -47,14 +47,14 @@ export class OrcamentoDetalhesComponent implements OnInit {
     this.orcamentoId = this.activatedRoute.snapshot.params['orcamentoId'];
     if (this.orcamentoId) {
       this.orcamentoService
-        .buscaDetalhesOrcamento(this.orcamentoId)
+        .fetchEstimateDetails(this.orcamentoId)
         .subscribe((e) => this.configurarForm(e));
     } else {
       this.produtosNoOrcamento = [];
     }
   }
 
-  configurarForm(orcamentoDetalhes: DetalhesOrcamentoResponse) {
+  configurarForm(orcamentoDetalhes: EstimateDetailsResponse) {
     this.form.get('nome').setValue(orcamentoDetalhes.nome);
     this.form.get('fornecedorId').setValue(orcamentoDetalhes.idFornecedor);
     this.selecionado = orcamentoDetalhes.nomeFornecedor;
@@ -79,10 +79,10 @@ export class OrcamentoDetalhesComponent implements OnInit {
 
   private buscarFornecedores() {
     const pagina = new PagedAndSortedRequest(1, 10, null, null);
-    const pagina2 = new BuscarFornecedoresPaginadoRequest(null, pagina);
+    const pagina2 = new PagedAndSortedSupplierRequest(null, pagina);
     this.fornecedorService
       .fetchPagedSuppliers(pagina2)
-      .subscribe((e) => (this.fornecedores = e.itens));
+      .subscribe((e) => (this.fornecedores = e.items));
   }
 
   public selecionarFornecedor(fornecedor: FornecedorResponse) {
@@ -97,11 +97,11 @@ export class OrcamentoDetalhesComponent implements OnInit {
   salvar() {
     if (this.orcamentoId) {
       this.orcamentoService
-        .atualizarOrcamento(this.orcamentoId, this.form.value)
+        .updateEstimate(this.orcamentoId, this.form.value)
         .subscribe(() => this.navegarParaTelaDeVisualizacao());
     } else {
       this.orcamentoService
-        .criarOrcamento(this.form.value)
+        .createEstimate(this.form.value)
         .subscribe(() => this.navegarParaTelaDeVisualizacao());
     }
   }

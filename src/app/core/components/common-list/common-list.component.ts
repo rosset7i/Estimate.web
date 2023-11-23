@@ -9,11 +9,11 @@ import { AcaoDaTabela } from '../../models/list-action';
 import { ModalDefinition } from '../../models/modal-definition';
 
 @Component({
-  selector: 'app-lista-padrao',
-  templateUrl: './lista-padrao.component.html',
-  styleUrls: ['./lista-padrao.component.css'],
+  selector: 'app-common-list',
+  templateUrl: './common-list.component.html',
+  styleUrls: ['./common-list.component.css'],
 })
-export class ListaPadraoComponent implements OnInit {
+export class CommonListComponent implements OnInit {
   @Input() opcoesTabela: DefinicaoTabela;
 
   tamanhoOpcoes = Tamanhos;

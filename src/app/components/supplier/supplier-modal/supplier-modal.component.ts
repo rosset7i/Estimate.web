@@ -6,11 +6,11 @@ import { SupplierService } from 'src/app/services/supplier.service';
 import { FornecedorResponse } from '../models/supplier-response';
 
 @Component({
-  selector: 'app-fornecedor-modal',
-  templateUrl: './fornecedor-modal.component.html',
-  styleUrls: ['./fornecedor-modal.component.css'],
+  selector: 'app-supplier-modal',
+  templateUrl: './supplier-modal.component.html',
+  styleUrls: ['./supplier-modal.component.css'],
 })
-export class FornecedorModalComponent implements OnInit {
+export class SupplierModalComponent implements OnInit {
   form: FormGroup;
 
   @Input() fornecedorId: string;

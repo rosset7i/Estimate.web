@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Api } from 'api';
-import { AtualizarFornecedorRequest } from '../components/fornecedor/models/atualizar-fornecedor-request';
-import { CriarFornecedorRequest } from '../components/fornecedor/models/criar-fornecedor-request';
-import { BuscarFornecedoresPaginadoRequest as PagedAndSortedSupplierRequest } from '../components/fornecedor/models/fornecedor-paginado-request';
-import { FornecedorResponse } from '../components/fornecedor/models/fornecedor-response';
-import { ResultadoPaginadoDe } from '../core/models/paged-result-of';
+import { PagedResultOf } from '../core/models/paged-result-of';
 import { ServiceBase } from '../core/services/service-base.service';
+import { FornecedorResponse } from '../components/supplier/models/supplier-response';
+import { PagedAndSortedSupplierRequest } from '../components/supplier/models/paged-and-sorted-supplier-request';
+import { CreateSupplierRequest } from '../components/supplier/models/create-supplier-request';
+import { UpdateSupplierRequest } from '../components/supplier/models/update-supplier-request';
 
 @Injectable({
   providedIn: 'root',
@@ -18,53 +18,47 @@ export class SupplierService extends ServiceBase {
     super();
   }
 
-  private buildSupplierParams(paginadoRequest: PagedAndSortedSupplierRequest) {
-    let params = this.buildParams(paginadoRequest);
-    if (paginadoRequest.nome)
-      params = params.append('nome', paginadoRequest.nome);
+  private buildSupplierParams(request: PagedAndSortedSupplierRequest) {
+    let params = this.buildParams(request);
+    if (request.name) params = params.append('name', request.name);
 
     return params;
   }
 
   public fetchPagedSuppliers(
-    paginadoRequest?: PagedAndSortedSupplierRequest
-  ): Observable<ResultadoPaginadoDe<FornecedorResponse>> {
-    return this.httpClient.get<ResultadoPaginadoDe<FornecedorResponse>>(
-      `${Api.ESTIMATE_API}/fornecedores`,
-      { params: this.buildSupplierParams(paginadoRequest) }
+    request?: PagedAndSortedSupplierRequest
+  ): Observable<PagedResultOf<FornecedorResponse>> {
+    return this.httpClient.get<PagedResultOf<FornecedorResponse>>(
+      `${Api.ESTIMATE_API}/suppliers`,
+      { params: this.buildSupplierParams(request) }
     );
   }
 
   public fetchSupplierDetails(
-    fornecedorId?: string
+    supplierId?: string
   ): Observable<FornecedorResponse> {
     return this.httpClient.get<FornecedorResponse>(
-      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}`
+      `${Api.ESTIMATE_API}/suppliers/${supplierId}`
     );
   }
 
-  public createSupplier(
-    criarFornecedorRequest: CriarFornecedorRequest
-  ): Observable<any> {
-    return this.httpClient.post(
-      `${Api.ESTIMATE_API}/fornecedores`,
-      criarFornecedorRequest
-    );
+  public createSupplier(request: CreateSupplierRequest): Observable<any> {
+    return this.httpClient.post(`${Api.ESTIMATE_API}/suppliers`, request);
   }
 
   public updateSupplier(
-    fornecedorId: string,
-    atualizarFornecedorRequest: AtualizarFornecedorRequest
+    supplierId: string,
+    request: UpdateSupplierRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}/atualizar`,
-      atualizarFornecedorRequest
+      `${Api.ESTIMATE_API}/suppliers/${supplierId}/update`,
+      request
     );
   }
 
-  public deleteSupplier(fornecedorId: string): Observable<any> {
+  public deleteSupplier(supplierId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ESTIMATE_API}/fornecedores/${fornecedorId}/remover`
+      `${Api.ESTIMATE_API}/suppliers/${supplierId}/delete`
     );
   }
 }

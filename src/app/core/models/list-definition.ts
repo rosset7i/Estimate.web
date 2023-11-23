@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs';
 import { AcaoDaTabela } from './list-action';
 import { DefinicaoColuna } from './column-definition';
-import { ResultadoPaginadoDe } from './paged-result-of';
+import { PagedResultOf } from './paged-result-of';
 
 export class DefinicaoTabela {
   nomeDaTabela: string;
-  itensResponse: ResultadoPaginadoDe<any>;
+  itensResponse: PagedResultOf<any>;
   colunas: DefinicaoColuna[];
   acoes: AcaoDaTabela[];
   getCallback: Function;

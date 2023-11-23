@@ -1,8 +1,8 @@
 import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
-export class OrcamentoPaginadoRequest extends PagedAndSortedRequest {
-  nome: string;
-  fornecedorId: string;
+export class PagedAndSortedEstimateRequest extends PagedAndSortedRequest {
+  name: string;
+  supplierId: string;
 
   constructor(
     nome: string,
@@ -10,7 +10,7 @@ export class OrcamentoPaginadoRequest extends PagedAndSortedRequest {
     request: PagedAndSortedRequest
   ) {
     super(request.page, request.pageSize, request.sortBy, request.direction);
-    this.nome = nome;
-    this.fornecedorId = fornecedorId;
+    this.name = nome;
+    this.supplierId = fornecedorId;
   }
 }

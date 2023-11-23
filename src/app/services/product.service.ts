@@ -2,70 +2,65 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ResultadoPaginadoDe } from '../core/models/paged-result-of';
-import { ProdutoResponse } from '../components/produto/models/produto-response';
+import { PagedResultOf } from '../core/models/paged-result-of';
 import { Api } from 'api';
 import { ServiceBase } from '../core/services/service-base.service';
-import { CriarProdutoRequest } from '../components/produto/models/criar-produto-request';
-import { AtualizarProdutoRequest } from '../components/produto/models/atualizar-produto-request';
-import { ProdutoPaginadoRequest } from '../components/produto/models/produto-paginado-request';
+import { CreateProductRequest } from '../components/product/models/create-product-request';
+import { PagedAndSortedProductRequest } from '../components/product/models/paged-and-sorted-product-request';
+import { ProductResponse } from '../components/product/models/product-response';
+import { UpdateProductRequest } from '../components/product/models/update-product-request';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProdutoService extends ServiceBase {
+export class ProductService extends ServiceBase {
   constructor(private httpClient: HttpClient) {
     super();
   }
 
-  private buildProdutoFilter(request: ProdutoPaginadoRequest) {
+  private buildProductParams(request: PagedAndSortedProductRequest) {
     let params = this.buildParams(request);
-    if (request.nome) params = params.append('nome', request.nome);
-    if (request.produtoIdsParaFiltrar)
-      request.produtoIdsParaFiltrar.forEach(
-        (e) => (params = params.append('produtoIdsParaFiltrar', e))
+    if (request.name) params = params.append('name', request.name);
+    if (request.productIdsToFilter)
+      request.productIdsToFilter.forEach(
+        (e) => (params = params.append('productIdsToFilter', e))
       );
 
     return params;
   }
 
-  public buscaProdutosPaginado(
-    paginadoRequest: ProdutoPaginadoRequest
-  ): Observable<ResultadoPaginadoDe<ProdutoResponse>> {
-    return this.httpClient.get<ResultadoPaginadoDe<ProdutoResponse>>(
-      `${Api.ESTIMATE_API}/produtos`,
-      { params: this.buildProdutoFilter(paginadoRequest) }
+  public fetchPagedProducts(
+    request: PagedAndSortedProductRequest
+  ): Observable<PagedResultOf<ProductResponse>> {
+    return this.httpClient.get<PagedResultOf<ProductResponse>>(
+      `${Api.ESTIMATE_API}/products`,
+      { params: this.buildProductParams(request) }
     );
   }
 
-  public buscaProdutosDetalhes(produtoId: string): Observable<ProdutoResponse> {
-    return this.httpClient.get<ProdutoResponse>(
-      `${Api.ESTIMATE_API}/produtos/${produtoId}`
+  public fetchProductDetails(productId: string): Observable<ProductResponse> {
+    return this.httpClient.get<ProductResponse>(
+      `${Api.ESTIMATE_API}/products/${productId}`
     );
   }
 
-  public criarProduto(
-    criarProdutoRequest: CriarProdutoRequest
-  ): Observable<any> {
-    return this.httpClient.post(
-      `${Api.ESTIMATE_API}/produtos`,
-      criarProdutoRequest
-    );
+  public createProduct(request: CreateProductRequest): Observable<any> {
+    return this.httpClient.post(`${Api.ESTIMATE_API}/products`, request);
   }
 
-  public atualizarProduto(
-    produtoId: string,
-    atualizarProdutoRequest: AtualizarProdutoRequest
+  public updateProduct(
+    productId: string,
+    request: UpdateProductRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ESTIMATE_API}/produtos/${produtoId}/atualizar`,
-      atualizarProdutoRequest
+      `${Api.ESTIMATE_API}/products/${productId}/update`,
+      request
     );
   }
 
-  public removerProduto(produtoId: string): Observable<any> {
+  public deleteProduct(productId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ESTIMATE_API}/produtos/${produtoId}/remover`
+      `${Api.ESTIMATE_API}/produtos/${productId}/delete`
     );
   }
 }

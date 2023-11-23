@@ -5,10 +5,10 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { HomeMenuComponent } from './home-menu/home-menu.component';
 import { FooterComponent } from './footer/footer.component';
-import { ComponentesPadraoModule } from '../../core/components/common.module';
+import { CommonComponentsModule } from '../../core/components/common.components.module';
 
 @NgModule({
   declarations: [HomeComponent, HomeMenuComponent, FooterComponent],
-  imports: [CommonModule, RouterModule, ComponentesPadraoModule],
+  imports: [CommonModule, RouterModule, CommonModule],
 })
 export class HomeModule {}

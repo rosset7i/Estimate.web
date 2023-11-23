@@ -2,15 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProdutoService } from 'src/app/services/product.service';
-import { ProdutoResponse } from '../models/product-response';
+import { ProductService } from 'src/app/services/product.service';
+import { ProductResponse } from '../models/product-response';
 
 @Component({
-  selector: 'app-produto-modal',
-  templateUrl: './produto-modal.component.html',
-  styleUrls: ['./produto-modal.component.css'],
+  selector: 'app-product-modal',
+  templateUrl: './product-modal.component.html',
+  styleUrls: ['./product-modal.component.css'],
 })
-export class ProdutoModalComponent implements OnInit {
+export class ProductModalComponent implements OnInit {
   form: FormGroup;
 
   @Output() emitFormValue = new EventEmitter<any>();
@@ -18,7 +18,7 @@ export class ProdutoModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private produtoService: ProdutoService,
+    private produtoService: ProductService,
     public activeModal: NgbActiveModal
   ) {}
 
@@ -27,15 +27,15 @@ export class ProdutoModalComponent implements OnInit {
     this.criarForm();
   }
 
-  private mapearValores(produto: ProdutoResponse) {
+  private mapearValores(produto: ProductResponse) {
     this.form.controls['nome'].setValue(produto.nome);
   }
 
   private async buscarUsuarioSeExistir() {
     if (this.produtoId)
       this.produtoService
-        .buscaProdutosDetalhes(this.produtoId)
-        .subscribe((e: ProdutoResponse) => this.mapearValores(e));
+        .fetchProductDetails(this.produtoId)
+        .subscribe((e: ProductResponse) => this.mapearValores(e));
   }
 
   private criarForm() {

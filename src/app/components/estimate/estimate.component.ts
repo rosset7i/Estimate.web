@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-orcamentos',
-  templateUrl: './orcamentos.component.html',
-  styleUrls: ['./orcamentos.component.css'],
+  selector: 'app-estimate',
+  templateUrl: './estimate.component.html',
+  styleUrls: ['./estimate.component.css'],
 })
 export class OrcamentosComponent {}

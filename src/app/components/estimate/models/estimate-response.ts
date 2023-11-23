@@ -1,4 +1,4 @@
-export class OrcamentoResponse {
+export class EstimateResponse {
   id: string;
   nome: string;
 

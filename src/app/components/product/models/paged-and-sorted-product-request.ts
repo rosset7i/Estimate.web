@@ -1,16 +1,16 @@
 import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
-export class ProdutoPaginadoRequest extends PagedAndSortedRequest {
-  nome: string;
-  produtoIdsParaFiltrar: string[];
+export class PagedAndSortedProductRequest extends PagedAndSortedRequest {
+  name: string;
+  productIdsToFilter: string[];
 
   constructor(
-    nome: string,
-    idsDeProdutosParaFiltrar: string[],
+    name: string,
+    productIdsToFilter: string[],
     request: PagedAndSortedRequest
   ) {
     super(request.page, request.pageSize, request.sortBy, request.direction);
-    this.nome = nome;
-    this.produtoIdsParaFiltrar = idsDeProdutosParaFiltrar;
+    this.name = name;
+    this.productIdsToFilter = productIdsToFilter;
   }
 }

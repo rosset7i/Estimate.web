@@ -1,7 +1,7 @@
-export class CriarFornecedorRequest {
-  nome: string;
+export class CreateSupplierRequest {
+  name: string;
 
-  constructor(nome: string) {
-    this.nome = nome;
+  constructor(name: string) {
+    this.name = name;
   }
 }

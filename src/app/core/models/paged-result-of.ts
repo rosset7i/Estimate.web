@@ -1,18 +1,18 @@
-export class ResultadoPaginadoDe<TResponse> {
-  quantidadeDePaginas: number;
-  quantidadeDeItens: number;
-  paginaAtual: number;
-  itens: TResponse[];
+export class PagedResultOf<TResponse> {
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  items: TResponse[];
 
   constructor(
-    quantidadeDePaginas: number,
-    quantidadeDeItens: number,
-    paginaAtual: number,
-    itens: TResponse[]
+    totalPages: number,
+    totalItems: number,
+    currentPage: number,
+    items: TResponse[]
   ) {
-    this.quantidadeDePaginas = quantidadeDePaginas;
-    this.quantidadeDeItens = quantidadeDeItens;
-    this.paginaAtual = paginaAtual;
-    this.itens = itens;
+    this.totalPages = totalPages;
+    this.totalItems = totalItems;
+    this.currentPage = currentPage;
+    this.items = items;
   }
 }

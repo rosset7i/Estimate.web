@@ -1,7 +1,7 @@
-export class AtualizarFornecedorRequest {
-  nome: string;
+export class UpdateSupplierRequest {
+  name: string;
 
-  constructor(nome: string) {
-    this.nome = nome;
+  constructor(name: string) {
+    this.name = name;
   }
 }

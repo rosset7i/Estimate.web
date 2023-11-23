@@ -5,18 +5,18 @@ import { AcaoDaTabela } from 'src/app/core/models/list-action';
 import { DefinicaoColuna } from 'src/app/core/models/column-definition';
 import { DefinicaoTabela } from 'src/app/core/models/list-definition';
 import { SupplierService } from 'src/app/services/supplier.service';
-import { FornecedorModalComponent } from '../supplier-modal/supplier-modal.component';
-import { AtualizarFornecedorRequest } from '../models/update-supplier-request';
-import { CriarFornecedorRequest } from '../models/create-supplier-request';
-import { BuscarFornecedoresPaginadoRequest } from '../models/paged-and-sorted-supplier-request';
+import { SupplierModalComponent } from '../supplier-modal/supplier-modal.component';
+import { UpdateSupplierRequest } from '../models/update-supplier-request';
+import { CreateSupplierRequest } from '../models/create-supplier-request';
+import { PagedAndSortedSupplierRequest } from '../models/paged-and-sorted-supplier-request';
 import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
-  selector: 'app-fornecedor-list',
-  templateUrl: './fornecedor-list.component.html',
-  styleUrls: ['./fornecedor-list.component.css'],
+  selector: 'app-supplier-list',
+  templateUrl: './supplier-list.component.html',
+  styleUrls: ['./supplier-list.component.css'],
 })
-export class FornecedorListComponent implements OnInit {
+export class SupplierListComponent implements OnInit {
   opcoes: DefinicaoTabela;
   parametro: string;
 
@@ -30,7 +30,7 @@ export class FornecedorListComponent implements OnInit {
   }
 
   abrirModal(fornecedorId?: string) {
-    const modalRef = this.modalService.open(FornecedorModalComponent);
+    const modalRef = this.modalService.open(SupplierModalComponent);
 
     modalRef.componentInstance.fornecedorId = fornecedorId;
 
@@ -45,8 +45,8 @@ export class FornecedorListComponent implements OnInit {
     this.opcoes.refreshTable();
   }
 
-  buscar(request: BuscarFornecedoresPaginadoRequest) {
-    request.nome = this.parametro;
+  buscar(request: PagedAndSortedSupplierRequest) {
+    request.name = this.parametro;
 
     this.fornecedorService
       .fetchPagedSuppliers(request)
@@ -55,7 +55,7 @@ export class FornecedorListComponent implements OnInit {
       });
   }
 
-  criarFornecedor(request: CriarFornecedorRequest) {
+  criarFornecedor(request: CreateSupplierRequest) {
     this.fornecedorService
       .createSupplier(request)
       .subscribe(() => this.opcoes.refreshTable());
@@ -63,7 +63,7 @@ export class FornecedorListComponent implements OnInit {
 
   editarFornecedor(
     fornecedorId: string,
-    atualizarFornecedorRequest: AtualizarFornecedorRequest
+    atualizarFornecedorRequest: UpdateSupplierRequest
   ) {
     this.fornecedorService
       .updateSupplier(fornecedorId, atualizarFornecedorRequest)

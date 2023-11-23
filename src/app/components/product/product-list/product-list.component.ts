@@ -3,25 +3,25 @@ import { Component, OnInit } from '@angular/core';
 import { AcaoDaTabela } from 'src/app/core/models/list-action';
 import { DefinicaoColuna } from 'src/app/core/models/column-definition';
 import { DefinicaoTabela } from 'src/app/core/models/list-definition';
-import { ProdutoService } from 'src/app/services/product.service';
-import { AtualizarProdutoRequest } from '../models/update-product-request';
-import { ProdutoPaginadoRequest } from '../models/paged-and-sorted-product-request';
+import { ProductService } from 'src/app/services/product.service';
+import { UpdateProductRequest } from '../models/update-product-request';
+import { PagedAndSortedProductRequest } from '../models/paged-and-sorted-product-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProdutoModalComponent } from '../product-modal/produto-modal.component';
-import { CriarProdutoRequest } from '../models/create-product-request';
+import { ProductModalComponent } from '../product-modal/product-modal.component';
+import { CreateProductRequest } from '../models/create-product-request';
 import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
-  selector: 'app-produto-list',
-  templateUrl: './produto-list.component.html',
-  styleUrls: ['./produto-list.component.css'],
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css'],
 })
-export class ProdutoListComponent implements OnInit {
+export class ProductListComponent implements OnInit {
   opcoes: DefinicaoTabela;
   parametro: string;
 
   constructor(
-    private produtoService: ProdutoService,
+    private produtoService: ProductService,
     private modalService: NgbModal
   ) {}
 
@@ -30,7 +30,7 @@ export class ProdutoListComponent implements OnInit {
   }
 
   abrirModal(produtoId?: string) {
-    const modalRef = this.modalService.open(ProdutoModalComponent);
+    const modalRef = this.modalService.open(ProductModalComponent);
 
     modalRef.componentInstance.produtoId = produtoId;
 
@@ -45,29 +45,29 @@ export class ProdutoListComponent implements OnInit {
     this.opcoes.refreshTable();
   }
 
-  buscar(paginadoRequest: ProdutoPaginadoRequest) {
-    paginadoRequest.nome = this.parametro;
+  buscar(paginadoRequest: PagedAndSortedProductRequest) {
+    paginadoRequest.name = this.parametro;
 
     this.produtoService
-      .buscaProdutosPaginado(paginadoRequest)
+      .fetchPagedProducts(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));
   }
 
-  criarProduto(criarProduto: CriarProdutoRequest) {
+  criarProduto(criarProduto: CreateProductRequest) {
     this.produtoService
-      .criarProduto(criarProduto)
+      .createProduct(criarProduto)
       .subscribe(() => this.opcoes.refreshTable());
   }
 
-  editarProduto(produtoId: string, atualizarProduto: AtualizarProdutoRequest) {
+  editarProduto(produtoId: string, atualizarProduto: UpdateProductRequest) {
     this.produtoService
-      .atualizarProduto(produtoId, atualizarProduto)
+      .updateProduct(produtoId, atualizarProduto)
       .subscribe(() => this.opcoes.refreshTable());
   }
 
   removerProduto(produtoId: string) {
     this.produtoService
-      .removerProduto(produtoId)
+      .deleteProduct(produtoId)
       .subscribe(() => this.opcoes.refreshTable());
   }
 

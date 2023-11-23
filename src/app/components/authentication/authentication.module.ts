@@ -10,4 +10,4 @@ import { RegisterFormComponent } from './register-form/register-form.component';
   declarations: [LoginFormComponent, RegisterFormComponent],
   imports: [CommonModule, AutenticacaoRoutingModule, ReactiveFormsModule],
 })
-export class AutenticacaoModule {}
+export class AuthenticationModule {}

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-fornecedores',
-  templateUrl: './fornecedores.component.html',
-  styleUrls: ['./fornecedores.component.css'],
+  selector: 'app-supplier',
+  templateUrl: './supplier.component.html',
+  styleUrls: ['./supplier.component.css'],
 })
-export class FornecedoresComponent {}
+export class SupplierComponent {}

@@ -6,7 +6,7 @@ import {
   NgbTypeaheadModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
-import { ListaPadraoComponent } from './common-list/common-list.component';
+import { CommonListComponent } from './common-list/common-list.component';
 import { DynamicFilterComponent } from './dynamic-filter/dynamic-filter.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ModalMessageComponent } from './modal-message/modal-message.component';
@@ -15,7 +15,7 @@ import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
-    ListaPadraoComponent,
+    CommonListComponent,
     DynamicFilterComponent,
     AutocompleteComponent,
     ModalMessageComponent,
@@ -30,10 +30,10 @@ import { LoadingComponent } from './loading/loading.component';
     ReactiveFormsModule,
   ],
   exports: [
-    ListaPadraoComponent,
+    CommonListComponent,
     DynamicFilterComponent,
     AutocompleteComponent,
     LoadingComponent,
   ],
 })
-export class ComponentesPadraoModule {}
+export class CommonComponentsModule {}

@@ -1,4 +1,4 @@
-export class AtualizarProdutoRequest {
+export class UpdateProductRequest {
   nome: string;
 
   constructor(nome: string) {

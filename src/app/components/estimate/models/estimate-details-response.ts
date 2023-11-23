@@ -1,6 +1,6 @@
 import { ProdutosNoOrcamentoResponse } from './product-in-estimate-response';
 
-export class DetalhesOrcamentoResponse {
+export class EstimateDetailsResponse {
   id: string;
   nome: string;
   idFornecedor: string;

@@ -1,4 +1,4 @@
-export class AtualizarOrcamentoRequest {
+export class UpdateEstimateRequest {
   nome: string;
 
   constructor(nome: string) {

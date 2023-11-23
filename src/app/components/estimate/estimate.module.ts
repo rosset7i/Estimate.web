@@ -4,18 +4,18 @@ import { CommonModule } from '@angular/common';
 
 import { OrcamentosRoutingModule } from './estimate-routing.module';
 import { OrcamentosComponent } from './estimate.component';
-import { OrcamentoListComponent } from './estimate-list/estimate-list.component';
-import { ComponentesPadraoModule } from '../../core/components/common.module';
-import { OrcamentoDetalhesComponent } from './estimate-details/estimate-details.component';
+import { EstimateListComponent } from './estimate-list/estimate-list.component';
+import { CommonComponentsModule } from '../../core/components/common.components.module';
+import { EstimateDetailsComponent } from './estimate-details/estimate-details.component';
 import { RouterModule } from '@angular/router';
-import { SeletorProdutosComponent } from './product-select/product-select.component';
+import { ProdutSelectComponent } from './product-select/product-select.component';
 
 @NgModule({
   declarations: [
     OrcamentosComponent,
-    OrcamentoListComponent,
-    OrcamentoDetalhesComponent,
-    SeletorProdutosComponent,
+    EstimateListComponent,
+    EstimateDetailsComponent,
+    ProdutSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { SeletorProdutosComponent } from './product-select/product-select.compon
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    ComponentesPadraoModule,
+    CommonComponentsModule,
   ],
 })
 export class OrcamentosModule {}

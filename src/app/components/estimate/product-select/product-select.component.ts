@@ -4,16 +4,16 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AcaoDaTabela } from 'src/app/core/models/list-action';
 import { DefinicaoColuna } from 'src/app/core/models/column-definition';
 import { DefinicaoTabela } from 'src/app/core/models/list-definition';
-import { ProdutoService } from 'src/app/services/product.service';
-import { ProdutoPaginadoRequest } from '../../produto/models/produto-paginado-request';
+import { ProductService } from 'src/app/services/product.service';
 import { ProdutosNoOrcamentoResponse } from '../models/product-in-estimate-response';
+import { PagedAndSortedProductRequest } from '../../product/models/paged-and-sorted-product-request';
 
 @Component({
-  selector: 'app-seletor-produtos',
-  templateUrl: './seletor-produtos.component.html',
-  styleUrls: ['./seletor-produtos.component.css'],
+  selector: 'app-product-select',
+  templateUrl: './product-select.component.html',
+  styleUrls: ['./product-select.component.css'],
 })
-export class SeletorProdutosComponent implements OnInit {
+export class ProdutSelectComponent implements OnInit {
   public opcoes: DefinicaoTabela;
   private parametro: string;
   private idsProdutosParaFiltrar: string[] = [];
@@ -24,7 +24,7 @@ export class SeletorProdutosComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private produtoService: ProdutoService
+    private produtoService: ProductService
   ) {}
 
   ngOnInit(): void {
@@ -82,12 +82,12 @@ export class SeletorProdutosComponent implements OnInit {
     this.opcoes.refreshTable();
   }
 
-  private buscar(paginadoRequest: ProdutoPaginadoRequest) {
-    paginadoRequest.nome = this.parametro;
-    paginadoRequest.produtoIdsParaFiltrar = this.idsProdutosParaFiltrar;
+  private buscar(paginadoRequest: PagedAndSortedProductRequest) {
+    paginadoRequest.name = this.parametro;
+    paginadoRequest.productIdsToFilter = this.idsProdutosParaFiltrar;
 
     this.produtoService
-      .buscaProdutosPaginado(paginadoRequest)
+      .fetchPagedProducts(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));
   }
 

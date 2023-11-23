@@ -3,21 +3,17 @@ import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProdutosRoutingModule } from './product-routing.module';
-import { ProdutosComponent } from './product.component';
-import { ProdutoListComponent } from './product-list/produto-list.component';
-import { ComponentesPadraoModule } from 'src/app/core/components/common.module';
+import { ProductComponent } from './product.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { CommonComponentsModule } from 'src/app/core/components/common.components.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProdutoModalComponent } from './product-modal/produto-modal.component';
+import { ProductModalComponent } from './product-modal/product-modal.component';
 
 @NgModule({
-  declarations: [
-    ProdutosComponent,
-    ProdutoListComponent,
-    ProdutoModalComponent,
-  ],
+  declarations: [ProductComponent, ProductListComponent, ProductModalComponent],
   imports: [
     CommonModule,
-    ComponentesPadraoModule,
+    CommonComponentsModule,
     ProdutosRoutingModule,
     ReactiveFormsModule,
     NgbModalModule,

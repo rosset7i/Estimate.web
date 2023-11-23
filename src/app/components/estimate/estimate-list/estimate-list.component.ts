@@ -3,23 +3,23 @@ import { Component, OnInit } from '@angular/core';
 import { AcaoDaTabela } from 'src/app/core/models/list-action';
 import { DefinicaoColuna } from 'src/app/core/models/column-definition';
 import { DefinicaoTabela } from 'src/app/core/models/list-definition';
-import { OrcamentoService } from 'src/app/services/estimate.service';
-import { AtualizarOrcamentoRequest } from '../models/update-estimate-request';
-import { OrcamentoPaginadoRequest } from '../models/paged-and-sorted-estimate-request';
+import { EstimateService } from 'src/app/services/estimate.service';
+import { UpdateEstimateRequest } from '../models/update-estimate-request';
+import { PagedAndSortedEstimateRequest } from '../models/paged-and-sorted-estimate-request';
 import { Router } from '@angular/router';
 import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
 
 @Component({
-  selector: 'app-orcamento-list',
-  templateUrl: './orcamento-list.component.html',
-  styleUrls: ['./orcamento-list.component.css'],
+  selector: 'app-estimate-list',
+  templateUrl: './estimate-list.component.html',
+  styleUrls: ['./estimate-list.component.css'],
 })
-export class OrcamentoListComponent implements OnInit {
+export class EstimateListComponent implements OnInit {
   opcoes: DefinicaoTabela;
   parametro: string;
 
   constructor(
-    private orcamentoService: OrcamentoService,
+    private orcamentoService: EstimateService,
     private router: Router
   ) {}
 
@@ -32,11 +32,11 @@ export class OrcamentoListComponent implements OnInit {
     this.opcoes.refreshTable();
   }
 
-  buscar(paginadoRequest: OrcamentoPaginadoRequest) {
-    paginadoRequest.nome = this.parametro;
+  buscar(paginadoRequest: PagedAndSortedEstimateRequest) {
+    paginadoRequest.name = this.parametro;
 
     this.orcamentoService
-      .buscaOrcamentosPaginado(paginadoRequest)
+      .fetchPagedEstimates(paginadoRequest)
       .subscribe((e) => (this.opcoes.itensResponse = e));
   }
 
@@ -50,16 +50,16 @@ export class OrcamentoListComponent implements OnInit {
 
   editarOrcamento(
     orcamentoId: string,
-    atualizarOrcamento: AtualizarOrcamentoRequest
+    atualizarOrcamento: UpdateEstimateRequest
   ) {
     this.orcamentoService
-      .atualizarOrcamento(orcamentoId, atualizarOrcamento)
+      .updateEstimate(orcamentoId, atualizarOrcamento)
       .subscribe(() => this.opcoes.refreshTable());
   }
 
   removerOrcamento(orcamentoId: string) {
     this.orcamentoService
-      .removerOrcamento(orcamentoId)
+      .deleteEstimate(orcamentoId)
       .subscribe(() => this.opcoes.refreshTable());
   }
 

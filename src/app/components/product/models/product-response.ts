@@ -1,4 +1,4 @@
-export class ProdutoResponse {
+export class ProductResponse {
   id: string;
   nome: string;
 

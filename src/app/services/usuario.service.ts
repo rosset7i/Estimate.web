@@ -4,40 +4,40 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Api } from 'api';
+import { LoginRequest } from '../components/autenticacao/models/login-request';
+import { LoginResponse } from '../components/autenticacao/models/login-response';
+import { RegistrarRequest } from '../components/autenticacao/models/registrar-request';
 import jwtDecode from 'jwt-decode';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RefreshModalComponent } from '../core/components/refresh-modal/refresh-modal.component';
-import { LoginResponse } from '../components/authentication/models/login-response';
-import { LoginRequest } from '../components/authentication/models/login-request';
-import { RegisterRequest } from '../components/authentication/models/registrar-request';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationService {
+export class AutenticacaoService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     private ngbModal: NgbModal
   ) {}
 
-  public login(request: LoginRequest): Observable<LoginResponse> {
+  public login(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(
-      `${Api.ESTIMATE_API}/authentication/login`,
-      request
+      `${Api.ORCAMENTO_API}/autenticacao/login`,
+      loginRequest
     );
   }
 
-  public register(request: RegisterRequest): Observable<any> {
+  public registrar(registrarRequest: RegistrarRequest): Observable<any> {
     return this.httpClient.post(
-      `${Api.ESTIMATE_API}/authentication/register`,
-      request
+      `${Api.ORCAMENTO_API}/autenticacao/registrar`,
+      registrarRequest
     );
   }
 
   public logout() {
     this.removeToken();
-    this.router.navigate(['/authentication/login']);
+    this.router.navigate(['/autenticacao/login']);
   }
 
   public getToken(): string {
@@ -58,14 +58,14 @@ export class AuthenticationService {
     this.removeToken();
     modalRef.result.then(
       (e) => this.handleRefreshSuccess(e),
-      () => this.router.navigate(['/authentication/login'])
+      () => this.router.navigate(['/autenticacao/login'])
     );
   }
 
   private handleRefreshSuccess(result: any) {
     this.login(result).subscribe(
       (response) => this.setToken(response.token),
-      () => this.router.navigate(['/authentication/login'])
+      () => this.router.navigate(['/autenticacao/login'])
     );
   }
 

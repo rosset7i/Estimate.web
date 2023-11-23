@@ -27,7 +27,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of opcoesTabela.itensResponse.itens">
+      <tr *ngFor="let item of opcoesTabela.itensResponse.items">
         <td *ngFor="let coluna of opcoesTabela.colunas">
           {{ item[coluna.mapearPara] }}
         </td>
@@ -63,7 +63,7 @@
       [maxSize]="3"
       [(page)]="paginalAtual"
       [pageSize]="tamanho"
-      [collectionSize]="opcoesTabela.itensResponse.quantidadeDeItens"
+      [collectionSize]="opcoesTabela.itensResponse.totalItems"
       (pageChange)="buscar()"
     >
     </ngb-pagination>

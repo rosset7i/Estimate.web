@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FornecedoresComponent } from './supplier.component';
+import { SupplierComponent } from './supplier.component';
 
-const routes: Routes = [{ path: '', component: FornecedoresComponent }];
+const routes: Routes = [{ path: '', component: SupplierComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

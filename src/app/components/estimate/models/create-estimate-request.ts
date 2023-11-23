@@ -1,6 +1,6 @@
 import { InserirProdutoNoOrcamentoRequest } from './update-estimade-products-request';
 
-export class CriarOrcamentoRequest {
+export class CreateEstimateRequest {
   nome: string;
   fornecedorDoOrcamentoId: string;
   produtosParaInserirNoOrcamento: InserirProdutoNoOrcamentoRequest[];
