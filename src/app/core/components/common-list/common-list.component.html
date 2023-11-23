@@ -1,45 +1,45 @@
-<ng-container *ngIf="opcoesTabela.itensResponse">
+<ng-container *ngIf="listDefinition.items">
   <table class="table table-striped table-hover">
     <caption>
       {{
-        opcoesTabela.nomeDaTabela
+        listDefinition.listName
       }}
     </caption>
 
     <thead>
       <tr>
-        <ng-container *ngFor="let d of opcoesTabela.colunas">
+        <ng-container *ngFor="let d of listDefinition.columns">
           <th>
             <div class="d-flex align-items-center">
               <button
-                *ngIf="d.temSorting"
+                *ngIf="d.hasSorting"
                 class="btn"
-                (click)="ordenar(d.mapearPara)"
+                (click)="sort(d.mapFrom)"
               >
                 <i class="bi bi-arrow-down-up"></i>
               </button>
-              {{ d.nome }}
+              {{ d.name }}
             </div>
           </th>
         </ng-container>
-        <th *ngIf="opcoesTabela.acoes" class="col-2">Ações</th>
+        <th *ngIf="listDefinition.actions" class="col-2">Ações</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of opcoesTabela.itensResponse.items">
-        <td *ngFor="let coluna of opcoesTabela.colunas">
-          {{ item[coluna.mapearPara] }}
+      <tr *ngFor="let item of listDefinition.items.items">
+        <td *ngFor="let coluna of listDefinition.columns">
+          {{ item[coluna.mapFrom] }}
         </td>
         <td>
           <button
-            *ngFor="let acao of opcoesTabela.acoes"
-            [disabled]="acao.desativado"
-            (click)="chamarMetodo(acao, item)"
-            [ngClass]="acao.classePersonalizada"
+            *ngFor="let acao of listDefinition.actions"
+            [disabled]="acao.disabled"
+            (click)="callMethod(acao, item)"
+            [ngClass]="acao.style"
           >
-            <i [ngClass]="acao.icone"></i>
-            {{ acao.texto }}
+            <i [ngClass]="acao.icon"></i>
+            {{ acao.text }}
           </button>
         </td>
       </tr>
@@ -48,23 +48,23 @@
 
   <div class="d-flex justify-content-end">
     <select
-      [(ngModel)]="tamanho"
-      (change)="buscar()"
+      [(ngModel)]="size"
+      (change)="fetch()"
       class="form-select me-2"
       style="width: 5rem; height: 2.5rem"
       aria-label="Tamanho da Lista"
     >
-      <option *ngFor="let o of tamanhoOpcoes">
+      <option *ngFor="let o of sizeOptions">
         {{ o }}
       </option>
     </select>
 
     <ngb-pagination
       [maxSize]="3"
-      [(page)]="paginalAtual"
-      [pageSize]="tamanho"
-      [collectionSize]="opcoesTabela.itensResponse.totalItems"
-      (pageChange)="buscar()"
+      [(page)]="currentPage"
+      [pageSize]="size"
+      [collectionSize]="listDefinition.items.totalItems"
+      (pageChange)="fetch()"
     >
     </ngb-pagination>
   </div>

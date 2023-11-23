@@ -1,1 +1,1 @@
-export const Tamanhos = [10, 25, 75, 100];
+export const Sizes = [10, 25, 75, 100];

@@ -26,4 +26,4 @@ import { ProdutSelectComponent } from './product-select/product-select.component
     CommonComponentsModule,
   ],
 })
-export class OrcamentosModule {}
+export class EstimateModule {}

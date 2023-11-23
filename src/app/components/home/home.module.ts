@@ -9,6 +9,6 @@ import { CommonComponentsModule } from '../../core/components/common.components.
 
 @NgModule({
   declarations: [HomeComponent, HomeMenuComponent, FooterComponent],
-  imports: [CommonModule, RouterModule, CommonModule],
+  imports: [CommonModule, RouterModule, CommonComponentsModule],
 })
 export class HomeModule {}

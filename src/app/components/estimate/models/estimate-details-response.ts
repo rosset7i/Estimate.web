@@ -1,23 +1,23 @@
-import { ProdutosNoOrcamentoResponse } from './product-in-estimate-response';
+import { ProductsInEstimateResponse } from './product-in-estimate-response';
 
 export class EstimateDetailsResponse {
   id: string;
-  nome: string;
-  idFornecedor: string;
-  nomeFornecedor: string;
-  produtosNoOrcamentoResponse: ProdutosNoOrcamentoResponse[];
+  name: string;
+  supplierId: string;
+  supplierName: string;
+  productsInEstimate: ProductsInEstimateResponse[];
 
   constructor(
     id: string,
-    nome: string,
-    idFornecedor: string,
-    nomeFornecedor: string,
-    produtosNoOrcamentoResponse: ProdutosNoOrcamentoResponse[]
+    name: string,
+    supplierId: string,
+    supplierName: string,
+    productsInSupplier: ProductsInEstimateResponse[]
   ) {
     this.id = id;
-    this.nome = nome;
-    this.idFornecedor = idFornecedor;
-    this.nomeFornecedor = nomeFornecedor;
-    this.produtosNoOrcamentoResponse = produtosNoOrcamentoResponse;
+    this.name = name;
+    this.supplierId = supplierId;
+    this.supplierName = supplierName;
+    this.productsInEstimate = productsInSupplier;
   }
 }

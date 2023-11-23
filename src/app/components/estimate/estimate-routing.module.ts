@@ -6,9 +6,9 @@ import { EstimateDetailsComponent } from './estimate-details/estimate-details.co
 
 const routes: Routes = [
   { path: '', component: OrcamentosComponent },
-  { path: 'criar', component: EstimateDetailsComponent },
-  { path: ':orcamentoId/editar', component: EstimateDetailsComponent },
-  { path: ':orcamentoId/visualizar', component: EstimateDetailsComponent },
+  { path: 'create', component: EstimateDetailsComponent },
+  { path: ':estimateId/edit', component: EstimateDetailsComponent },
+  { path: ':estimateId/view', component: EstimateDetailsComponent },
 ];
 
 @NgModule({

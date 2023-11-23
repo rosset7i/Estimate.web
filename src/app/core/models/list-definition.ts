@@ -1,26 +1,26 @@
 import { Subject } from 'rxjs';
-import { AcaoDaTabela } from './list-action';
-import { DefinicaoColuna } from './column-definition';
+import { ListAction } from './list-action';
+import { ColumnDefinition } from './column-definition';
 import { PagedResultOf } from './paged-result-of';
 
-export class DefinicaoTabela {
-  nomeDaTabela: string;
-  itensResponse: PagedResultOf<any>;
-  colunas: DefinicaoColuna[];
-  acoes: AcaoDaTabela[];
-  getCallback: Function;
+export class ListDefinition {
+  listName: string;
+  items: PagedResultOf<any>;
+  columns: ColumnDefinition[];
+  actions: ListAction[];
+  callback: Function;
   refresh = new Subject<void>();
 
   constructor(
-    nomeDaTabela: string,
-    colunas: DefinicaoColuna[],
-    acoes: AcaoDaTabela[],
-    getCallback: Function
+    listName: string,
+    columns: ColumnDefinition[],
+    actions: ListAction[],
+    callback: Function
   ) {
-    this.nomeDaTabela = nomeDaTabela;
-    this.colunas = colunas;
-    this.acoes = acoes;
-    this.getCallback = getCallback;
+    this.listName = listName;
+    this.columns = columns;
+    this.actions = actions;
+    this.callback = callback;
   }
 
   public refreshTable() {

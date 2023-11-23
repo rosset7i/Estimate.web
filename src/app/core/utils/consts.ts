@@ -1,1 +1,1 @@
-export const MENSAGEM_REMOVER = 'Você tem certeza que deseja remover o item?';
+export const DELETE_MESSAGE = 'Are you sure you want to remove this item?';

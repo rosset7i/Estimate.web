@@ -14,9 +14,9 @@ import {
   styleUrls: ['./autocomplete.component.css'],
 })
 export class AutocompleteComponent {
-  @Input() selecionado: any;
+  @Input() selectedItem: any;
   @Input() values: any[];
-  @Input() desativar: boolean;
+  @Input() disabled: boolean;
   @Input() searchFields: string[];
   @Input() placeholder: string = '';
   @Output() selected: EventEmitter<any> = new EventEmitter<any>();

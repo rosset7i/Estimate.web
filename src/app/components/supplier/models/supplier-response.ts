@@ -1,9 +1,9 @@
 export class FornecedorResponse {
   id: string;
-  nome: string;
+  name: string;
 
-  constructor(id: string, nome: string) {
+  constructor(id: string, name: string) {
     this.id = id;
-    this.nome = nome;
+    this.name = name;
   }
 }

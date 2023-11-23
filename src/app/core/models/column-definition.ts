@@ -1,6 +1,6 @@
-export class DefinicaoColuna {
-  nome: string;
-  mapearPara: string;
-  tamanho?: number;
-  temSorting: boolean = false;
+export class ColumnDefinition {
+  name: string;
+  mapFrom: string;
+  size?: number;
+  hasSorting: boolean = false;
 }

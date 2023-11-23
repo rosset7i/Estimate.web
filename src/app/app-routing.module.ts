@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { AuthenticationGuard } from './components/autenticacao/autenticacao.guard';
+import { AuthenticationGuard } from './components/authentication/authentication.guard';
 import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
 
 const routes: Routes = [
@@ -15,22 +15,22 @@ const routes: Routes = [
       {
         path: 'estimates',
         loadChildren: () =>
-          import('./components/orcamento/orcamentos.module').then(
-            (m) => m.OrcamentosModule
+          import('./components/estimate/estimate.module').then(
+            (m) => m.EstimateModule
           ),
       },
       {
         path: 'suppliers',
         loadChildren: () =>
-          import('./components/fornecedor/fornecedores.module').then(
-            (m) => m.FornecedoresModule
+          import('./components/supplier/supplier.module').then(
+            (m) => m.SupplierModule
           ),
       },
       {
         path: 'products',
         loadChildren: () =>
-          import('./components/produto/produtos.module').then(
-            (m) => m.ProdutosModule
+          import('./components/product/product.module').then(
+            (m) => m.ProductModule
           ),
       },
     ],
@@ -38,8 +38,8 @@ const routes: Routes = [
   {
     path: 'authentication',
     loadChildren: () =>
-      import('./components/autenticacao/autenticacao.module').then(
-        (m) => m.AutenticacaoModule
+      import('./components/authentication/authentication.module').then(
+        (m) => m.AuthenticationModule
       ),
   },
   { path: '**', redirectTo: 'home' },

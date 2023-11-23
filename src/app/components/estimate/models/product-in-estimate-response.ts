@@ -1,18 +1,13 @@
-export class ProdutosNoOrcamentoResponse {
+export class ProductsInEstimateResponse {
   id: string;
-  nome: string;
-  precoUnitario: number;
-  quantidade: number;
+  name: string;
+  unitPrice: number;
+  quantity: number;
 
-  constructor(
-    id: string,
-    nome: string,
-    quantidade: number,
-    precoUnitario: number
-  ) {
+  constructor(id: string, name: string, quantity: number, unitPrice: number) {
     this.id = id;
-    this.nome = nome;
-    this.quantidade = quantidade;
-    this.precoUnitario = precoUnitario;
+    this.name = name;
+    this.quantity = quantity;
+    this.unitPrice = unitPrice;
   }
 }

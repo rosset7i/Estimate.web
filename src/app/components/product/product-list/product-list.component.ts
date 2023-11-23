@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AcaoDaTabela } from 'src/app/core/models/list-action';
-import { DefinicaoColuna } from 'src/app/core/models/column-definition';
-import { DefinicaoTabela } from 'src/app/core/models/list-definition';
+import { ListAction } from 'src/app/core/models/list-action';
+import { ColumnDefinition } from 'src/app/core/models/column-definition';
+import { ListDefinition } from 'src/app/core/models/list-definition';
 import { ProductService } from 'src/app/services/product.service';
 import { UpdateProductRequest } from '../models/update-product-request';
 import { PagedAndSortedProductRequest } from '../models/paged-and-sorted-product-request';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { CreateProductRequest } from '../models/create-product-request';
-import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-product-list',
@@ -17,94 +17,94 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  opcoes: DefinicaoTabela;
-  parametro: string;
+  listDefinition: ListDefinition;
+  param: string;
 
   constructor(
-    private produtoService: ProductService,
+    private productService: ProductService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.criarOpcoes();
+    this.createOptions();
   }
 
-  abrirModal(produtoId?: string) {
+  openModal(productId?: string) {
     const modalRef = this.modalService.open(ProductModalComponent);
 
-    modalRef.componentInstance.produtoId = produtoId;
+    modalRef.componentInstance.productId = productId;
 
     modalRef.result.then((e) => {
-      if (e && !produtoId) this.criarProduto(e);
-      if (e && produtoId) this.editarProduto(produtoId, e);
+      if (e && !productId) this.createProduct(e);
+      if (e && productId) this.editProduct(productId, e);
     });
   }
 
-  filtrar(nome: string) {
-    this.parametro = nome;
-    this.opcoes.refreshTable();
+  filter(name: string) {
+    this.param = name;
+    this.listDefinition.refreshTable();
   }
 
-  buscar(paginadoRequest: PagedAndSortedProductRequest) {
-    paginadoRequest.name = this.parametro;
+  fetch(request: PagedAndSortedProductRequest) {
+    request.name = this.param;
 
-    this.produtoService
-      .fetchPagedProducts(paginadoRequest)
-      .subscribe((e) => (this.opcoes.itensResponse = e));
+    this.productService
+      .fetchPagedProducts(request)
+      .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  criarProduto(criarProduto: CreateProductRequest) {
-    this.produtoService
-      .createProduct(criarProduto)
-      .subscribe(() => this.opcoes.refreshTable());
+  createProduct(request: CreateProductRequest) {
+    this.productService
+      .createProduct(request)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editarProduto(produtoId: string, atualizarProduto: UpdateProductRequest) {
-    this.produtoService
-      .updateProduct(produtoId, atualizarProduto)
-      .subscribe(() => this.opcoes.refreshTable());
+  editProduct(productId: string, request: UpdateProductRequest) {
+    this.productService
+      .updateProduct(productId, request)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  removerProduto(produtoId: string) {
-    this.produtoService
-      .deleteProduct(produtoId)
-      .subscribe(() => this.opcoes.refreshTable());
+  deleteProduct(productId: string) {
+    this.productService
+      .deleteProduct(productId)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  criarOpcoes() {
-    this.opcoes = new DefinicaoTabela(
-      'Produtos',
-      this.criarColunas(),
-      this.criarAcoes(),
-      (request) => this.buscar(request)
+  createOptions() {
+    this.listDefinition = new ListDefinition(
+      'Products',
+      this.createColumns(),
+      this.createActions(),
+      (request) => this.fetch(request)
     );
   }
 
-  criarColunas() {
-    const definicoes: DefinicaoColuna[] = [
+  createColumns() {
+    const definicoes: ColumnDefinition[] = [
       {
-        nome: 'Nome',
-        mapearPara: 'nome',
-        temSorting: true,
+        name: 'Name',
+        mapFrom: 'name',
+        hasSorting: true,
       },
     ];
 
     return definicoes;
   }
 
-  criarAcoes() {
-    const acoes: AcaoDaTabela[] = [
+  createActions() {
+    const acoes: ListAction[] = [
       {
-        icone: 'bi bi-pencil',
-        classePersonalizada: 'btn btn-outline-dark me-2',
-        callback: (produto) => this.abrirModal(produto?.id),
+        icon: 'bi bi-pencil',
+        style: 'btn btn-outline-dark me-2',
+        callback: (product) => this.openModal(product?.id),
       },
       {
-        icone: 'bi bi-trash',
-        classePersonalizada: 'btn btn-outline-danger me-2',
-        callback: (produto) => this.removerProduto(produto.id),
-        temConfirmacao: true,
-        mensagemConfirmacao: MENSAGEM_REMOVER,
+        icon: 'bi bi-trash',
+        style: 'btn btn-outline-danger me-2',
+        callback: (product) => this.deleteProduct(product.id),
+        hasConfirmation: true,
+        confirmationMessage: DELETE_MESSAGE,
       },
     ];
 

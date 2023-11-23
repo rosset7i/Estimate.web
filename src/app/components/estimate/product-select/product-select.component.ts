@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AcaoDaTabela } from 'src/app/core/models/list-action';
-import { DefinicaoColuna } from 'src/app/core/models/column-definition';
-import { DefinicaoTabela } from 'src/app/core/models/list-definition';
+import { ListAction } from 'src/app/core/models/list-action';
+import { ColumnDefinition } from 'src/app/core/models/column-definition';
+import { ListDefinition } from 'src/app/core/models/list-definition';
 import { ProductService } from 'src/app/services/product.service';
-import { ProdutosNoOrcamentoResponse } from '../models/product-in-estimate-response';
+import { ProductsInEstimateResponse } from '../models/product-in-estimate-response';
 import { PagedAndSortedProductRequest } from '../../product/models/paged-and-sorted-product-request';
 
 @Component({
@@ -14,111 +14,111 @@ import { PagedAndSortedProductRequest } from '../../product/models/paged-and-sor
   styleUrls: ['./product-select.component.css'],
 })
 export class ProdutSelectComponent implements OnInit {
-  public opcoes: DefinicaoTabela;
-  private parametro: string;
-  private idsProdutosParaFiltrar: string[] = [];
+  public listDefinition: ListDefinition;
+  private param: string;
+  private productsIdsToFilter: string[] = [];
 
   @Input() form: FormGroup;
-  @Input() produtosSelecionados: ProdutosNoOrcamentoResponse[];
-  @Input() desativado: boolean = false;
+  @Input() selectedProducts: ProductsInEstimateResponse[];
+  @Input() disabled: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private produtoService: ProductService
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
-    this.criarOpcoes();
-    this.mapearDados();
+    this.createDefinition();
+    this.mapValues();
   }
 
-  get linhas() {
-    return this.form.get('produtosNoOrcamento') as FormArray;
+  get rows() {
+    return this.form.get('productsIdsToFilter') as FormArray;
   }
 
-  private mapearDados() {
-    this.produtosSelecionados.forEach((e) => this.adicionarProduto(e));
+  private mapValues() {
+    this.selectedProducts.forEach((e) => this.addProduct(e));
   }
 
-  private adicionarLinhaNoForm(produto: any) {
+  private addNewForm(produto: any) {
     const linhaDoForm = this.formBuilder.group({
-      produtoId: [produto.id, Validators.required],
-      nome: [
+      productId: [produto.id, Validators.required],
+      name: [
         {
-          value: produto.nome,
+          value: produto.name,
           disabled: true,
         },
       ],
-      quantidade: [
+      quantity: [
         produto.quantidade,
         Validators.compose([Validators.required, Validators.min(0)]),
       ],
-      precoUnitario: [
+      unitPrice: [
         produto.precoUnitario,
         Validators.compose([Validators.required, Validators.min(0)]),
       ],
     });
 
-    if (this.desativado) linhaDoForm.disable();
+    if (this.disabled) linhaDoForm.disable();
 
-    this.linhas.push(linhaDoForm);
+    this.rows.push(linhaDoForm);
   }
 
-  public removerProduto(index: number) {
+  public removeProduct(index: number) {
     this.form.markAsDirty();
-    this.linhas.removeAt(index);
-    this.idsProdutosParaFiltrar.splice(index, 1);
-    this.opcoes.refreshTable();
+    this.rows.removeAt(index);
+    this.productsIdsToFilter.splice(index, 1);
+    this.listDefinition.refreshTable();
   }
 
-  public adicionarProduto(produtoSelecionado: any) {
-    this.adicionarLinhaNoForm(produtoSelecionado);
-    this.idsProdutosParaFiltrar.push(produtoSelecionado.id);
-    this.opcoes.refreshTable();
+  public addProduct(selectedProduct: any) {
+    this.addNewForm(selectedProduct);
+    this.productsIdsToFilter.push(selectedProduct.id);
+    this.listDefinition.refreshTable();
   }
 
-  public filtrar(nome: string) {
-    this.parametro = nome;
-    this.opcoes.refreshTable();
+  public filter(nome: string) {
+    this.param = nome;
+    this.listDefinition.refreshTable();
   }
 
-  private buscar(paginadoRequest: PagedAndSortedProductRequest) {
-    paginadoRequest.name = this.parametro;
-    paginadoRequest.productIdsToFilter = this.idsProdutosParaFiltrar;
+  private fetch(request: PagedAndSortedProductRequest) {
+    request.name = this.param;
+    request.productIdsToFilter = this.productsIdsToFilter;
 
-    this.produtoService
-      .fetchPagedProducts(paginadoRequest)
-      .subscribe((e) => (this.opcoes.itensResponse = e));
+    this.productService
+      .fetchPagedProducts(request)
+      .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  private criarOpcoes() {
-    this.opcoes = new DefinicaoTabela(
-      'Produtos',
-      this.criarColunas(),
-      this.criarAcoes(),
-      (request) => this.buscar(request)
+  private createDefinition() {
+    this.listDefinition = new ListDefinition(
+      'Products',
+      this.createColumns(),
+      this.createActions(),
+      (request) => this.fetch(request)
     );
   }
 
-  private criarColunas() {
-    const definicoes: DefinicaoColuna[] = [
+  private createColumns() {
+    const definicoes: ColumnDefinition[] = [
       {
-        nome: 'Nome',
-        mapearPara: 'nome',
-        temSorting: true,
+        name: 'Name',
+        mapFrom: 'name',
+        hasSorting: true,
       },
     ];
 
     return definicoes;
   }
 
-  private criarAcoes() {
-    const acoes: AcaoDaTabela[] = [
+  private createActions() {
+    const acoes: ListAction[] = [
       {
-        icone: 'bi bi-plus',
-        classePersonalizada: 'btn btn-outline-success btn-sm',
-        callback: (produtoId: string) => this.adicionarProduto(produtoId),
-        desativado: this.desativado,
+        icon: 'bi bi-plus',
+        style: 'btn btn-outline-success btn-sm',
+        callback: (productid: string) => this.addProduct(productid),
+        disabled: this.disabled,
       },
     ];
 

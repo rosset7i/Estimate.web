@@ -14,33 +14,33 @@ export class ProductModalComponent implements OnInit {
   form: FormGroup;
 
   @Output() emitFormValue = new EventEmitter<any>();
-  @Input() produtoId: string;
+  @Input() productId: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private produtoService: ProductService,
+    private productService: ProductService,
     public activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
-    this.buscarUsuarioSeExistir();
-    this.criarForm();
+    this.fetchProductIfAny();
+    this.createForm();
   }
 
-  private mapearValores(produto: ProductResponse) {
-    this.form.controls['nome'].setValue(produto.nome);
+  private mapValues(produto: ProductResponse) {
+    this.form.controls['name'].setValue(produto.name);
   }
 
-  private async buscarUsuarioSeExistir() {
-    if (this.produtoId)
-      this.produtoService
-        .fetchProductDetails(this.produtoId)
-        .subscribe((e: ProductResponse) => this.mapearValores(e));
+  private async fetchProductIfAny() {
+    if (this.productId)
+      this.productService
+        .fetchProductDetails(this.productId)
+        .subscribe((e: ProductResponse) => this.mapValues(e));
   }
 
-  private criarForm() {
+  private createForm() {
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 

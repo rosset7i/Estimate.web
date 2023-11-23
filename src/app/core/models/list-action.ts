@@ -1,9 +1,9 @@
-export class AcaoDaTabela {
-  texto?: string;
-  icone?: string;
-  classePersonalizada?: string;
+export class ListAction {
+  text?: string;
+  icon?: string;
+  style?: string;
   callback: Function;
-  temConfirmacao?: boolean = false;
-  mensagemConfirmacao?: string;
-  desativado?: boolean = false;
+  hasConfirmation?: boolean = false;
+  confirmationMessage?: string;
+  disabled?: boolean = false;
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AcaoDaTabela } from 'src/app/core/models/list-action';
-import { DefinicaoColuna } from 'src/app/core/models/column-definition';
-import { DefinicaoTabela } from 'src/app/core/models/list-definition';
+import { ListAction } from 'src/app/core/models/list-action';
+import { ColumnDefinition } from 'src/app/core/models/column-definition';
+import { ListDefinition } from 'src/app/core/models/list-definition';
 import { EstimateService } from 'src/app/services/estimate.service';
 import { UpdateEstimateRequest } from '../models/update-estimate-request';
 import { PagedAndSortedEstimateRequest } from '../models/paged-and-sorted-estimate-request';
 import { Router } from '@angular/router';
-import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-estimate-list',
@@ -15,99 +15,95 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./estimate-list.component.css'],
 })
 export class EstimateListComponent implements OnInit {
-  opcoes: DefinicaoTabela;
-  parametro: string;
+  listDefinition: ListDefinition;
+  param: string;
 
   constructor(
-    private orcamentoService: EstimateService,
+    private estimateService: EstimateService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.criarOpcoes();
+    this.createList();
   }
 
-  filtrar(nome: string) {
-    this.parametro = nome;
-    this.opcoes.refreshTable();
+  filter(name: string) {
+    this.param = name;
+    this.listDefinition.refreshTable();
   }
 
-  buscar(paginadoRequest: PagedAndSortedEstimateRequest) {
-    paginadoRequest.name = this.parametro;
+  fetch(request: PagedAndSortedEstimateRequest) {
+    request.name = this.param;
 
-    this.orcamentoService
-      .fetchPagedEstimates(paginadoRequest)
-      .subscribe((e) => (this.opcoes.itensResponse = e));
+    this.estimateService
+      .fetchPagedEstimates(request)
+      .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  navegarEdicaoOrcamento(orcamentoId: string) {
-    this.router.navigate([`home/orcamentos/${orcamentoId}/editar`]);
+  navigateToEstimateEdit(estimateId: string) {
+    this.router.navigate([`home/estimates/${estimateId}/edit`]);
   }
 
-  navegarVisualizacaoOrcamento(orcamentoId: string) {
-    this.router.navigate([`home/orcamentos/${orcamentoId}/visualizar`]);
+  navigateToEstimateView(estimateId: string) {
+    this.router.navigate([`home/estimates/${estimateId}/view`]);
   }
 
-  editarOrcamento(
-    orcamentoId: string,
-    atualizarOrcamento: UpdateEstimateRequest
-  ) {
-    this.orcamentoService
-      .updateEstimate(orcamentoId, atualizarOrcamento)
-      .subscribe(() => this.opcoes.refreshTable());
+  editEstimate(estimateId: string, updateEstimate: UpdateEstimateRequest) {
+    this.estimateService
+      .updateEstimate(estimateId, updateEstimate)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  removerOrcamento(orcamentoId: string) {
-    this.orcamentoService
+  deleteEstimate(orcamentoId: string) {
+    this.estimateService
       .deleteEstimate(orcamentoId)
-      .subscribe(() => this.opcoes.refreshTable());
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  criarOpcoes() {
-    this.opcoes = new DefinicaoTabela(
-      'Orçamentos',
-      this.criarColunas(),
-      this.criarAcoes(),
-      (request) => this.buscar(request)
+  createList() {
+    this.listDefinition = new ListDefinition(
+      'Estimates',
+      this.createColumns(),
+      this.createActions(),
+      (request) => this.fetch(request)
     );
   }
 
-  criarColunas() {
-    const definicoes: DefinicaoColuna[] = [
+  createColumns() {
+    const definicoes: ColumnDefinition[] = [
       {
-        nome: 'Nome',
-        mapearPara: 'nome',
-        temSorting: true,
+        name: 'Name',
+        mapFrom: 'name',
+        hasSorting: true,
       },
       {
-        nome: 'Fornecedor',
-        mapearPara: 'nomeFornecedor',
-        temSorting: false,
+        name: 'Supplier',
+        mapFrom: 'supplierName',
+        hasSorting: false,
       },
     ];
 
     return definicoes;
   }
 
-  criarAcoes() {
-    const acoes: AcaoDaTabela[] = [
+  createActions() {
+    const acoes: ListAction[] = [
       {
-        icone: 'bi bi-eye',
-        classePersonalizada: 'btn btn-outline-dark me-2',
-        callback: (orcamento) =>
-          this.navegarVisualizacaoOrcamento(orcamento.id),
+        icon: 'bi bi-eye',
+        style: 'btn btn-outline-dark me-2',
+        callback: (estimate) => this.navigateToEstimateView(estimate.id),
       },
       {
-        icone: 'bi bi-pencil',
-        classePersonalizada: 'btn btn-outline-dark me-2',
-        callback: (orcamento) => this.navegarEdicaoOrcamento(orcamento.id),
+        icon: 'bi bi-pencil',
+        style: 'btn btn-outline-dark me-2',
+        callback: (estimate) => this.navigateToEstimateEdit(estimate.id),
       },
       {
-        icone: 'bi bi-trash',
-        classePersonalizada: 'btn btn-outline-danger me-2',
-        callback: (orcamento) => this.removerOrcamento(orcamento.id),
-        temConfirmacao: true,
-        mensagemConfirmacao: MENSAGEM_REMOVER,
+        icon: 'bi bi-trash',
+        style: 'btn btn-outline-danger me-2',
+        callback: (estimate) => this.deleteEstimate(estimate.id),
+        hasConfirmation: true,
+        confirmationMessage: DELETE_MESSAGE,
       },
     ];
 

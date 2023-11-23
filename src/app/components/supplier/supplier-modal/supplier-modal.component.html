@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Fornecedor</h4>
+  <h4 class="modal-title">Supplier</h4>
   <button
     type="button"
     class="btn-close"
@@ -13,12 +13,12 @@
       <span class="input-group-text">
         <i class="bi bi-alphabet"></i>
       </span>
-      <input formControlName="nome" type="text" class="form-control" />
+      <input formControlName="name" type="text" class="form-control" />
     </div>
   </form>
 </div>
 <div class="modal-footer">
   <button (click)="save()" [disabled]="!canSave" class="btn btn-success">
-    Salvar
+    Save
   </button>
 </div>

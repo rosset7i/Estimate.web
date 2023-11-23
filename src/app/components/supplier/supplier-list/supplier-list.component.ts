@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { AcaoDaTabela } from 'src/app/core/models/list-action';
-import { DefinicaoColuna } from 'src/app/core/models/column-definition';
-import { DefinicaoTabela } from 'src/app/core/models/list-definition';
+import { ListAction } from 'src/app/core/models/list-action';
+import { ColumnDefinition } from 'src/app/core/models/column-definition';
+import { ListDefinition } from 'src/app/core/models/list-definition';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { SupplierModalComponent } from '../supplier-modal/supplier-modal.component';
 import { UpdateSupplierRequest } from '../models/update-supplier-request';
 import { CreateSupplierRequest } from '../models/create-supplier-request';
 import { PagedAndSortedSupplierRequest } from '../models/paged-and-sorted-supplier-request';
-import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
+import { DELETE_MESSAGE } from 'src/app/core/utils/consts';
 
 @Component({
   selector: 'app-supplier-list',
@@ -17,99 +17,94 @@ import { MENSAGEM_REMOVER } from 'src/app/core/utils/consts';
   styleUrls: ['./supplier-list.component.css'],
 })
 export class SupplierListComponent implements OnInit {
-  opcoes: DefinicaoTabela;
-  parametro: string;
+  listDefinition: ListDefinition;
+  param: string;
 
   constructor(
-    private fornecedorService: SupplierService,
+    private supplierService: SupplierService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
-    this.criarTabela();
+    this.createList();
   }
 
-  abrirModal(fornecedorId?: string) {
+  openModal(supplierId?: string) {
     const modalRef = this.modalService.open(SupplierModalComponent);
 
-    modalRef.componentInstance.fornecedorId = fornecedorId;
+    modalRef.componentInstance.supplierId = supplierId;
 
     modalRef.result.then((e) => {
-      if (e && !fornecedorId) this.criarFornecedor(e);
-      if (e && fornecedorId) this.editarFornecedor(fornecedorId, e);
+      if (e && !supplierId) this.createSupplier(e);
+      if (e && supplierId) this.editSupplier(supplierId, e);
     });
   }
 
-  filtrar(nome: string) {
-    this.parametro = nome;
-    this.opcoes.refreshTable();
+  filter(nome: string) {
+    this.param = nome;
+    this.listDefinition.refreshTable();
   }
 
-  buscar(request: PagedAndSortedSupplierRequest) {
-    request.name = this.parametro;
+  fetch(request: PagedAndSortedSupplierRequest) {
+    request.name = this.param;
 
-    this.fornecedorService
-      .fetchPagedSuppliers(request)
-      .subscribe((response) => {
-        this.opcoes.itensResponse = response;
-      });
+    this.supplierService.fetchPagedSuppliers(request).subscribe((response) => {
+      this.listDefinition.items = response;
+    });
   }
 
-  criarFornecedor(request: CreateSupplierRequest) {
-    this.fornecedorService
+  createSupplier(request: CreateSupplierRequest) {
+    this.supplierService
       .createSupplier(request)
-      .subscribe(() => this.opcoes.refreshTable());
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editarFornecedor(
-    fornecedorId: string,
-    atualizarFornecedorRequest: UpdateSupplierRequest
-  ) {
-    this.fornecedorService
-      .updateSupplier(fornecedorId, atualizarFornecedorRequest)
-      .subscribe(() => this.opcoes.refreshTable());
+  editSupplier(supplierId: string, request: UpdateSupplierRequest) {
+    this.supplierService
+      .updateSupplier(supplierId, request)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  remover(fornecedorId: string) {
-    this.fornecedorService
-      .deleteSupplier(fornecedorId)
-      .subscribe(() => this.opcoes.refreshTable());
+  delete(supplierId: string) {
+    this.supplierService
+      .deleteSupplier(supplierId)
+      .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  criarTabela() {
-    this.opcoes = new DefinicaoTabela(
-      'Fornecedores',
-      this.criarColunas(),
-      this.criarAcoes(),
-      (request) => this.buscar(request)
+  createList() {
+    this.listDefinition = new ListDefinition(
+      'Suppliers',
+      this.createColumns(),
+      this.createActions(),
+      (request) => this.fetch(request)
     );
   }
 
-  criarColunas() {
-    const definicoes: DefinicaoColuna[] = [
+  createColumns() {
+    const definicoes: ColumnDefinition[] = [
       {
-        nome: 'Nome',
-        mapearPara: 'nome',
-        temSorting: true,
+        name: 'Name',
+        mapFrom: 'name',
+        hasSorting: true,
       },
     ];
 
     return definicoes;
   }
 
-  criarAcoes() {
-    const definicoes: AcaoDaTabela[] = [
+  createActions() {
+    const definicoes: ListAction[] = [
       {
-        icone: 'bi bi-pencil',
-        classePersonalizada: 'btn btn-outline-dark me-2',
-        callback: (fornecedor) => this.abrirModal(fornecedor?.id),
+        icon: 'bi bi-pencil',
+        style: 'btn btn-outline-dark me-2',
+        callback: (supplier) => this.openModal(supplier?.id),
       },
       {
-        icone: 'bi bi-trash',
-        classePersonalizada: 'btn btn-outline-danger me-2',
-        callback: (fornecedor) => this.remover(fornecedor?.id),
-        temConfirmacao: true,
-        mensagemConfirmacao: MENSAGEM_REMOVER,
+        icon: 'bi bi-trash',
+        style: 'btn btn-outline-danger me-2',
+        callback: (supplier) => this.delete(supplier?.id),
+        hasConfirmation: true,
+        confirmationMessage: DELETE_MESSAGE,
       },
     ];
 

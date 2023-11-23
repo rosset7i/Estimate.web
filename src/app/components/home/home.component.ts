@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HomeComponent {
   constructor(
-    private autenticacaoService: AuthenticationService,
+    private authenticationService: AuthenticationService,
     private messageService: MessageService
   ) {}
 
@@ -19,13 +19,13 @@ export class HomeComponent {
     this.messageService
       .openMessageModal(
         new ModalDefinition(
-          'Atenção!',
-          'Você tem certeza que deseja sair?',
+          'Attention!',
+          'Are you sure you want to logout?',
           true
         )
       )
       .then((e) => {
-        if (e) this.autenticacaoService.logout();
+        if (e) this.authenticationService.logout();
       });
   }
 }

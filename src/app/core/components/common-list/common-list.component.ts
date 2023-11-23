@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { DefinicaoTabela } from '../../models/list-definition';
+import { ListDefinition } from '../../models/list-definition';
 import { PagedAndSortedRequest } from '../../models/paged-and-sorted-request';
-import { Direcao } from '../../utils/direction';
-import { Tamanhos } from '../../utils/page-size';
+import { Direction } from '../../utils/direction';
+import { Sizes } from '../../utils/page-size';
 import { MessageService } from '../../services/message.service';
-import { AcaoDaTabela } from '../../models/list-action';
+import { ListAction } from '../../models/list-action';
 import { ModalDefinition } from '../../models/modal-definition';
 
 @Component({
@@ -14,61 +14,61 @@ import { ModalDefinition } from '../../models/modal-definition';
   styleUrls: ['./common-list.component.css'],
 })
 export class CommonListComponent implements OnInit {
-  @Input() opcoesTabela: DefinicaoTabela;
+  @Input() listDefinition: ListDefinition;
 
-  tamanhoOpcoes = Tamanhos;
-  tamanho: number = 10;
-  paginalAtual: number = 1;
-  direcaoOrdenacao: string = null;
-  colunaOrdenacao: string = null;
+  sizeOptions = Sizes;
+  size: number = 10;
+  currentPage: number = 1;
+  sortDirection: string = null;
+  sortColumn: string = null;
 
   constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
-    this.buscar();
+    this.fetch();
     this.refreshTable();
   }
 
-  ordenar(coluna: string) {
-    this.colunaOrdenacao = coluna;
+  sort(coluna: string) {
+    this.sortColumn = coluna;
 
-    if (this.direcaoOrdenacao === Direcao.ASC) {
-      this.direcaoOrdenacao = Direcao.DESC;
+    if (this.sortDirection === Direction.ASC) {
+      this.sortDirection = Direction.DESC;
     } else {
-      this.direcaoOrdenacao = Direcao.ASC;
+      this.sortDirection = Direction.ASC;
     }
 
-    this.buscar();
+    this.fetch();
   }
 
-  buscar() {
+  fetch() {
     const paginadoRequest = new PagedAndSortedRequest(
-      this.paginalAtual,
-      this.tamanho,
-      this.colunaOrdenacao,
-      this.direcaoOrdenacao
+      this.currentPage,
+      this.size,
+      this.sortColumn,
+      this.sortDirection
     );
 
-    this.opcoesTabela.getCallback(paginadoRequest);
+    this.listDefinition.callback(paginadoRequest);
   }
 
-  chamarMetodo(acao: AcaoDaTabela, item: any) {
+  callMethod(action: ListAction, item: any) {
     const modalDef = new ModalDefinition(
-      'Atenção!',
-      acao.mensagemConfirmacao,
+      'Attention!',
+      action.confirmationMessage,
       true
     );
 
-    if (acao.temConfirmacao)
+    if (action.hasConfirmation)
       this.messageService.openMessageModal(modalDef).then((e) => {
-        if (e) acao.callback(item);
+        if (e) action.callback(item);
       });
     else {
-      acao.callback(item);
+      action.callback(item);
     }
   }
 
   refreshTable() {
-    this.opcoesTabela.refresh.subscribe(() => this.buscar());
+    this.listDefinition.refresh.subscribe(() => this.fetch());
   }
 }

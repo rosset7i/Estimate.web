@@ -19,4 +19,4 @@ import { ProductModalComponent } from './product-modal/product-modal.component';
     NgbModalModule,
   ],
 })
-export class ProdutosModule {}
+export class ProductModule {}

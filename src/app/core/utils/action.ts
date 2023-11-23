@@ -1,5 +1,5 @@
 export enum Action {
-  Criar = 'Criar',
-  Editar = 'Editar',
-  Visualizar = 'Visualizar',
+  Create = 'Create',
+  Edit = 'Edit',
+  View = 'View',
 }

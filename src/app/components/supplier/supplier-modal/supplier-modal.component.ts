@@ -13,33 +13,33 @@ import { FornecedorResponse } from '../models/supplier-response';
 export class SupplierModalComponent implements OnInit {
   form: FormGroup;
 
-  @Input() fornecedorId: string;
+  @Input() supplierId: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private fornecedorService: SupplierService,
+    private supplierService: SupplierService,
     public activeModal: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
-    this.buscarUsuarioSeExistir();
-    this.criarForm();
+    this.fetchSupplierIfAny();
+    this.createForm();
   }
 
-  private mapearValores(fornecedor: FornecedorResponse) {
-    this.form.controls['nome'].setValue(fornecedor.nome);
+  private mapValues(supplier: FornecedorResponse) {
+    this.form.controls['name'].setValue(supplier.name);
   }
 
-  private buscarUsuarioSeExistir() {
-    if (this.fornecedorId)
-      this.fornecedorService
-        .fetchSupplierDetails(this.fornecedorId)
-        .subscribe((e: FornecedorResponse) => this.mapearValores(e));
+  private fetchSupplierIfAny() {
+    if (this.supplierId)
+      this.supplierService
+        .fetchSupplierDetails(this.supplierId)
+        .subscribe((e: FornecedorResponse) => this.mapValues(e));
   }
 
-  private criarForm() {
+  private createForm() {
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 

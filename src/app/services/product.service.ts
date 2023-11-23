@@ -60,7 +60,7 @@ export class ProductService extends ServiceBase {
 
   public deleteProduct(productId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ESTIMATE_API}/produtos/${productId}/delete`
+      `${Api.ESTIMATE_API}/products/${productId}/delete`
     );
   }
 }

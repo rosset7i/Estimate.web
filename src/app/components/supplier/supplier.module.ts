@@ -24,4 +24,4 @@ import { SupplierComponent } from './supplier.component';
     NgbModalModule,
   ],
 })
-export class FornecedoresModule {}
+export class SupplierModule {}
