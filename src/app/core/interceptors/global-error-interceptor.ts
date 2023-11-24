@@ -56,7 +56,7 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     if (httpError.status === HttpStatusCode.Unauthorized)
       return throwError(() => new Error('Auth Error'));
 
-    const errorMessages = httpError.error?.Errors;
+    const errorMessages = httpError.error?.errors;
 
     let errors =
       this.serverErrors.includes(httpError.status) ||
