@@ -33,8 +33,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    this.authenticationService.login(this.form.value).subscribe((token) => {
-      this.authenticationService.setToken(token.token);
+    this.authenticationService.login(this.form.value).subscribe((response) => {
+      this.authenticationService.setToken(response.result.token);
       this.router.navigate(['/home']);
     });
   }
