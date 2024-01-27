@@ -1,7 +1,9 @@
 export class UpdateSupplierRequest {
+  supplierId: string;
   name: string;
 
-  constructor(name: string) {
+  constructor(supplierId: string, name: string) {
+    this.supplierId = supplierId;
     this.name = name;
   }
 }

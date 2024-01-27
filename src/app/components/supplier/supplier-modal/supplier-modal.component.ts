@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SupplierService } from 'src/app/services/supplier.service';
+import { UpdateProductRequest } from '../../product/models/update-product-request';
 import { SupplierResponse } from '../models/supplier-response';
+import { UpdateSupplierRequest } from '../models/update-supplier-request';
 
 @Component({
   selector: 'app-supplier-modal',
@@ -19,7 +21,7 @@ export class SupplierModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private supplierService: SupplierService,
     public activeModal: NgbActiveModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchSupplierIfAny();
@@ -48,6 +50,10 @@ export class SupplierModalComponent implements OnInit {
   }
 
   save() {
-    this.activeModal.close(this.form.value);
+    const payload = new UpdateSupplierRequest(
+      this.supplierId,
+      this.form.get('name').value);
+
+    this.activeModal.close(payload);
   }
 }

@@ -12,7 +12,6 @@ import { RegisterRequest } from '../components/authentication/models/registrar-r
 import { jwtDecode } from 'jwt-decode';
 import { ResultOf } from '../core/models/result-of';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +20,7 @@ export class AuthenticationService {
     private httpClient: HttpClient,
     private router: Router,
     private ngbModal: NgbModal
-  ) {}
+  ) { }
 
   public login(request: LoginRequest): Observable<ResultOf<LoginResponse>> {
     return this.httpClient.post<ResultOf<LoginResponse>>(

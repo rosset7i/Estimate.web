@@ -10,6 +10,7 @@ import { CreateEstimateRequest } from '../components/estimate/models/create-esti
 import { EstimateDetailsResponse } from '../components/estimate/models/estimate-details-response';
 import { EstimateResponse } from '../components/estimate/models/estimate-response';
 import { UpdateEstimateRequest } from '../components/estimate/models/update-estimate-request';
+import { ResultOf } from '../core/models/result-of';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +43,9 @@ export class EstimateService extends ServiceBase {
 
   public fetchEstimateDetails(
     estimateId: string
-  ): Observable<EstimateDetailsResponse> {
-    return this.httpClient.get<EstimateDetailsResponse>(
-      `${Api.ESTIMATE_API}/estimates/${estimateId}`
+  ): Observable<ResultOf<EstimateDetailsResponse>> {
+    return this.httpClient.get<ResultOf<EstimateDetailsResponse>>(
+      `${Api.ESTIMATE_API}/estimates/fetchdetails?estimateId=${estimateId}`
     );
   }
 

@@ -47,18 +47,17 @@ export class SupplierService extends ServiceBase {
   }
 
   public updateSupplier(
-    supplierId: string,
     request: UpdateSupplierRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ESTIMATE_API}/suppliers/${supplierId}/update`,
+      `${Api.ESTIMATE_API}/suppliers/update`,
       request
     );
   }
 
   public deleteSupplier(supplierId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ESTIMATE_API}/suppliers/${supplierId}/delete`
+      `${Api.ESTIMATE_API}/suppliers/delete?supplierId=${supplierId}`
     );
   }
 }

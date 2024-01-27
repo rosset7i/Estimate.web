@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductService } from 'src/app/services/product.service';
 import { ProductResponse } from '../models/product-response';
+import { UpdateProductRequest } from '../models/update-product-request';
 
 @Component({
   selector: 'app-product-modal',
@@ -20,7 +21,7 @@ export class ProductModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     public activeModal: NgbActiveModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchProductIfAny();
@@ -49,6 +50,10 @@ export class ProductModalComponent implements OnInit {
   }
 
   public save() {
-    this.activeModal.close(this.form.value);
+    const payload = new UpdateProductRequest(
+      this.productId,
+      this.form.get('name').value);
+
+    this.activeModal.close(payload);
   }
 }

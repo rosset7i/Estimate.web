@@ -49,18 +49,17 @@ export class ProductService extends ServiceBase {
   }
 
   public updateProduct(
-    productId: string,
     request: UpdateProductRequest
   ): Observable<any> {
     return this.httpClient.put(
-      `${Api.ESTIMATE_API}/products/${productId}/update`,
+      `${Api.ESTIMATE_API}/products/update`,
       request
     );
   }
 
   public deleteProduct(productId: string): Observable<any> {
     return this.httpClient.delete(
-      `${Api.ESTIMATE_API}/products/${productId}/delete`
+      `${Api.ESTIMATE_API}/products/delete?productId=${productId}`
     );
   }
 }

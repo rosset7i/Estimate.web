@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createOptions();
@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
 
     modalRef.result.then((e) => {
       if (e && !productId) this.createProduct(e);
-      if (e && productId) this.editProduct(productId, e);
+      if (e && productId) this.editProduct(e);
     });
   }
 
@@ -59,9 +59,9 @@ export class ProductListComponent implements OnInit {
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editProduct(productId: string, request: UpdateProductRequest) {
+  editProduct(request: UpdateProductRequest) {
     this.productService
-      .updateProduct(productId, request)
+      .updateProduct(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 

@@ -23,7 +23,7 @@ export class SupplierListComponent implements OnInit {
   constructor(
     private supplierService: SupplierService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createList();
@@ -36,7 +36,7 @@ export class SupplierListComponent implements OnInit {
 
     modalRef.result.then((e) => {
       if (e && !supplierId) this.createSupplier(e);
-      if (e && supplierId) this.editSupplier(supplierId, e);
+      if (e && supplierId) this.editSupplier(e);
     });
   }
 
@@ -59,9 +59,9 @@ export class SupplierListComponent implements OnInit {
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editSupplier(supplierId: string, request: UpdateSupplierRequest) {
+  editSupplier(request: UpdateSupplierRequest) {
     this.supplierService
-      .updateSupplier(supplierId, request)
+      .updateSupplier(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 

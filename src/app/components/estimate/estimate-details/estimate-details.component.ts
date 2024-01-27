@@ -35,7 +35,7 @@ export class EstimateDetailsComponent implements OnInit {
     private messageService: MessageService,
     private supplierService: SupplierService,
     private estimateService: EstimateService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchSuppliers();
@@ -48,7 +48,7 @@ export class EstimateDetailsComponent implements OnInit {
     if (this.estimateId) {
       this.estimateService
         .fetchEstimateDetails(this.estimateId)
-        .subscribe((e) => this.mapValues(e));
+        .subscribe((e) => this.mapValues(e.result));
     } else {
       this.productsInEstimate = [];
     }
