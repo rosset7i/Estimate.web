@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Api } from 'api';
-import jwtDecode from 'jwt-decode';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RefreshModalComponent } from '../core/components/refresh-modal/refresh-modal.component';
 import { LoginResponse } from '../components/authentication/models/login-response';
 import { LoginRequest } from '../components/authentication/models/login-request';
 import { RegisterRequest } from '../components/authentication/models/registrar-request';
+import { jwtDecode } from 'jwt-decode';
+import { ResultOf } from '../core/models/result-of';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +23,8 @@ export class AuthenticationService {
     private ngbModal: NgbModal
   ) {}
 
-  public login(request: LoginRequest): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>(
+  public login(request: LoginRequest): Observable<ResultOf<LoginResponse>> {
+    return this.httpClient.post<ResultOf<LoginResponse>>(
       `${Api.ESTIMATE_API}/authentication/login`,
       request
     );
@@ -64,7 +66,7 @@ export class AuthenticationService {
 
   private handleRefreshSuccess(result: any) {
     this.login(result).subscribe(
-      (response) => this.setToken(response.token),
+      (response) => this.setToken(response.result.token),
       () => this.router.navigate(['/authentication/login'])
     );
   }

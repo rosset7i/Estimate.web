@@ -56,24 +56,18 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     if (httpError.status === HttpStatusCode.Unauthorized)
       return throwError(() => new Error('Auth Error'));
 
-    const errorMessages = httpError.error?.errors;
+    const errorMessages = httpError.error?.errors.map(e => e.message);
 
     let errors =
       this.serverErrors.includes(httpError.status) ||
       errorMessages === undefined
         ? 'Critical error. Please try again, if the problem persists, please contact our support team.'
-        : errorMessages;
-
-    const formattedMessage = this.formatMessage(errors);
+        : errorMessages.join('\n');
 
     this.messageService.openMessageModal(
-      new ModalDefinition('Error', formattedMessage, false)
+      new ModalDefinition('Error', errors, false)
     );
 
-    return throwError(() => new Error(formattedMessage));
-  }
-
-  formatMessage(message: string) {
-    return JSON.stringify(message).replace(/[{}"\[\]]/g, '');
+    return throwError(() => new Error(errors));
   }
 }
