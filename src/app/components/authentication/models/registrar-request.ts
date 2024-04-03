@@ -1,11 +1,11 @@
 export class RegisterRequest {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  password: string;
+  private name: string;
+  private username: string;
+  private email: string;
+  private phone: string;
+  private password: string;
 
-  constructor(
+  public constructor(
     name: string,
     username: string,
     email: string,

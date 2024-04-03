@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ListDefinition } from 'src/app/core/models/list-definition';
 import { PagedAndSortedRequest } from 'src/app/core/models/paged-and-sorted-request';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { EstimateService } from 'src/app/services/estimate.service';
@@ -19,31 +18,30 @@ import { PagedAndSortedSupplierRequest } from '../../supplier/models/paged-and-s
   styleUrls: ['./estimate-details.component.css'],
 })
 export class EstimateDetailsComponent implements OnInit {
-  form: FormGroup;
-  estimateId: string;
-  selected: string;
-  productsInEstimate: ProductsInEstimateResponse[];
-  suppliers: SupplierResponse[];
-  listDefinition: ListDefinition;
-  disabled: boolean = false;
-  searchFields = ['name'];
+  public form: FormGroup;
+  private estimateId: string;
+  public selected: string;
+  public productsInEstimate: ProductsInEstimateResponse[];
+  public suppliers: SupplierResponse[];
+  public disabled: boolean = false;
+  public searchFields = ['name'];
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
     private supplierService: SupplierService,
     private estimateService: EstimateService
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetchSuppliers();
     this.fetchEstimate();
     this.createForm();
   }
 
-  fetchEstimate() {
+  private fetchEstimate(): void {
     this.estimateId = this.activatedRoute.snapshot.params['estimateId'];
     if (this.estimateId) {
       this.estimateService
@@ -54,7 +52,7 @@ export class EstimateDetailsComponent implements OnInit {
     }
   }
 
-  mapValues(estimateDetails: EstimateDetailsResponse) {
+  private mapValues(estimateDetails: EstimateDetailsResponse): void {
     this.form.get('name').setValue(estimateDetails.name);
     this.form.get('supplierId').setValue(estimateDetails.supplierId);
     this.selected = estimateDetails.supplierName;
@@ -66,7 +64,7 @@ export class EstimateDetailsComponent implements OnInit {
     }
   }
 
-  private createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       name: [
         '',
@@ -77,7 +75,7 @@ export class EstimateDetailsComponent implements OnInit {
     });
   }
 
-  private fetchSuppliers() {
+  private fetchSuppliers(): void {
     const page = new PagedAndSortedRequest(1, 10, null, null);
     const page2 = new PagedAndSortedSupplierRequest(null, page);
     this.supplierService
@@ -85,16 +83,16 @@ export class EstimateDetailsComponent implements OnInit {
       .subscribe((e) => (this.suppliers = e.items));
   }
 
-  public selectSupplier(supplier: SupplierResponse) {
+  public selectSupplier(supplier: SupplierResponse): void {
     this.form.markAsDirty();
     this.form.get('supplierId').setValue(supplier.id);
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  save() {
+  public save(): void {
     if (this.estimateId) {
       this.estimateService
         .updateEstimate(this.estimateId, this.form.value)
@@ -106,12 +104,12 @@ export class EstimateDetailsComponent implements OnInit {
     }
   }
 
-  navigateToList() {
+  private navigateToList(): void {
     this.success();
     this.router.navigate(['/home/estimates']);
   }
 
-  success() {
+  private success(): void {
     this.messageService.openMessageModal(
       new ModalDefinition('Success!', null, false)
     );

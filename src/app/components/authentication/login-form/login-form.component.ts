@@ -10,19 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       email: [
         null,
@@ -32,14 +32,14 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  login() {
+  public login(): void {
     this.authenticationService.login(this.form.value).subscribe((response) => {
       this.authenticationService.setToken(response.result.token);
       this.router.navigate(['/home']);
     });
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     return this.form.valid;
   }
 }

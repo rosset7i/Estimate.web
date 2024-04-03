@@ -16,11 +16,11 @@ import { ResultOf } from '../core/models/result-of';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(
+  public constructor(
     private httpClient: HttpClient,
     private router: Router,
     private ngbModal: NgbModal
-  ) { }
+  ) {}
 
   public login(request: LoginRequest): Observable<ResultOf<LoginResponse>> {
     return this.httpClient.post<ResultOf<LoginResponse>>(
@@ -29,14 +29,14 @@ export class AuthenticationService {
     );
   }
 
-  public register(request: RegisterRequest): Observable<any> {
-    return this.httpClient.post(
+  public register(request: RegisterRequest): Observable<void> {
+    return this.httpClient.post<void>(
       `${Api.ESTIMATE_API}/authentication/register`,
       request
     );
   }
 
-  public logout() {
+  public logout(): void {
     this.removeToken();
     this.router.navigate(['/authentication/login']);
   }
@@ -45,15 +45,15 @@ export class AuthenticationService {
     return localStorage.getItem('token');
   }
 
-  public setToken(token: string) {
+  public setToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  private removeToken() {
+  private removeToken(): void {
     localStorage.removeItem('token');
   }
 
-  public refreshToken() {
+  public refreshToken(): void {
     const modalRef = this.ngbModal.open(RefreshModalComponent);
     modalRef.componentInstance.email = this.getTokenEmail();
     this.removeToken();
@@ -63,7 +63,7 @@ export class AuthenticationService {
     );
   }
 
-  private handleRefreshSuccess(result: any) {
+  private handleRefreshSuccess(result: any): void {
     this.login(result).subscribe(
       (response) => this.setToken(response.result.token),
       () => this.router.navigate(['/authentication/login'])
@@ -105,7 +105,7 @@ export class AuthenticationService {
     return date.valueOf() < Date.now();
   }
 
-  public isUserLoggedIn() {
+  public isUserLoggedIn(): boolean {
     const token = this.getToken();
 
     if (!token || this.isTokenExpired()) return false;

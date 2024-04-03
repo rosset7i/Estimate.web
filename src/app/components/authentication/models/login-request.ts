@@ -1,8 +1,8 @@
 export class LoginRequest {
-  email: string;
-  password: string;
+  private email: string;
+  private password: string;
 
-  constructor(email: string, password: string) {
+  public constructor(email: string, password: string) {
     this.email = email;
     this.password = password;
   }

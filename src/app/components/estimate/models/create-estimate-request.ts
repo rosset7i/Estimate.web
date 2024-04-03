@@ -1,11 +1,11 @@
 import { UpdateEstimateProductsRequest } from './update-estimate-products-request';
 
 export class CreateEstimateRequest {
-  name: string;
-  supplierId: string;
-  updateEstimateProducts: UpdateEstimateProductsRequest[];
+  private name: string;
+  private supplierId: string;
+  public updateEstimateProducts: UpdateEstimateProductsRequest[];
 
-  constructor(
+  public constructor(
     nome: string,
     supplier: string,
     updateEstimateProducts: UpdateEstimateProductsRequest[]

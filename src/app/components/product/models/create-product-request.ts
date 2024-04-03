@@ -1,7 +1,7 @@
 export class CreateProductRequest {
-  name: string;
+  private name: string;
 
-  constructor(name: string) {
+  public constructor(name: string) {
     this.name = name;
   }
 }

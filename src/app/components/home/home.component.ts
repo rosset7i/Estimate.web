@@ -10,12 +10,12 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  constructor(
+  public constructor(
     private authenticationService: AuthenticationService,
     private messageService: MessageService
   ) {}
 
-  logout() {
+  public logout(): void {
     this.messageService
       .openMessageModal(
         new ModalDefinition(

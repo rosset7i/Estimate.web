@@ -1,13 +1,13 @@
 import { ProductsInEstimateResponse } from './product-in-estimate-response';
 
 export class EstimateDetailsResponse {
-  id: string;
-  name: string;
-  supplierId: string;
-  supplierName: string;
-  productsInEstimate: ProductsInEstimateResponse[];
+  public id: string;
+  public name: string;
+  public supplierId: string;
+  public supplierName: string;
+  public productsInEstimate: ProductsInEstimateResponse[];
 
-  constructor(
+  public constructor(
     id: string,
     name: string,
     supplierId: string,

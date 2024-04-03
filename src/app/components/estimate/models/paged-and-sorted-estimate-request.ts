@@ -1,10 +1,10 @@
 import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
 export class PagedAndSortedEstimateRequest extends PagedAndSortedRequest {
-  name: string;
-  supplierId: string;
+  public name: string;
+  public supplierId: string;
 
-  constructor(
+  public constructor(
     name: string,
     supplierId: string,
     request: PagedAndSortedRequest

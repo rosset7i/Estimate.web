@@ -1,10 +1,10 @@
 import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
 export class PagedAndSortedProductRequest extends PagedAndSortedRequest {
-  name: string;
-  productsIdsToFilter: string[];
+  public name: string;
+  public productsIdsToFilter: string[];
 
-  constructor(
+  public constructor(
     name: string,
     productsIdsToFilter: string[],
     request: PagedAndSortedRequest

@@ -12,20 +12,20 @@ import { ModalDefinition } from 'src/app/core/models/modal-definition';
   styleUrls: ['./register-form.component.css'],
 })
 export class RegisterFormComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authenticationService: AuthenticationService,
     private messageService: MessageService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       name: [null, Validators.required],
       phone: [null, Validators.required],
@@ -37,7 +37,7 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
-  register() {
+  public register(): void {
     this.authenticationService.register(this.form.value).subscribe(() => {
       this.messageService.openMessageModal(
         new ModalDefinition(
@@ -50,7 +50,7 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     return this.form.valid;
   }
 }

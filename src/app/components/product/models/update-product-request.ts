@@ -1,8 +1,8 @@
 export class UpdateProductRequest {
-  productId: string;
-  name: string;
+  private productId: string;
+  private name: string;
 
-  constructor(productId: string, name: string) {
+  public constructor(productId: string, name: string) {
     this.productId = productId;
     this.name = name;
   }

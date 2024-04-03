@@ -18,29 +18,29 @@ export class ProductSelectComponent implements OnInit {
   private param: string;
   private productsIdsToFilter: string[] = [];
 
-  @Input() form: FormGroup;
-  @Input() selectedProducts: ProductsInEstimateResponse[];
-  @Input() disabled: boolean = false;
+  @Input() public form: FormGroup;
+  @Input() public selectedProducts: ProductsInEstimateResponse[];
+  @Input() public disabled: boolean = false;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createDefinition();
     this.mapValues();
   }
 
-  get rows() {
+  public get rows(): FormArray {
     return this.form.get('productsInEstimate') as FormArray;
   }
 
-  private mapValues() {
+  private mapValues(): void {
     this.selectedProducts.forEach((e) => this.addProduct(e));
   }
 
-  private addNewForm(product: any) {
+  private addNewForm(product: any): void {
     const formRow = this.formBuilder.group({
       productId: [product.id, Validators.required],
       name: [
@@ -64,25 +64,25 @@ export class ProductSelectComponent implements OnInit {
     this.rows.push(formRow);
   }
 
-  public removeProduct(index: number) {
+  public removeProduct(index: number): void {
     this.form.markAsDirty();
     this.rows.removeAt(index);
     this.productsIdsToFilter.splice(index, 1);
     this.listDefinition.refreshTable();
   }
 
-  public addProduct(selectedProduct: any) {
+  public addProduct(selectedProduct: any): void {
     this.addNewForm(selectedProduct);
     this.productsIdsToFilter.push(selectedProduct.id);
     this.listDefinition.refreshTable();
   }
 
-  public filter(nome: string) {
+  public filter(nome: string): void {
     this.param = nome;
     this.listDefinition.refreshTable();
   }
 
-  private fetch(request: PagedAndSortedProductRequest) {
+  private fetch(request: PagedAndSortedProductRequest): void {
     request.name = this.param;
     request.productsIdsToFilter = this.productsIdsToFilter;
 
@@ -91,16 +91,16 @@ export class ProductSelectComponent implements OnInit {
       .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  private createDefinition() {
+  private createDefinition(): void {
     this.listDefinition = new ListDefinition(
       'Products',
       this.createColumns(),
       this.createActions(),
-      (request) => this.fetch(request)
+      (request: PagedAndSortedProductRequest) => this.fetch(request)
     );
   }
 
-  private createColumns() {
+  private createColumns(): ColumnDefinition[] {
     const definition: ColumnDefinition[] = [
       {
         name: 'Name',
@@ -112,7 +112,7 @@ export class ProductSelectComponent implements OnInit {
     return definition;
   }
 
-  private createActions() {
+  private createActions(): ListAction[] {
     const action: ListAction[] = [
       {
         icon: 'bi bi-plus',

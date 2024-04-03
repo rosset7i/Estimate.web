@@ -4,10 +4,10 @@ import { ListAction } from 'src/app/core/models/list-action';
 import { ColumnDefinition } from 'src/app/core/models/column-definition';
 import { ListDefinition } from 'src/app/core/models/list-definition';
 import { EstimateService } from 'src/app/services/estimate.service';
-import { UpdateEstimateRequest } from '../models/update-estimate-request';
 import { PagedAndSortedEstimateRequest } from '../models/paged-and-sorted-estimate-request';
 import { Router } from '@angular/router';
 import { DELETE_MESSAGE } from 'src/app/core/utils/const';
+import { EstimateResponse } from '../models/estimate-response';
 
 @Component({
   selector: 'app-estimate-list',
@@ -15,24 +15,24 @@ import { DELETE_MESSAGE } from 'src/app/core/utils/const';
   styleUrls: ['./estimate-list.component.css'],
 })
 export class EstimateListComponent implements OnInit {
-  listDefinition: ListDefinition;
-  param: string;
+  public listDefinition: ListDefinition;
+  private param: string;
 
-  constructor(
+  public constructor(
     private estimateService: EstimateService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createList();
   }
 
-  filter(name: string) {
+  public filter(name: string): void {
     this.param = name;
     this.listDefinition.refreshTable();
   }
 
-  fetch(request: PagedAndSortedEstimateRequest) {
+  private fetch(request: PagedAndSortedEstimateRequest): void {
     request.name = this.param;
 
     this.estimateService
@@ -40,36 +40,30 @@ export class EstimateListComponent implements OnInit {
       .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  navigateToEstimateEdit(estimateId: string) {
+  private navigateToEstimateEdit(estimateId: string): void {
     this.router.navigate([`home/estimates/${estimateId}/edit`]);
   }
 
-  navigateToEstimateView(estimateId: string) {
+  private navigateToEstimateView(estimateId: string): void {
     this.router.navigate([`home/estimates/${estimateId}/view`]);
   }
 
-  editEstimate(estimateId: string, updateEstimate: UpdateEstimateRequest) {
-    this.estimateService
-      .updateEstimate(estimateId, updateEstimate)
-      .subscribe(() => this.listDefinition.refreshTable());
-  }
-
-  deleteEstimate(estimateId: string) {
+  private deleteEstimate(estimateId: string): void {
     this.estimateService
       .deleteEstimate(estimateId)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  createList() {
+  private createList(): void {
     this.listDefinition = new ListDefinition(
       'Estimates',
       this.createColumns(),
       this.createActions(),
-      (request) => this.fetch(request)
+      (request: PagedAndSortedEstimateRequest) => this.fetch(request)
     );
   }
 
-  createColumns() {
+  private createColumns(): ColumnDefinition[] {
     const definitions: ColumnDefinition[] = [
       {
         name: 'Name',
@@ -86,22 +80,25 @@ export class EstimateListComponent implements OnInit {
     return definitions;
   }
 
-  createActions() {
+  private createActions(): ListAction[] {
     const actions: ListAction[] = [
       {
         icon: 'bi bi-eye',
         style: 'btn btn-outline-dark me-2',
-        callback: (estimate) => this.navigateToEstimateView(estimate.id),
+        callback: (estimate: EstimateResponse) =>
+          this.navigateToEstimateView(estimate.id),
       },
       {
         icon: 'bi bi-pencil',
         style: 'btn btn-outline-dark me-2',
-        callback: (estimate) => this.navigateToEstimateEdit(estimate.id),
+        callback: (estimate: EstimateResponse) =>
+          this.navigateToEstimateEdit(estimate.id),
       },
       {
         icon: 'bi bi-trash',
         style: 'btn btn-outline-danger me-2',
-        callback: (estimate) => this.deleteEstimate(estimate.id),
+        callback: (estimate: EstimateResponse) =>
+          this.deleteEstimate(estimate.id),
         hasConfirmation: true,
         confirmationMessage: DELETE_MESSAGE,
       },
