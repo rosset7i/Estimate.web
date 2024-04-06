@@ -14,19 +14,19 @@ import {
   styleUrls: ['./autocomplete.component.css'],
 })
 export class AutocompleteComponent {
-  @Input() selectedItem: any;
-  @Input() values: any[];
-  @Input() disabled: boolean;
-  @Input() searchFields: string[];
-  @Input() placeholder: string = '';
-  @Output() selected: EventEmitter<any> = new EventEmitter<any>();
+  @Input() public selectedItem: any;
+  @Input() public values: any[];
+  @Input() public disabled: boolean;
+  @Input() public searchFields: string[];
+  @Input() public placeholder: string = '';
+  @Output() public selected: EventEmitter<any> = new EventEmitter<any>();
 
   public onFocus: Subject<string> = new Subject<string>();
 
   private objByField = new Map<string, any>();
 
-  search = (text: Observable<string>) => {
-    let debounceText = text.pipe(debounceTime(200), distinctUntilChanged());
+  public search = (text: Observable<string>): Observable<string[]> => {
+    const debounceText = text.pipe(debounceTime(200), distinctUntilChanged());
     return merge(debounceText, this.onFocus).pipe(
       map((term) =>
         this.values
@@ -36,12 +36,12 @@ export class AutocompleteComponent {
     );
   };
 
-  emitSelectedItem(event: any) {
+  public emitSelectedItem(event: any): void {
     this.selected.emit(this.objByField.get(event.item));
   }
 
   private showOptions(obj: any): string {
-    let fields = this.searchFields
+    const fields = this.searchFields
       .map((field) => {
         return obj[field];
       })
@@ -76,7 +76,7 @@ export class AutocompleteComponent {
       .includes(term.toLowerCase());
   }
 
-  private setObjToSearch(field: string, obj: any) {
+  private setObjToSearch(field: string, obj: any): void {
     this.objByField.set(field, obj);
   }
 }

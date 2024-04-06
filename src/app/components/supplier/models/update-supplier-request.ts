@@ -1,8 +1,8 @@
 export class UpdateSupplierRequest {
-  supplierId: string;
-  name: string;
+  private supplierId: string;
+  private name: string;
 
-  constructor(supplierId: string, name: string) {
+  public constructor(supplierId: string, name: string) {
     this.supplierId = supplierId;
     this.name = name;
   }

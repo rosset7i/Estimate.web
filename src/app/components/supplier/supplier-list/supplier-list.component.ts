@@ -17,19 +17,19 @@ import { DELETE_MESSAGE } from 'src/app/core/utils/const';
   styleUrls: ['./supplier-list.component.css'],
 })
 export class SupplierListComponent implements OnInit {
-  listDefinition: ListDefinition;
-  param: string;
+  public listDefinition: ListDefinition;
+  private param: string;
 
-  constructor(
+  public constructor(
     private supplierService: SupplierService,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createList();
   }
 
-  openModal(supplierId?: string) {
+  public openModal(supplierId?: string): void {
     const modalRef = this.modalService.open(SupplierModalComponent);
 
     modalRef.componentInstance.supplierId = supplierId;
@@ -40,12 +40,12 @@ export class SupplierListComponent implements OnInit {
     });
   }
 
-  filter(nome: string) {
+  public filter(nome: string): void {
     this.param = nome;
     this.listDefinition.refreshTable();
   }
 
-  fetch(request: PagedAndSortedSupplierRequest) {
+  private fetch(request: PagedAndSortedSupplierRequest): void {
     request.name = this.param;
 
     this.supplierService.fetchPagedSuppliers(request).subscribe((response) => {
@@ -53,34 +53,34 @@ export class SupplierListComponent implements OnInit {
     });
   }
 
-  createSupplier(request: CreateSupplierRequest) {
+  private createSupplier(request: CreateSupplierRequest): void {
     this.supplierService
       .createSupplier(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editSupplier(request: UpdateSupplierRequest) {
+  private editSupplier(request: UpdateSupplierRequest): void {
     this.supplierService
       .updateSupplier(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  delete(supplierId: string) {
+  private delete(supplierId: string): void {
     this.supplierService
       .deleteSupplier(supplierId)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  createList() {
+  private createList(): void {
     this.listDefinition = new ListDefinition(
       'Suppliers',
       this.createColumns(),
       this.createActions(),
-      (request) => this.fetch(request)
+      (request: PagedAndSortedSupplierRequest) => this.fetch(request)
     );
   }
 
-  createColumns() {
+  private createColumns(): ColumnDefinition[] {
     const definition: ColumnDefinition[] = [
       {
         name: 'Name',
@@ -92,7 +92,7 @@ export class SupplierListComponent implements OnInit {
     return definition;
   }
 
-  createActions() {
+  private createActions(): ListAction[] {
     const actions: ListAction[] = [
       {
         icon: 'bi bi-pencil',

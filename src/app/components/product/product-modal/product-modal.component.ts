@@ -12,47 +12,47 @@ import { UpdateProductRequest } from '../models/update-product-request';
   styleUrls: ['./product-modal.component.css'],
 })
 export class ProductModalComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
-  @Output() emitFormValue = new EventEmitter<any>();
-  @Input() productId: string;
+  @Input() private productId: string;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
     public activeModal: NgbActiveModal
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetchProductIfAny();
     this.createForm();
   }
 
-  private mapValues(product: ProductResponse) {
+  private mapValues(product: ProductResponse): void {
     this.form.controls['name'].setValue(product.name);
   }
 
-  private async fetchProductIfAny() {
+  private fetchProductIfAny(): void {
     if (this.productId)
       this.productService
         .fetchProductDetails(this.productId)
         .subscribe((e: ProductResponse) => this.mapValues(e));
   }
 
-  private createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
 
-  get canSave(): boolean {
+  public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  public save() {
+  public save(): void {
     const payload = new UpdateProductRequest(
       this.productId,
-      this.form.get('name').value);
+      this.form.get('name').value
+    );
 
     this.activeModal.close(payload);
   }

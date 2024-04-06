@@ -13,46 +13,47 @@ import { UpdateSupplierRequest } from '../models/update-supplier-request';
   styleUrls: ['./supplier-modal.component.css'],
 })
 export class SupplierModalComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
-  @Input() supplierId: string;
+  @Input() private supplierId: string;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private supplierService: SupplierService,
     public activeModal: NgbActiveModal
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetchSupplierIfAny();
     this.createForm();
   }
 
-  private mapValues(supplier: SupplierResponse) {
+  private mapValues(supplier: SupplierResponse): void {
     this.form.controls['name'].setValue(supplier.name);
   }
 
-  private fetchSupplierIfAny() {
+  private fetchSupplierIfAny(): void {
     if (this.supplierId)
       this.supplierService
         .fetchSupplierDetails(this.supplierId)
         .subscribe((e: SupplierResponse) => this.mapValues(e));
   }
 
-  private createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
     });
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     return this.form.valid && this.form.dirty;
   }
 
-  save() {
+  public save(): void {
     const payload = new UpdateSupplierRequest(
       this.supplierId,
-      this.form.get('name').value);
+      this.form.get('name').value
+    );
 
     this.activeModal.close(payload);
   }

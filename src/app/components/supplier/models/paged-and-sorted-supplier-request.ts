@@ -1,9 +1,9 @@
 import { PagedAndSortedRequest } from '../../../core/models/paged-and-sorted-request';
 
 export class PagedAndSortedSupplierRequest extends PagedAndSortedRequest {
-  name: string;
+  public name: string;
 
-  constructor(name: string, request: PagedAndSortedRequest) {
+  public constructor(name: string, request: PagedAndSortedRequest) {
     super(request.page, request.pageSize, request.sortBy, request.direction);
     this.name = name;
   }

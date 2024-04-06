@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductModalComponent } from '../product-modal/product-modal.component';
 import { CreateProductRequest } from '../models/create-product-request';
 import { DELETE_MESSAGE } from 'src/app/core/utils/const';
+import { ProductResponse } from '../models/product-response';
 
 @Component({
   selector: 'app-product-list',
@@ -17,19 +18,19 @@ import { DELETE_MESSAGE } from 'src/app/core/utils/const';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  listDefinition: ListDefinition;
-  param: string;
+  public listDefinition: ListDefinition;
+  private param: string;
 
-  constructor(
+  public constructor(
     private productService: ProductService,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createOptions();
   }
 
-  openModal(productId?: string) {
+  public openModal(productId?: string): void {
     const modalRef = this.modalService.open(ProductModalComponent);
 
     modalRef.componentInstance.productId = productId;
@@ -40,12 +41,12 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  filter(name: string) {
+  public filter(name: string): void {
     this.param = name;
     this.listDefinition.refreshTable();
   }
 
-  fetch(request: PagedAndSortedProductRequest) {
+  private fetch(request: PagedAndSortedProductRequest): void {
     request.name = this.param;
 
     this.productService
@@ -53,34 +54,34 @@ export class ProductListComponent implements OnInit {
       .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  createProduct(request: CreateProductRequest) {
+  private createProduct(request: CreateProductRequest): void {
     this.productService
       .createProduct(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  editProduct(request: UpdateProductRequest) {
+  private editProduct(request: UpdateProductRequest): void {
     this.productService
       .updateProduct(request)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  deleteProduct(productId: string) {
+  private deleteProduct(productId: string): void {
     this.productService
       .deleteProduct(productId)
       .subscribe(() => this.listDefinition.refreshTable());
   }
 
-  createOptions() {
+  private createOptions(): void {
     this.listDefinition = new ListDefinition(
       'Products',
       this.createColumns(),
       this.createActions(),
-      (request) => this.fetch(request)
+      (request: PagedAndSortedProductRequest) => this.fetch(request)
     );
   }
 
-  createColumns() {
+  private createColumns(): ColumnDefinition[] {
     const definition: ColumnDefinition[] = [
       {
         name: 'Name',
@@ -92,17 +93,17 @@ export class ProductListComponent implements OnInit {
     return definition;
   }
 
-  createActions() {
+  private createActions(): ListAction[] {
     const actions: ListAction[] = [
       {
         icon: 'bi bi-pencil',
         style: 'btn btn-outline-dark me-2',
-        callback: (product) => this.openModal(product?.id),
+        callback: (product: ProductResponse) => this.openModal(product?.id),
       },
       {
         icon: 'bi bi-trash',
         style: 'btn btn-outline-danger me-2',
-        callback: (product) => this.deleteProduct(product.id),
+        callback: (product: ProductResponse) => this.deleteProduct(product.id),
         hasConfirmation: true,
         confirmationMessage: DELETE_MESSAGE,
       },

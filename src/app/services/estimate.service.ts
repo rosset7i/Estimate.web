@@ -19,7 +19,7 @@ export class EstimateService extends ServiceBase {
   public addProduct = new Subject<any>();
   public removeProduct = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) {
+  public constructor(private httpClient: HttpClient) {
     super();
   }
 
