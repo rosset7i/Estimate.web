@@ -40,12 +40,12 @@ export class EstimateListComponent implements OnInit {
       .subscribe((e) => (this.listDefinition.items = e));
   }
 
-  private navigateToEstimateEdit(estimateId: string): void {
-    this.router.navigate([`home/estimates/${estimateId}/edit`]);
+  private async navigateToEstimateEdit(estimateId: string): Promise<void> {
+    await this.router.navigate([`home/estimates/${estimateId}/edit`]);
   }
 
-  private navigateToEstimateView(estimateId: string): void {
-    this.router.navigate([`home/estimates/${estimateId}/view`]);
+  private async navigateToEstimateView(estimateId: string): Promise<void> {
+    await this.router.navigate([`home/estimates/${estimateId}/view`]);
   }
 
   private deleteEstimate(estimateId: string): void {

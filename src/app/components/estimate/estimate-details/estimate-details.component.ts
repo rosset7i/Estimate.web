@@ -104,13 +104,13 @@ export class EstimateDetailsComponent implements OnInit {
     }
   }
 
-  private navigateToList(): void {
-    this.success();
-    this.router.navigate(['/home/estimates']);
+  private async navigateToList(): Promise<void> {
+    await this.success();
+    await this.router.navigate(['/home/estimates']);
   }
 
-  private success(): void {
-    this.messageService.openMessageModal(
+  private async success(): Promise<void> {
+    await this.messageService.openMessageModal(
       new ModalDefinition('Success!', null, false)
     );
   }

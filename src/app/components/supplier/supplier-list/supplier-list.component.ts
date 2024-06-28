@@ -29,12 +29,12 @@ export class SupplierListComponent implements OnInit {
     this.createList();
   }
 
-  public openModal(supplierId?: string): void {
+  public async openModal(supplierId?: string): Promise<void> {
     const modalRef = this.modalService.open(SupplierModalComponent);
 
     modalRef.componentInstance.supplierId = supplierId;
 
-    modalRef.result.then((e) => {
+    await modalRef.result.then((e) => {
       if (e && !supplierId) this.createSupplier(e);
       if (e && supplierId) this.editSupplier(e);
     });

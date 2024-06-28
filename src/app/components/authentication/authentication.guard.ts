@@ -12,10 +12,12 @@ export class AuthenticationGuard implements CanActivate {
     private authenticationService: AuthenticationService
   ) {}
 
-  public canActivate(): boolean {
-    if (this.authenticationService.isUserLoggedIn()) return true;
+  public async canActivate(): Promise<boolean> {
+    if (this.authenticationService.isUserLoggedIn()) {
+      return true;
+    }
 
-    this.router.navigate(['/authentication/login']);
+    await this.router.navigate(['/authentication/login']);
     return false;
   }
 }

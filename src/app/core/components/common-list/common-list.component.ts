@@ -14,22 +14,22 @@ import { ModalDefinition } from '../../models/modal-definition';
   styleUrls: ['./common-list.component.css'],
 })
 export class CommonListComponent implements OnInit {
-  @Input() listDefinition: ListDefinition;
+  @Input() public listDefinition: ListDefinition;
 
-  sizeOptions = Sizes;
-  size: number = 10;
-  currentPage: number = 1;
-  sortDirection: string = null;
-  sortColumn: string = null;
+  public sizeOptions = Sizes;
+  public size: number = 10;
+  public currentPage: number = 1;
+  public sortDirection: string = null;
+  public sortColumn: string = null;
 
-  constructor(private messageService: MessageService) {}
+  public constructor(private messageService: MessageService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fetch();
     this.refreshTable();
   }
 
-  sort(column: string) {
+  public sort(column: string): void {
     this.sortColumn = column;
 
     if (this.sortDirection === Direction.ASC) {
@@ -41,7 +41,7 @@ export class CommonListComponent implements OnInit {
     this.fetch();
   }
 
-  fetch() {
+  public fetch(): void {
     const pagedRequest = new PagedAndSortedRequest(
       this.currentPage,
       this.size,

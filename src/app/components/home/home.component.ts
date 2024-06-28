@@ -15,8 +15,8 @@ export class HomeComponent {
     private messageService: MessageService
   ) {}
 
-  public logout(): void {
-    this.messageService
+  public async logout(): Promise<void> {
+    await this.messageService
       .openMessageModal(
         new ModalDefinition(
           'Attention!',

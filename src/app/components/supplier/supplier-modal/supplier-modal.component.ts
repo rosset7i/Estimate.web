@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SupplierService } from 'src/app/services/supplier.service';
-import { UpdateProductRequest } from '../../product/models/update-product-request';
 import { SupplierResponse } from '../models/supplier-response';
 import { UpdateSupplierRequest } from '../models/update-supplier-request';
 

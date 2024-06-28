@@ -30,12 +30,12 @@ export class ProductListComponent implements OnInit {
     this.createOptions();
   }
 
-  public openModal(productId?: string): void {
+  public async openModal(productId?: string): Promise<void> {
     const modalRef = this.modalService.open(ProductModalComponent);
 
     modalRef.componentInstance.productId = productId;
 
-    modalRef.result.then((e) => {
+    await modalRef.result.then((e) => {
       if (e && !productId) this.createProduct(e);
       if (e && productId) this.editProduct(e);
     });

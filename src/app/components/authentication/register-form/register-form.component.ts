@@ -38,15 +38,15 @@ export class RegisterFormComponent implements OnInit {
   }
 
   public register(): void {
-    this.authenticationService.register(this.form.value).subscribe(() => {
-      this.messageService.openMessageModal(
+    this.authenticationService.register(this.form.value).subscribe(async () => {
+      await this.messageService.openMessageModal(
         new ModalDefinition(
           'Success!',
           "You've registered successfully!",
           false
         )
       );
-      this.router.navigate(['/authentication/login']);
+      await this.router.navigate(['/authentication/login']);
     });
   }
 
