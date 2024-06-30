@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,15 +7,15 @@ import { Subject } from 'rxjs';
 export class LoadingService {
   private loading: Subject<boolean> = new Subject<boolean>();
 
-  show() {
+  public show(): void {
     this.loading.next(true);
   }
 
-  hide() {
+  public hide(): void {
     this.loading.next(false);
   }
 
-  isLoading() {
+  public isLoading(): Observable<boolean> {
     return this.loading.asObservable();
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -23,7 +23,7 @@ export class EstimateService extends ServiceBase {
     super();
   }
 
-  private buildEstimateParams(request: PagedAndSortedEstimateRequest) {
+  private buildEstimateParams(request: PagedAndSortedEstimateRequest): HttpParams {
     let params = this.buildParams(request);
     if (request.name) params = params.append('name', request.name);
     if (request.supplierId)

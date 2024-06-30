@@ -7,23 +7,23 @@ import { Subject, debounceTime } from 'rxjs';
   styleUrls: ['./dynamic-filter.component.css'],
 })
 export class DynamicFilterComponent {
-  filterParam: string = '';
-  filterParamSubject = new Subject<void>();
+  public filterParam: string = '';
+  public filterParamSubject = new Subject<void>();
 
-  @Output() param = new EventEmitter<string>();
-  @Input() fieldName: string = '';
+  @Output() private param = new EventEmitter<string>();
+  @Input() public fieldName: string = '';
 
-  constructor() {
+  public constructor() {
     this.listener();
   }
 
-  listener() {
+  private listener(): void {
     this.filterParamSubject.pipe(debounceTime(500)).subscribe(() => {
       this.sendParam();
     });
   }
 
-  sendParam() {
+  private sendParam(): void {
     this.param.emit(this.filterParam);
   }
 }

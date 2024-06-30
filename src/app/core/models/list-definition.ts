@@ -4,14 +4,14 @@ import { ColumnDefinition } from './column-definition';
 import { PagedResultOf } from './paged-result-of';
 
 export class ListDefinition {
-  listName: string;
-  items: PagedResultOf<any>;
-  columns: ColumnDefinition[];
-  actions: ListAction[];
-  callback: Function;
-  refresh = new Subject<void>();
+  public listName: string;
+  public items: PagedResultOf<any>;
+  public columns: ColumnDefinition[];
+  public actions: ListAction[];
+  public callback: Function;
+  public refresh = new Subject<void>();
 
-  constructor(
+  public constructor(
     listName: string,
     columns: ColumnDefinition[],
     actions: ListAction[],
@@ -23,7 +23,7 @@ export class ListDefinition {
     this.callback = callback;
   }
 
-  public refreshTable() {
+  public refreshTable(): void {
     this.refresh.next();
   }
 }

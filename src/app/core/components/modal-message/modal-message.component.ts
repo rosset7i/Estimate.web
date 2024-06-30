@@ -8,15 +8,15 @@ import { ModalDefinition } from '../../models/modal-definition';
   styleUrls: ['./modal-message.component.css'],
 })
 export class ModalMessageComponent {
-  @Input() modalDef: ModalDefinition;
+  @Input() public modalDef: ModalDefinition;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  public constructor(public activeModal: NgbActiveModal) {}
 
-  confirm() {
+  public confirm(): void {
     this.activeModal.close(true);
   }
 
-  cancel() {
+  public cancel(): void {
     this.activeModal.close(false);
   }
 }

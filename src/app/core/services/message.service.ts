@@ -7,9 +7,9 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(private modalService: NgbModal) {}
+  public constructor(private modalService: NgbModal) {}
 
-  openMessageModal(modalDef: ModalDefinition) {
+  public openMessageModal(modalDef: ModalDefinition): Promise<any> {
     const modalRef = this.modalService.open(ModalMessageComponent);
 
     modalRef.componentInstance.modalDef = modalDef;
@@ -17,7 +17,7 @@ export class MessageService {
     return modalRef.result.catch(() => this.errorSuppressor());
   }
 
-  private errorSuppressor() {
+  private errorSuppressor(): void {
     return;
   }
 }

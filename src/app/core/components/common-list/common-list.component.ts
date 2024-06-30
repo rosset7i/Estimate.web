@@ -52,7 +52,7 @@ export class CommonListComponent implements OnInit {
     this.listDefinition.callback(pagedRequest);
   }
 
-  callMethod(action: ListAction, item: any) {
+  public async callMethod(action: ListAction, item: any): Promise<void> {
     const modalDef = new ModalDefinition(
       'Attention!',
       action.confirmationMessage,
@@ -60,7 +60,7 @@ export class CommonListComponent implements OnInit {
     );
 
     if (action.hasConfirmation)
-      this.messageService.openMessageModal(modalDef).then((e) => {
+      await this.messageService.openMessageModal(modalDef).then((e) => {
         if (e) action.callback(item);
       });
     else {
@@ -68,7 +68,7 @@ export class CommonListComponent implements OnInit {
     }
   }
 
-  refreshTable() {
+  public refreshTable(): void {
     this.listDefinition.refresh.subscribe(() => this.fetch());
   }
 }

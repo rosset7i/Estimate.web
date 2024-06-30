@@ -28,12 +28,12 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     HttpStatusCode.NetworkAuthenticationRequired,
   ];
 
-  constructor(
+  public constructor(
     private messageService: MessageService,
     private loadingService: LoadingService
   ) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     let finalized = false;
     const timer = 500;
 
@@ -52,19 +52,19 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  errorHandler(httpError: HttpErrorResponse): Observable<never> {
+  private async errorHandler(httpError: HttpErrorResponse): Promise<Observable<never>> {
     if (httpError.status === HttpStatusCode.Unauthorized)
       return throwError(() => new Error('Auth Error'));
 
     const errorMessages = httpError.error?.errors.map(e => e.message);
 
-    let errors =
+    const errors =
       this.serverErrors.includes(httpError.status) ||
       errorMessages === undefined
         ? 'Critical error. Please try again, if the problem persists, please contact our support team.'
         : errorMessages.join('\n');
 
-    this.messageService.openMessageModal(
+    await this.messageService.openMessageModal(
       new ModalDefinition('Error', errors, false)
     );
 

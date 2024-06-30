@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,11 +14,11 @@ import { UpdateProductRequest } from '../components/product/models/update-produc
   providedIn: 'root',
 })
 export class ProductService extends ServiceBase {
-  constructor(private httpClient: HttpClient) {
+  public constructor(private httpClient: HttpClient) {
     super();
   }
 
-  private buildProductParams(request: PagedAndSortedProductRequest) {
+  private buildProductParams(request: PagedAndSortedProductRequest): HttpParams {
     let params = this.buildParams(request);
     if (request.name) params = params.append('name', request.name);
     if (request.productsIdsToFilter)

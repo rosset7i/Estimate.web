@@ -1,17 +1,19 @@
 import {
+  HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService) {}
+  public constructor(private authenticationService: AuthenticationService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const isValid = this.authenticationService.isUserLoggedIn();
     const containsAuthApi = req.url.includes('authentication');
 

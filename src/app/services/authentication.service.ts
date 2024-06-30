@@ -36,9 +36,9 @@ export class AuthenticationService {
     );
   }
 
-  public logout(): void {
+  public async logout(): Promise<void>{
     this.removeToken();
-    this.router.navigate(['/authentication/login']);
+    await this.router.navigate(['/authentication/login']);
   }
 
   public getToken(): string {

@@ -1,10 +1,10 @@
 export class PagedResultOf<TResponse> {
-  totalPages: number;
-  totalItems: number;
-  currentPage: number;
-  items: TResponse[];
+  public totalPages: number;
+  public totalItems: number;
+  public currentPage: number;
+  public items: TResponse[];
 
-  constructor(
+  public constructor(
     totalPages: number,
     totalItems: number,
     currentPage: number,

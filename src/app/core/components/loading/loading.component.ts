@@ -10,13 +10,13 @@ import { LoadingService } from '../../services/loading.service';
 export class LoadingComponent implements OnInit {
   public isLoading: boolean = false;
 
-  constructor(private loadingService: LoadingService) {}
+  public constructor(private loadingService: LoadingService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loopUpRequestLoading();
   }
 
-  private loopUpRequestLoading() {
+  private loopUpRequestLoading(): void {
     this.loadingService
       .isLoading()
       .subscribe((loading) => (this.isLoading = loading));
