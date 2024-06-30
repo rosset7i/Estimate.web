@@ -33,7 +33,8 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     private loadingService: LoadingService
   ) {}
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
     let finalized = false;
     const timer = 500;
 

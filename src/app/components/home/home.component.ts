@@ -24,8 +24,8 @@ export class HomeComponent {
           true
         )
       )
-      .then((e) => {
-        if (e) this.authenticationService.logout();
+      .then(async (e) => {
+        if (e) await this.authenticationService.logout();
       });
   }
 }

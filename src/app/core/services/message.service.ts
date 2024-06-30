@@ -9,7 +9,7 @@ import { ModalMessageComponent } from '../components/modal-message/modal-message
 export class MessageService {
   public constructor(private modalService: NgbModal) {}
 
-  public openMessageModal(modalDef: ModalDefinition): Promise<any> {
+  public openMessageModal(modalDef: ModalDefinition): Promise<unknown> {
     const modalRef = this.modalService.open(ModalMessageComponent);
 
     modalRef.componentInstance.modalDef = modalDef;

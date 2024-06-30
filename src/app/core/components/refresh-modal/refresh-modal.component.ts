@@ -8,20 +8,20 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./refresh-modal.component.css'],
 })
 export class RefreshModalComponent implements OnInit {
-  form: FormGroup;
+  public form: FormGroup;
 
-  @Input() email: string;
+  @Input() private email: string;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
+  private createForm(): void {
     this.form = this.formBuilder.group({
       email: [
         this.email,
@@ -31,11 +31,11 @@ export class RefreshModalComponent implements OnInit {
     });
   }
 
-  login() {
+  public login(): void {
     this.activeModal.close(this.form.value);
   }
 
-  get canSave() {
+  public get canSave(): boolean {
     return this.form.valid;
   }
 }

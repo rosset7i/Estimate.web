@@ -42,20 +42,20 @@ export class SupplierService extends ServiceBase {
     );
   }
 
-  public createSupplier(request: CreateSupplierRequest): Observable<any> {
+  public createSupplier(request: CreateSupplierRequest): Observable<unknown> {
     return this.httpClient.post(`${Api.ESTIMATE_API}/suppliers`, request);
   }
 
   public updateSupplier(
     request: UpdateSupplierRequest
-  ): Observable<any> {
+  ): Observable<unknown> {
     return this.httpClient.put(
       `${Api.ESTIMATE_API}/suppliers/update`,
       request
     );
   }
 
-  public deleteSupplier(supplierId: string): Observable<any> {
+  public deleteSupplier(supplierId: string): Observable<unknown> {
     return this.httpClient.delete(
       `${Api.ESTIMATE_API}/suppliers/delete?supplierId=${supplierId}`
     );

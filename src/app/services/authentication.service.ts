@@ -11,6 +11,7 @@ import { LoginRequest } from '../components/authentication/models/login-request'
 import { RegisterRequest } from '../components/authentication/models/registrar-request';
 import { jwtDecode } from 'jwt-decode';
 import { ResultOf } from '../core/models/result-of';
+import { JwtReturn } from '../core/models/jtw-return';
 
 @Injectable({
   providedIn: 'root',
@@ -63,14 +64,14 @@ export class AuthenticationService {
     );
   }
 
-  private handleRefreshSuccess(result: any): void {
+  private handleRefreshSuccess(result: LoginRequest): void {
     this.login(result).subscribe(
       (response) => this.setToken(response.result.token),
       () => this.router.navigate(['/authentication/login'])
     );
   }
 
-  private getDecodedToken(): any {
+  private getDecodedToken(): JwtReturn {
     const token = this.getToken();
 
     if (!token) return null;

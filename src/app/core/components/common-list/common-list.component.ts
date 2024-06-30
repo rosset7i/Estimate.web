@@ -19,7 +19,7 @@ export class CommonListComponent implements OnInit {
   public sizeOptions = Sizes;
   public size: number = 10;
   public currentPage: number = 1;
-  public sortDirection: string = null;
+  public sortDirection: Direction = null;
   public sortColumn: string = null;
 
   public constructor(private messageService: MessageService) {}
@@ -52,7 +52,7 @@ export class CommonListComponent implements OnInit {
     this.listDefinition.callback(pagedRequest);
   }
 
-  public async callMethod(action: ListAction, item: any): Promise<void> {
+  public async callMethod(action: ListAction, item: unknown): Promise<void> {
     const modalDef = new ModalDefinition(
       'Attention!',
       action.confirmationMessage,

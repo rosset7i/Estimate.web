@@ -40,7 +40,7 @@ export class ProductSelectComponent implements OnInit {
     this.selectedProducts.forEach((e) => this.addProduct(e));
   }
 
-  private addNewForm(product: any): void {
+  private addNewForm(product: ProductsInEstimateResponse): void {
     const formRow = this.formBuilder.group({
       productId: [product.id, Validators.required],
       name: [
@@ -71,7 +71,7 @@ export class ProductSelectComponent implements OnInit {
     this.listDefinition.refreshTable();
   }
 
-  public addProduct(selectedProduct: any): void {
+  private addProduct(selectedProduct: ProductsInEstimateResponse): void {
     this.addNewForm(selectedProduct);
     this.productsIdsToFilter.push(selectedProduct.id);
     this.listDefinition.refreshTable();
@@ -117,7 +117,7 @@ export class ProductSelectComponent implements OnInit {
       {
         icon: 'bi bi-plus',
         style: 'btn btn-outline-success btn-sm',
-        callback: (productId: string) => this.addProduct(productId),
+        callback: (product: ProductsInEstimateResponse) => this.addProduct(product),
         disabled: this.disabled,
       },
     ];

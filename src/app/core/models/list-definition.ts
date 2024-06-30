@@ -5,17 +5,17 @@ import { PagedResultOf } from './paged-result-of';
 
 export class ListDefinition {
   public listName: string;
-  public items: PagedResultOf<any>;
+  public items: PagedResultOf<unknown>;
   public columns: ColumnDefinition[];
   public actions: ListAction[];
-  public callback: Function;
+  public callback: (request: unknown) => void;
   public refresh = new Subject<void>();
 
   public constructor(
     listName: string,
     columns: ColumnDefinition[],
     actions: ListAction[],
-    callback: Function
+    callback: (request: unknown) => void
   ) {
     this.listName = listName;
     this.columns = columns;

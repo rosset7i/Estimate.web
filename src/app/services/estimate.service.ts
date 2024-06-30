@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Api } from 'api';
 import { PagedResultOf } from '../core/models/paged-result-of';
@@ -16,8 +16,6 @@ import { ResultOf } from '../core/models/result-of';
   providedIn: 'root',
 })
 export class EstimateService extends ServiceBase {
-  public addProduct = new Subject<any>();
-  public removeProduct = new Subject<any>();
 
   public constructor(private httpClient: HttpClient) {
     super();
@@ -49,21 +47,21 @@ export class EstimateService extends ServiceBase {
     );
   }
 
-  public createEstimate(request: CreateEstimateRequest): Observable<any> {
+  public createEstimate(request: CreateEstimateRequest): Observable<unknown> {
     return this.httpClient.post(`${Api.ESTIMATE_API}/estimates`, request);
   }
 
   public updateEstimate(
     estimateId: string,
     request: UpdateEstimateRequest
-  ): Observable<any> {
+  ): Observable<unknown> {
     return this.httpClient.put(
       `${Api.ESTIMATE_API}/estimates/${estimateId}/update`,
       request
     );
   }
 
-  public deleteEstimate(estimateId: string): Observable<any> {
+  public deleteEstimate(estimateId: string): Observable<unknown> {
     return this.httpClient.delete(
       `${Api.ESTIMATE_API}/estimates/${estimateId}/delete`
     );

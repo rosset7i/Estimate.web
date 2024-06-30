@@ -13,7 +13,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class AuthInterceptor implements HttpInterceptor {
   public constructor(private authenticationService: AuthenticationService) {}
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const isValid = this.authenticationService.isUserLoggedIn();
     const containsAuthApi = req.url.includes('authentication');
 

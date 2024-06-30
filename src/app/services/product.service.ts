@@ -44,20 +44,20 @@ export class ProductService extends ServiceBase {
     );
   }
 
-  public createProduct(request: CreateProductRequest): Observable<any> {
+  public createProduct(request: CreateProductRequest): Observable<unknown> {
     return this.httpClient.post(`${Api.ESTIMATE_API}/products`, request);
   }
 
   public updateProduct(
     request: UpdateProductRequest
-  ): Observable<any> {
+  ): Observable<unknown> {
     return this.httpClient.put(
       `${Api.ESTIMATE_API}/products/update`,
       request
     );
   }
 
-  public deleteProduct(productId: string): Observable<any> {
+  public deleteProduct(productId: string): Observable<unknown> {
     return this.httpClient.delete(
       `${Api.ESTIMATE_API}/products/delete?productId=${productId}`
     );
